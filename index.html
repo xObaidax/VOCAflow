@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#4F46E5" />
+  <title>LinguaFlash - تعلم الكلمات</title>
+
+  <!-- React + Babel من CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    /* ============ المتغيرات ============ */
+    :root {
+      --primary: #4F46E5;
+      --primary-dark: #4338CA;
+      --primary-light: #EEF2FF;
+      --success: #10B981;
+      --danger: #EF4444;
+      --warning: #F59E0B;
+      --text: #1F2937;
+      --text-light: #6B7280;
+      --bg: #F9FAFB;
+      --card: #FFFFFF;
+      --border: #E5E7EB;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Tajawal', 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    #root { min-height: 100vh; }
+
+    .app { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
+    .page { padding: 20px; padding-bottom: 40px; }
+
+    .page-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .page-header h1 { font-size: 28px; font-weight: 700; }
+    .subtitle { color: var(--text-light); font-size: 14px; margin-top: 4px; }
+
+    /* ============ الأزرار ============ */
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
+    .btn-secondary { background: var(--border); color: var(--text); }
+    .btn-secondary:hover { background: #D1D5DB; }
+    .btn-ghost { background: transparent; color: var(--text-light); }
+    .btn-ghost:hover { background: var(--primary-light); color: var(--primary); }
+    .btn-block { width: 100%; margin-bottom: 10px; }
+    .btn-large { padding: 16px 24px; font-size: 18px; margin-top: 20px; }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .icon-btn:hover { background: var(--primary-light); }
+    .icon-btn.danger:hover { background: #FEE2E2; }
+
+    .btn-link { background: none; border: none; color: var(--primary); cursor: pointer; font-size: 13px; margin-top: 6px; padding: 0; font-family: inherit; }
+
+    /* ============ حقول الإدخال ============ */
+    .input-group { margin-bottom: 16px; }
+    .input-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .input-group input:focus, .input-group select:focus { outline: none; border-color: var(--primary); }
+
+    .loading-dot { animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    /* ============ الصفحة الرئيسية ============ */
+    .home-page .page-header { flex-direction: column; align-items: flex-start; text-align: start; }
+    .home-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .stat-card { background: var(--card); padding: 20px; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow); }
+    .stat-value { font-size: 32px; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+
+    .sets-list { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .set-card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .set-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .set-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .set-card-header h3 { font-size: 18px; font-weight: 600; }
+    .set-card-meta { color: var(--text-light); font-size: 14px; margin-bottom: 8px; }
+    .set-card-footer { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-light); padding-top: 8px; border-top: 1px solid var(--border); }
+
+    /* ============ Modal ============ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100; padding: 20px;
+      animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+    .modal {
+      background: var(--card);
+      padding: 24px;
+      border-radius: var(--radius);
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s;
+    }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+    .modal h2 { margin-bottom: 16px; font-size: 20px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .modal-actions .btn { flex: 1; }
+    .lang-select-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ============ محرر المجموعة ============ */
+    .editor-page h2 { font-size: 18px; margin: 24px 0 12px; }
+    .word-input-card { background: var(--card); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
+    .input-actions { display: flex; gap: 10px; }
+    .input-actions .btn { flex: 1; }
+
+    .words-list { display: flex; flex-direction: column; gap: 8px; }
+    .word-item {
+      background: var(--card);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .word-item.archived { opacity: 0.6; }
+    .word-content { flex: 1; min-width: 0; }
+    .word-set-name { font-size: 11px; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .word-main { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .word-original { font-weight: 600; font-size: 16px; }
+    .word-arrow { color: var(--text-light); }
+    .word-translation { color: var(--text-light); font-size: 15px; }
+    .word-errors { font-size: 12px; color: var(--danger); margin-top: 4px; }
+    .word-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+    /* ============ لعبة البطاقات ============ */
+    .game-page { padding: 12px; min-height: 100vh; display: flex; flex-direction: column; }
+    .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .game-info { text-align: center; flex: 1; }
+    .game-title { font-weight: 600; font-size: 14px; color: var(--text-light); }
+    .game-counter { font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+
+    .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--success)); transition: width 0.3s ease; }
+
+    .game-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      min-height: 400px;
+      position: relative;
+    }
+
+    /* ============ البطاقة ============ */
+    .flashcard-wrapper {
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 3 / 4;
+      perspective: 1000px;
+      cursor: grab;
+      user-select: none;
+      position: relative;
+    }
+    .flashcard-wrapper:active { cursor: grabbing; }
+
+    .flashcard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: white;
+      text-align: center;
+    }
+    .flashcard-back {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-lang { position: absolute; top: 16px; font-size: 14px; opacity: 0.8; font-weight: 500; }
+    .flashcard-text { font-size: 42px; font-weight: 700; line-height: 1.2; word-break: break-word; }
+    .flashcard-hint { position: absolute; bottom: 16px; font-size: 12px; opacity: 0.7; }
+
+    .swipe-indicator {
+      position: absolute;
+      top: 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 18px;
+      animation: pop 0.2s;
+    }
+    @keyframes pop { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .swipe-indicator.right { right: 20px; background: var(--success); color: white; }
+    .swipe-indicator.left { left: 20px; background: var(--danger); color: white; }
+
+    .game-hints { display: flex; justify-content: space-between; padding: 12px 8px; font-size: 13px; color: var(--text-light); }
+    .hint-correct { color: var(--success); font-weight: 600; }
+    .hint-wrong { color: var(--danger); font-weight: 600; }
+
+    /* ============ Long Press Menu ============ */
+    .long-press-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 200;
+      animation: fadeIn 0.2s;
+    }
+    .long-press-menu {
+      background: var(--card);
+      border-radius: var(--radius);
+      min-width: 260px;
+      overflow: hidden;
+      animation: slideUp 0.3s;
+    }
+    .menu-item {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      background: none;
+      border: none;
+      text-align: start;
+      font-size: 16px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-bottom: 1px solid var(--border);
+    }
+    .menu-item:hover { background: var(--primary-light); }
+    .menu-item.danger { color: var(--danger); }
+    .menu-item.danger:hover { background: #FEE2E2; }
+    .menu-item.close { color: var(--text-light); border-bottom: none; }
+
+    /* ============ صفحة النتائج ============ */
+    .results-page { text-align: center; padding-top: 40px; }
+    .results-header { margin-bottom: 24px; }
+    .results-emoji { font-size: 64px; margin-bottom: 12px; animation: bounce 0.6s; }
+    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
+    .results-header h1 { font-size: 32px; color: var(--primary); }
+
+    .results-score-card {
+      background: var(--card);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .score-circle {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #764ba2);
+      color: white;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .score-value { font-size: 36px; font-weight: 700; }
+    .score-label { font-size: 12px; opacity: 0.9; }
+    .score-details { flex: 1; text-align: start; }
+    .score-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .score-row:last-child { border-bottom: none; }
+    .score-row strong { color: var(--primary); }
+
+    .results-message {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 16px;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .wrong-words-section { text-align: start; margin-bottom: 24px; }
+    .wrong-words-section h2 { font-size: 18px; margin-bottom: 12px; }
+    .wrong-words-list { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .wrong-word-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .wrong-word-item:last-child { border-bottom: none; }
+    .wrong-word-text { font-size: 15px; }
+    .wrong-word-count { color: var(--danger); font-weight: 700; font-size: 14px; }
+
+    .results-actions { margin-top: 24px; }
+
+    /* ============ Empty State ============ */
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); }
+    .empty-state.small { padding: 20px; }
+    .empty-icon { font-size: 64px; margin-bottom: 12px; }
+    .empty-hint { font-size: 13px; margin-top: 8px; opacity: 0.8; }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 480px) {
+      .flashcard-text { font-size: 32px; }
+      .score-circle { width: 100px; height: 100px; }
+      .score-value { font-size: 28px; }
+      .results-score-card { flex-direction: column; text-align: center; }
+      .score-details { text-align: center; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-presets="react">
+    // ==================== إعداد React ====================
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    // ==================== قائمة اللغات ====================
+    const LANGUAGES = [
+      { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+      { code: 'fr', name: 'الفرنسية', flag: '🇫🇷' },
+      { code: 'en', name: 'الإنجليزية', flag: '🇬🇧' },
+      { code: 'es', name: 'الإسبانية', flag: '🇪🇸' },
+      { code: 'de', name: 'الألمانية', flag: '🇩🇪' },
+      { code: 'it', name: 'الإيطالية', flag: '🇮🇹' },
+      { code: 'tr', name: 'التركية', flag: '🇹🇷' },
+      { code: 'pt', name: 'البرتغالية', flag: '🇵🇹' },
+      { code: 'ru', name: 'الروسية', flag: '🇷🇺' },
+      { code: 'zh', name: 'الصينية', flag: '🇨🇳' },
+      { code: 'ja', name: 'اليابانية', flag: '🇯🇵' },
+      { code: 'ko', name: 'الكورية', flag: '🇰🇷' },
+      { code: 'nl', name: 'الهولندية', flag: '🇳🇱' },
+      { code: 'sv', name: 'السويدية', flag: '🇸🇪' },
+    ];
+
+    const getLanguageByCode = (code) =>
+      LANGUAGES.find((l) => l.code === code) || LANGUAGES[0];
+
+    // ==================== Hook: localStorage ====================
+    function useLocalStorage(key, initialValue) {
+      const [value, setValue] = useState(() => {
+        try {
+          const item = window.localStorage.getItem(key);
+          return item ? JSON.parse(item) : initialValue;
+        } catch {
+          return initialValue;
+        }
+      });
+
+      useEffect(() => {
+        try {
+          window.localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+          console.error('Error saving to localStorage', e);
+        }
+      }, [key, value]);
+
+      return [value, setValue];
+    }
+
+    // ==================== Hook: الترجمة الفورية ====================
+    function useTranslation(text, fromLang, toLang) {
+      const [translation, setTranslation] = useState('');
+      const [loading, setLoading] = useState(false);
+      const abortRef = useRef(null);
+
+      useEffect(() => {
+        if (!text || text.trim().length < 2) {
+          setTranslation('');
+          return;
+        }
+        if (fromLang === toLang) {
+          setTranslation(text);
+          return;
+        }
+
+        if (abortRef.current) clearTimeout(abortRef.current);
+
+        setLoading(true);
+        abortRef.current = setTimeout(async () => {
+          try {
+            const langpair = `${fromLang}|${toLang}`;
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${langpair}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const translated = data?.responseData?.translatedText || '';
+            setTranslation(translated);
+          } catch (err) {
+            console.error('Translation error:', err);
+            setTranslation('');
+          } finally {
+            setLoading(false);
+          }
+        }, 400);
+
+        return () => {
+          if (abortRef.current) clearTimeout(abortRef.current);
+        };
+      }, [text, fromLang, toLang]);
+
+      return { translation, loading };
+    }
+
+    // ==================== مكون: WordInput ====================
+    function WordInput({ fromLang, toLang, fromLabel, toLabel, onSave, initialWord = '', initialTranslation = '', onCancel }) {
+      const [word, setWord] = useState(initialWord);
+      const [manualTranslation, setManualTranslation] = useState(initialTranslation);
+      const [isManual, setIsManual] = useState(!!initialTranslation);
+
+      const { translation: autoTranslation, loading } = useTranslation(word, fromLang, toLang);
+      const displayTranslation = isManual ? manualTranslation : autoTranslation;
+
+      const handleSave = () => {
+        if (!word.trim() || !displayTranslation.trim()) return;
+        onSave({
+          id: Date.now().toString() + Math.random(),
+          word: word.trim(),
+          translation: displayTranslation.trim(),
+          errors: 0,
+          correct: 0,
+          archived: false,
+        });
+        setWord('');
+        setManualTranslation('');
+        setIsManual(false);
+      };
+
+      return (
+        <div className="word-input-card">
+          <div className="input-group">
+            <label>{fromLabel}</label>
+            <input
+              type="text"
+              value={word}
+              onChange={(e) => {
+                setWord(e.target.value);
+                if (!isManual) setManualTranslation('');
+              }}
+              placeholder={`اكتب كلمة ب${fromLabel}...`}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>
+              {toLabel}
+              {loading && <span className="loading-dot"> ⏳</span>}
+            </label>
+            <input
+              type="text"
+              value={displayTranslation}
+              onChange={(e) => {
+                setManualTranslation(e.target.value);
+                setIsManual(true);
+              }}
+              placeholder="الترجمة ستظهر هنا..."
+            />
+            {isManual && (
+              <button
+                className="btn-link"
+                onClick={() => {
+                  setIsManual(false);
+                  setManualTranslation('');
+                }}
+              >
+                ↻ استعادة الترجمة التلقائية
+              </button>
+            )}
+          </div>
+
+          <div className="input-actions">
+            <button
+              className="btn btn-primary"
+              onClick={handleSave}
+              disabled={!word.trim() || !displayTranslation.trim()}
+            >
+              💾 حفظ الكلمة
+            </button>
+            {onCancel && (
+              <button className="btn btn-secondary" onClick={onCancel}>
+                إلغاء
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== مكون: LongPressMenu ====================
+    function LongPressMenu({ isOpen, onClose, onEdit, onArchive, onDelete }) {
+      const menuRef = useRef(null);
+
+      useEffect(() => {
+        if (!isOpen) return;
+        const handleClickOutside = (e) => {
+          if (menuRef.current && !menuRef.current.contains(e.target)) {
+            onClose();
+          }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+          document.removeEventListener('touchstart', handleClickOutside);
+        };
+      }, [isOpen, onClose]);
+
+      if (!isOpen) return null;
+
+      return (
+        <div className="long-press-overlay" onClick={onClose}>
+          <div className="long-press-menu" ref={menuRef} onClick={(e) => e.stopPropagation()}>
+            <button className="menu-item" onClick={onEdit}>✏️ تعديل الكلمة</button>
+            <button className="menu-item" onClick={onArchive}>📦 نقل للمحفوظات</button>
+            <button className="menu-item danger" onClick={onDelete}>🗑️ حذف نهائياً</button>
+            <button className="menu-item close" onClick={onClose}>✕ إغلاق</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== مكون: Flashcard ====================
+    function Flashcard({ card, lang1Label, lang2Label, onCorrect, onWrong, onEdit, onArchive, onDelete }) {
+      const [flipped, setFlipped] = useState(false);
+      const [menuOpen, setMenuOpen] = useState(false);
+      const [swipeOffset, setSwipeOffset] = useState(0);
+      const [swipeDirection, setSwipeDirection] = useState(null);
+
+      const startX = useRef(0);
+      const startY = useRef(0);
+      const startTime = useRef(0);
+      const isDragging = useRef(false);
+      const longPressTimer = useRef(null);
+
+      useEffect(() => {
+        setFlipped(false);
+        setSwipeOffset(0);
+        setSwipeDirection(null);
+      }, [card.id]);
+
+      const handleStart = (clientX, clientY) => {
+        startX.current = clientX;
+        startY.current = clientY;
+        startTime.current = Date.now();
+        isDragging.current = false;
+
+        longPressTimer.current = setTimeout(() => {
+          if (!isDragging.current) {
+            setMenuOpen(true);
+            if (navigator.vibrate) navigator.vibrate(50);
+          }
+        }, 600);
+      };
+
+      const handleMove = (clientX, clientY) => {
+        const dx = clientX - startX.current;
+        const dy = clientY - startY.current;
+
+        if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+          isDragging.current = true;
+          clearTimeout(longPressTimer.current);
+        }
+
+        if (isDragging.current && Math.abs(dx) > Math.abs(dy)) {
+          setSwipeOffset(dx);
+        }
+      };
+
+      const handleEnd = () => {
+        clearTimeout(longPressTimer.current);
+        const elapsed = Date.now() - startTime.current;
+        const dx = swipeOffset;
+
+        if (!isDragging.current && elapsed < 300) {
+          setFlipped((f) => !f);
+        } else if (Math.abs(dx) > 100) {
+          const direction = dx > 0 ? 'right' : 'left';
+          setSwipeDirection(direction);
+          setSwipeOffset(direction === 'right' ? 500 : -500);
+
+          setTimeout(() => {
+            if (direction === 'right') onCorrect();
+            else onWrong();
+          }, 250);
+        } else {
+          setSwipeOffset(0);
+        }
+
+        isDragging.current = false;
+      };
+
+      const onMouseDown = (e) => handleStart(e.clientX, e.clientY);
+      const onMouseMove = (e) => { if (e.buttons === 1) handleMove(e.clientX, e.clientY); };
+      const onMouseUp = () => handleEnd();
+      const onMouseLeave = () => { if (isDragging.current) handleEnd(); };
+
+      const onTouchStart = (e) => handleStart(e.touches[0].clientX, e.touches[0].clientY);
+      const onTouchMove = (e) => handleMove(e.touches[0].clientX, e.touches[0].clientY);
+      const onTouchEnd = () => handleEnd();
+
+      const rotation = swipeOffset / 20;
+      const opacity = 1 - Math.min(Math.abs(swipeOffset) / 300, 1) * 0.3;
+
+      return (
+        <>
+          <div
+            className={`flashcard-wrapper ${swipeDirection ? `swipe-${swipeDirection}` : ''}`}
+            style={{
+              transform: `translateX(${swipeOffset}px) rotate(${rotation}deg)`,
+              opacity,
+              transition: isDragging.current ? 'none' : 'transform 0.3s, opacity 0.3s',
+            }}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onMouseLeave={onMouseLeave}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div className={`flashcard ${flipped ? 'flipped' : ''}`}>
+              <div className="flashcard-face flashcard-front">
+                <div className="flashcard-lang">{lang1Label}</div>
+                <div className="flashcard-text">{card.word}</div>
+                <div className="flashcard-hint">اضغط للتقليب</div>
+              </div>
+              <div className="flashcard-face flashcard-back">
+                <div className="flashcard-lang">{lang2Label}</div>
+                <div className="flashcard-text">{card.translation}</div>
+                <div className="flashcard-hint">اضغط للعودة</div>
+              </div>
+            </div>
+
+            {Math.abs(swipeOffset) > 30 && (
+              <div className={`swipe-indicator ${swipeOffset > 0 ? 'right' : 'left'}`}>
+                {swipeOffset > 0 ? '✓ صحيح' : '✗ خطأ'}
+              </div>
+            )}
+          </div>
+
+          <LongPressMenu
+            isOpen={menuOpen}
+            onClose={() => setMenuOpen(false)}
+            onEdit={() => { setMenuOpen(false); onEdit?.(card); }}
+            onArchive={() => { setMenuOpen(false); onArchive?.(card.id); }}
+            onDelete={() => { setMenuOpen(false); onDelete?.(card.id); }}
+          />
+        </>
+      );
+    }
+
+    // ==================== صفحة: Home ====================
+    function Home({ sets, onCreateSet, onDeleteSet, onOpenSet, onOpenArchive }) {
+      const [showCreate, setShowCreate] = useState(false);
+      const [newSetName, setNewSetName] = useState('');
+      const [newLang1, setNewLang1] = useState('fr');
+      const [newLang2, setNewLang2] = useState('ar');
+
+      const handleCreate = () => {
+        if (!newSetName.trim()) return;
+        onCreateSet({
+          id: Date.now().toString(),
+          name: newSetName.trim(),
+          lang1: newLang1,
+          lang2: newLang2,
+          words: [],
+          createdAt: new Date().toISOString(),
+          lastReviewed: null,
+        });
+        setNewSetName('');
+        setShowCreate(false);
+      };
+
+      return (
+        <div className="page home-page">
+          <header className="page-header">
+            <h1>📚 LinguaFlash</h1>
+            <p className="subtitle">تعلم الكلمات بطريقة ممتعة</p>
+          </header>
+
+          <div className="home-stats">
+            <div className="stat-card">
+              <div className="stat-value">{sets.length}</div>
+              <div className="stat-label">مجموعة</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-value">
+                {sets.reduce((sum, s) => sum + s.words.filter((w) => !w.archived).length, 0)}
+              </div>
+              <div className="stat-label">كلمة</div>
+            </div>
+          </div>
+
+          <button className="btn btn-primary btn-block" onClick={() => setShowCreate(true)}>
+            ➕ إنشاء مجموعة جديدة
+          </button>
+
+          <button className="btn btn-secondary btn-block" onClick={onOpenArchive}>
+            📦 المحفوظات
+          </button>
+
+          {showCreate && (
+            <div className="modal-overlay" onClick={() => setShowCreate(false)}>
+              <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <h2>مجموعة جديدة</h2>
+                <div className="input-group">
+                  <label>اسم المجموعة</label>
+                  <input
+                    type="text"
+                    value={newSetName}
+                    onChange={(e) => setNewSetName(e.target.value)}
+                    placeholder="مثال: مفردات المطبخ"
+                    autoFocus
+                  />
+                </div>
+                <div className="lang-select-row">
+                  <div className="input-group">
+                    <label>اللغة الأولى</label>
+                    <select value={newLang1} onChange={(e) => setNewLang1(e.target.value)}>
+                      {LANGUAGES.map((l) => (
+                        <option key={l.code} value={l.code}>{l.flag} {l.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="input-group">
+                    <label>اللغة الثانية</label>
+                    <select value={newLang2} onChange={(e) => setNewLang2(e.target.value)}>
+                      {LANGUAGES.map((l) => (
+                        <option key={l.code} value={l.code}>{l.flag} {l.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="modal-actions">
+                  <button className="btn btn-primary" onClick={handleCreate}>إنشاء</button>
+                  <button className="btn btn-secondary" onClick={() => setShowCreate(false)}>إلغاء</button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="sets-list">
+            {sets.length === 0 && (
+              <div className="empty-state">
+                <div className="empty-icon">📖</div>
+                <p>لا توجد مجموعات بعد</p>
+                <p className="empty-hint">أنشئ مجموعة جديدة للبدء!</p>
+              </div>
+            )}
+            {sets.map((set) => {
+              const l1 = getLanguageByCode(set.lang1);
+              const l2 = getLanguageByCode(set.lang2);
+              const activeWords = set.words.filter((w) => !w.archived).length;
+              return (
+                <div key={set.id} className="set-card" onClick={() => onOpenSet(set.id)}>
+                  <div className="set-card-header">
+                    <h3>{set.name}</h3>
+                    <button
+                      className="icon-btn danger"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (confirm('حذف هذه المجموعة نهائياً؟')) onDeleteSet(set.id);
+                      }}
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                  <div className="set-card-meta">
+                    <span>{l1.flag} {l1.name} ↔ {l2.flag} {l2.name}</span>
+                  </div>
+                  <div className="set-card-footer">
+                    <span>📝 {activeWords} كلمة</span>
+                    {set.lastReviewed && (
+                      <span>🕐 {new Date(set.lastReviewed).toLocaleDateString('ar-EG')}</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== صفحة: SetEditor ====================
+    function SetEditor({ set, onUpdateSet, onBack, onStartGame }) {
+      const [editingId, setEditingId] = useState(null);
+
+      const l1 = getLanguageByCode(set.lang1);
+      const l2 = getLanguageByCode(set.lang2);
+
+      const addWord = (word) => {
+        onUpdateSet({ ...set, words: [...set.words, word] });
+      };
+
+      const updateWord = (updated) => {
+        onUpdateSet({
+          ...set,
+          words: set.words.map((w) => (w.id === updated.id ? updated : w)),
+        });
+        setEditingId(null);
+      };
+
+      const deleteWord = (id) => {
+        if (!confirm('حذف هذه الكلمة؟')) return;
+        onUpdateSet({ ...set, words: set.words.filter((w) => w.id !== id) });
+      };
+
+      const archiveWord = (id) => {
+        onUpdateSet({
+          ...set,
+          words: set.words.map((w) => (w.id === id ? { ...w, archived: !w.archived } : w)),
+        });
+      };
+
+      const activeWords = set.words.filter((w) => !w.archived);
+      const archivedWords = set.words.filter((w) => w.archived);
+
+      return (
+        <div className="page editor-page">
+          <header className="page-header">
+            <button className="icon-btn" onClick={onBack}>← رجوع</button>
+            <div>
+              <h1>{set.name}</h1>
+              <p className="subtitle">{l1.flag} {l1.name} ↔ {l2.flag} {l2.name}</p>
+            </div>
+          </header>
+
+          <h2>➕ إضافة كلمة جديدة</h2>
+          <WordInput
+            fromLang={set.lang1}
+            toLang={set.lang2}
+            fromLabel={`${l1.flag} ${l1.name}`}
+            toLabel={`${l2.flag} ${l2.name}`}
+            onSave={addWord}
+          />
+
+          <h2>📝 الكلمات ({activeWords.length})</h2>
+
+          {activeWords.length === 0 && (
+            <div className="empty-state small">
+              <p>لا توجد كلمات بعد. أضف كلمة جديدة!</p>
+            </div>
+          )}
+
+          <div className="words-list">
+            {activeWords.map((w) => (
+              <div key={w.id} className="word-item">
+                {editingId === w.id ? (
+                  <WordInput
+                    fromLang={set.lang1}
+                    toLang={set.lang2}
+                    fromLabel={`${l1.flag} ${l1.name}`}
+                    toLabel={`${l2.flag} ${l2.name}`}
+                    initialWord={w.word}
+                    initialTranslation={w.translation}
+                    onSave={updateWord}
+                    onCancel={() => setEditingId(null)}
+                  />
+                ) : (
+                  <>
+                    <div className="word-content">
+                      <div className="word-main">
+                        <span className="word-original">{w.word}</span>
+                        <span className="word-arrow">→</span>
+                        <span className="word-translation">{w.translation}</span>
+                      </div>
+                      {w.errors > 0 && <span className="word-errors">❌ {w.errors}</span>}
+                    </div>
+                    <div className="word-actions">
+                      <button className="icon-btn" onClick={() => setEditingId(w.id)} title="تعديل">✏️</button>
+                      <button className="icon-btn" onClick={() => archiveWord(w.id)} title="نقل للمحفوظات">📦</button>
+                      <button className="icon-btn danger" onClick={() => deleteWord(w.id)} title="حذف">🗑️</button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {archivedWords.length > 0 && (
+            <>
+              <h2>📦 المحفوظة ({archivedWords.length})</h2>
+              <div className="words-list">
+                {archivedWords.map((w) => (
+                  <div key={w.id} className="word-item archived">
+                    <div className="word-content">
+                      <div className="word-main">
+                        <span className="word-original">{w.word}</span>
+                        <span className="word-arrow">→</span>
+                        <span className="word-translation">{w.translation}</span>
+                      </div>
+                    </div>
+                    <button className="icon-btn" onClick={() => archiveWord(w.id)} title="استعادة">↩️</button>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {activeWords.length > 0 && (
+            <button className="btn btn-primary btn-block btn-large" onClick={onStartGame}>
+              🎮 ابدأ اللعبة ({activeWords.length} كلمة)
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    // ==================== صفحة: FlashcardsGame ====================
+    function FlashcardsGame({ set, onUpdateSet, onFinish, onExit }) {
+      const [currentIndex, setCurrentIndex] = useState(0);
+      const [results, setResults] = useState([]);
+      const [editingCard, setEditingCard] = useState(null);
+      const [editWord, setEditWord] = useState('');
+      const [editTrans, setEditTrans] = useState('');
+
+      const l1 = getLanguageByCode(set.lang1);
+      const l2 = getLanguageByCode(set.lang2);
+
+      const cards = useMemo(() => {
+        const active = set.words.filter((w) => !w.archived);
+        return [...active].sort(() => Math.random() - 0.5);
+      }, [set.id]);
+
+      const currentCard = cards[currentIndex];
+      const total = cards.length;
+      const progress = total > 0 ? (currentIndex / total) * 100 : 0;
+
+      const finishGame = (finalResults) => {
+        const updatedSet = { ...set, lastReviewed: new Date().toISOString() };
+        onUpdateSet(updatedSet);
+        onFinish(finalResults, cards);
+      };
+
+      const handleAnswer = (correct) => {
+        const newResults = [...results, { id: currentCard.id, correct }];
+
+        const updatedWords = set.words.map((w) => {
+          if (w.id !== currentCard.id) return w;
+          return {
+            ...w,
+            errors: w.errors + (correct ? 0 : 1),
+            correct: w.correct + (correct ? 1 : 0),
+          };
+        });
+        onUpdateSet({ ...set, words: updatedWords });
+
+        if (currentIndex + 1 >= total) {
+          finishGame(newResults);
+        } else {
+          setCurrentIndex(currentIndex + 1);
+          setResults(newResults);
+        }
+      };
+
+      const handleSkip = () => handleAnswer(false);
+
+      const handleEdit = (card) => {
+        setEditingCard(card);
+        setEditWord(card.word);
+        setEditTrans(card.translation);
+      };
+
+      const saveEdit = () => {
+        if (!editWord.trim() || !editTrans.trim()) return;
+        const updatedWords = set.words.map((w) =>
+          w.id === editingCard.id ? { ...w, word: editWord.trim(), translation: editTrans.trim() } : w
+        );
+        onUpdateSet({ ...set, words: updatedWords });
+        setEditingCard(null);
+      };
+
+      const handleArchive = (id) => {
+        const updatedWords = set.words.map((w) =>
+          w.id === id ? { ...w, archived: true } : w
+        );
+        onUpdateSet({ ...set, words: updatedWords });
+        if (currentIndex + 1 >= total) finishGame(results);
+        else setCurrentIndex(currentIndex + 1);
+      };
+
+      const handleDelete = (id) => {
+        if (!confirm('حذف هذه الكلمة نهائياً؟')) return;
+        const updatedWords = set.words.filter((w) => w.id !== id);
+        onUpdateSet({ ...set, words: updatedWords });
+      };
+
+      if (!currentCard) {
+        return (
+          <div className="page">
+            <p>لا توجد كلمات للعب</p>
+            <button className="btn btn-primary" onClick={onExit}>رجوع</button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="page game-page">
+          <header className="game-header">
+            <button className="icon-btn" onClick={onExit}>✕</button>
+            <div className="game-info">
+              <div className="game-title">{set.name}</div>
+              <div className="game-counter">البطاقة {currentIndex + 1} من {total}</div>
+            </div>
+            <button className="icon-btn" onClick={handleSkip}>تخطي ⏭️</button>
+          </header>
+
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${progress}%` }} />
+          </div>
+
+          <div className="game-area">
+            <Flashcard
+              card={currentCard}
+              lang1Label={`${l1.flag} ${l1.name}`}
+              lang2Label={`${l2.flag} ${l2.name}`}
+              onCorrect={() => handleAnswer(true)}
+              onWrong={() => handleAnswer(false)}
+              onEdit={handleEdit}
+              onArchive={handleArchive}
+              onDelete={handleDelete}
+            />
+          </div>
+
+          <div className="game-hints">
+            <div className="hint hint-wrong">← تمرير يسار: خطأ</div>
+            <div className="hint hint-correct">تمرير يمين: صحيح →</div>
+          </div>
+
+          {editingCard && (
+            <div className="modal-overlay" onClick={() => setEditingCard(null)}>
+              <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <h2>تعديل الكلمة</h2>
+                <div className="input-group">
+                  <label>{l1.name}</label>
+                  <input type="text" value={editWord} onChange={(e) => setEditWord(e.target.value)} />
+                </div>
+                <div className="input-group">
+                  <label>{l2.name}</label>
+                  <input type="text" value={editTrans} onChange={(e) => setEditTrans(e.target.value)} />
+                </div>
+                <div className="modal-actions">
+                  <button className="btn btn-primary" onClick={saveEdit}>حفظ</button>
+                  <button className="btn btn-secondary" onClick={() => setEditingCard(null)}>إلغاء</button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ==================== صفحة: Results ====================
+    function Results({ results, cards, onRetry, onRetryWrong, onHome }) {
+      const total = results.length;
+      const correctCount = results.filter((r) => r.correct).length;
+      const percentage = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+      let rating, stars, message, emoji;
+      if (percentage >= 90) {
+        rating = 'ممتاز'; stars = '🌟🌟🌟'; message = 'أنت نجم! استمر بهذا الأداء الرائع'; emoji = '🎉';
+      } else if (percentage >= 70) {
+        rating = 'جيد جداً'; stars = '⭐⭐'; message = 'عمل رائع! استمر هكذا'; emoji = '👏';
+      } else if (percentage >= 50) {
+        rating = 'جيد'; stars = '⭐'; message = 'بذلت جهداً جيداً! مارس أكثر قليلاً'; emoji = '👍';
+      } else {
+        rating = 'حاول مرة أخرى'; stars = '💪'; message = 'لا تستسلم! كل محاولة تجعلك أقوى'; emoji = '🔥';
+      }
+
+      const wrongWordsMap = {};
+      results.forEach((r) => {
+        if (!r.correct) {
+          if (!wrongWordsMap[r.id]) wrongWordsMap[r.id] = 0;
+          wrongWordsMap[r.id]++;
+        }
+      });
+      const wrongWords = Object.entries(wrongWordsMap).map(([id, count]) => {
+        const card = cards.find((c) => c.id === id);
+        return { ...card, wrongCount: count };
+      });
+
+      return (
+        <div className="page results-page">
+          <div className="results-header">
+            <div className="results-emoji">{emoji}</div>
+            <h1>تم الانتهاء!</h1>
+          </div>
+
+          <div className="results-score-card">
+            <div className="score-circle">
+              <div className="score-value">{percentage}%</div>
+              <div className="score-label">النسبة</div>
+            </div>
+            <div className="score-details">
+              <div className="score-row">
+                <span>الإجابات الصحيحة:</span>
+                <strong>{correctCount} من {total}</strong>
+              </div>
+              <div className="score-row">
+                <span>التقييم:</span>
+                <strong>{stars} {rating}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="results-message">"{message}" {emoji}</div>
+
+          {wrongWords.length > 0 && (
+            <div className="wrong-words-section">
+              <h2>❌ الكلمات التي أخطأت بها</h2>
+              <div className="wrong-words-list">
+                {wrongWords.map((w) => (
+                  <div key={w.id} className="wrong-word-item">
+                    <span className="wrong-word-text">{w.word} ({w.translation})</span>
+                    <span className="wrong-word-count">❌ {w.wrongCount}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="results-actions">
+            <button className="btn btn-primary btn-block" onClick={onRetry}>
+              🔄 إعادة المحاولة بكل الكلمات
+            </button>
+            {wrongWords.length > 0 && (
+              <button className="btn btn-secondary btn-block" onClick={onRetryWrong}>
+                ⭐ الكلمات الخاطئة فقط ({wrongWords.length})
+              </button>
+            )}
+            <button className="btn btn-ghost btn-block" onClick={onHome}>
+              🏠 الصفحة الرئيسية
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== صفحة: Archive ====================
+    function Archive({ sets, onUpdateSet, onBack }) {
+      const allArchived = sets.flatMap((s) =>
+        s.words.filter((w) => w.archived).map((w) => ({ ...w, setId: s.id, setName: s.name, set: s }))
+      );
+
+      const restore = (setId, wordId) => {
+        const set = sets.find((s) => s.id === setId);
+        const updatedWords = set.words.map((w) =>
+          w.id === wordId ? { ...w, archived: false } : w
+        );
+        onUpdateSet({ ...set, words: updatedWords });
+      };
+
+      const deleteWord = (setId, wordId) => {
+        if (!confirm('حذف هذه الكلمة نهائياً؟')) return;
+        const set = sets.find((s) => s.id === setId);
+        const updatedWords = set.words.filter((w) => w.id !== wordId);
+        onUpdateSet({ ...set, words: updatedWords });
+      };
+
+      return (
+        <div className="page archive-page">
+          <header className="page-header">
+            <button className="icon-btn" onClick={onBack}>← رجوع</button>
+            <h1>📦 المحفوظات</h1>
+          </header>
+
+          {allArchived.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-icon">📦</div>
+              <p>لا توجد كلمات محفوظة</p>
+              <p className="empty-hint">استخدم الضغط المطول على البطاقة لنقل الكلمات هنا</p>
+            </div>
+          ) : (
+            <div className="words-list">
+              {allArchived.map((w) => {
+                const l1 = getLanguageByCode(w.set.lang1);
+                const l2 = getLanguageByCode(w.set.lang2);
+                return (
+                  <div key={`${w.setId}-${w.id}`} className="word-item">
+                    <div className="word-content">
+                      <div className="word-set-name">{w.setName}</div>
+                      <div className="word-main">
+                        <span className="word-original">{l1.flag} {w.word}</span>
+                        <span className="word-arrow">→</span>
+                        <span className="word-translation">{l2.flag} {w.translation}</span>
+                      </div>
+                    </div>
+                    <div className="word-actions">
+                      <button className="icon-btn" onClick={() => restore(w.setId, w.id)} title="استعادة">↩️</button>
+                      <button className="icon-btn danger" onClick={() => deleteWord(w.setId, w.id)} title="حذف">🗑️</button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ==================== التطبيق الرئيسي ====================
+    function App() {
+      const [sets, setSets] = useLocalStorage('linguaflash-sets', []);
+      const [view, setView] = useState('home');
+      const [currentSetId, setCurrentSetId] = useState(null);
+      const [gameResults, setGameResults] = useState(null);
+      const [gameCards, setGameCards] = useState(null);
+      const [retryMode, setRetryMode] = useState(null);
+      const [gameKey, setGameKey] = useState(0);
+
+      const currentSet = sets.find((s) => s.id === currentSetId);
+
+      const updateSet = (updatedSet) => {
+        setSets(sets.map((s) => (s.id === updatedSet.id ? updatedSet : s)));
+      };
+
+      const createSet = (newSet) => setSets([...sets, newSet]);
+      const deleteSet = (id) => setSets(sets.filter((s) => s.id !== id));
+
+      const openSet = (id) => {
+        setCurrentSetId(id);
+        setView('editor');
+      };
+
+      const startGame = (mode = 'all') => {
+        setRetryMode(mode);
+        setGameKey(Date.now());
+        setView('game');
+      };
+
+      const finishGame = (results, cards) => {
+        setGameResults(results);
+        setGameCards(cards);
+        setView('results');
+      };
+
+      const goHome = () => {
+        setView('home');
+        setCurrentSetId(null);
+        setGameResults(null);
+        setGameCards(null);
+        setRetryMode(null);
+      };
+
+      const gameSet = (() => {
+        if (!currentSet) return null;
+        if (retryMode === 'wrong' && gameCards) {
+          const wrongIds = new Set(gameResults.filter((r) => !r.correct).map((r) => r.id));
+          return {
+            ...currentSet,
+            words: currentSet.words.filter((w) => wrongIds.has(w.id)),
+          };
+        }
+        return currentSet;
+      })();
+
+      return (
+        <div className="app">
+          {view === 'home' && (
+            <Home
+              sets={sets}
+              onCreateSet={createSet}
+              onDeleteSet={deleteSet}
+              onOpenSet={openSet}
+              onOpenArchive={() => setView('archive')}
+            />
+          )}
+          {view === 'editor' && currentSet && (
+            <SetEditor
+              set={currentSet}
+              onUpdateSet={updateSet}
+              onBack={goHome}
+              onStartGame={() => startGame('all')}
+            />
+          )}
+          {view === 'game' && gameSet && (
+            <FlashcardsGame
+              key={gameKey}
+              set={gameSet}
+              onUpdateSet={updateSet}
+              onFinish={finishGame}
+              onExit={() => setView('editor')}
+            />
+          )}
+          {view === 'results' && gameResults && (
+            <Results
+              results={gameResults}
+              cards={gameCards}
+              onRetry={() => startGame('all')}
+              onRetryWrong={() => startGame('wrong')}
+              onHome={goHome}
+            />
+          )}
+          {view === 'archive' && (
+            <Archive sets={sets} onUpdateSet={updateSet} onBack={goHome} />
+          )}
+        </div>
+      );
+    }
+
+    // ==================== التشغيل ====================
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
