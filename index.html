@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#4F46E5" />
-  <title>LinguaFlash - تعلم الكلمات</title>
+  <title>VOCAflow - تعلم الكلمات</title>
 
   <!-- React + Babel من CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -22,34 +22,87 @@
       --warning: #F59E0B;
       --text: #1F2937;
       --text-light: #6B7280;
-      --bg: #F9FAFB;
-      --card: #FFFFFF;
-      --border: #E5E7EB;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-      --radius: 12px;
-      --radius-sm: 8px;
+      --bg-gradient: linear-gradient(135deg, #E0E7FF 0%, #DDD6FE 50%, #F3E8FF 100%);
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(255, 255, 255, 0.3);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-lg: 20px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input, textarea {
+      -webkit-user-select: auto;
+      -moz-user-select: auto;
+      -ms-user-select: auto;
+      user-select: auto;
+    }
 
     html, body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Tajawal', 'Cairo', sans-serif;
-      background: var(--bg);
+      background: var(--bg-gradient);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    body { padding-bottom: env(safe-area-inset-bottom); }
+    body {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
     #root { min-height: 100vh; }
 
-    .app { max-width: 600px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
-    .page { padding: 20px; padding-bottom: 40px; }
+    .app {
+      max-width: 600px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
 
-    .page-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-    .page-header h1 { font-size: 28px; font-weight: 700; }
-    .subtitle { color: var(--text-light); font-size: 14px; margin-top: 4px; }
+    .page {
+      padding: 20px;
+      padding-bottom: 40px;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* ============ Glassmorphism Base ============ */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: var(--radius);
+    }
 
     /* ============ الأزرار ============ */
     .btn {
@@ -59,89 +112,273 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease-in-out;
       font-family: inherit;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      position: relative;
+      overflow: hidden;
+      min-height: 44px;
     }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow); }
-    .btn-secondary { background: var(--border); color: var(--text); }
-    .btn-secondary:hover { background: #D1D5DB; }
-    .btn-ghost { background: transparent; color: var(--text-light); }
-    .btn-ghost:hover { background: var(--primary-light); color: var(--primary); }
-    .btn-block { width: 100%; margin-bottom: 10px; }
-    .btn-large { padding: 16px 24px; font-size: 18px; margin-top: 20px; }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-light);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--primary);
+    }
+
+    .btn-block {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .btn-large {
+      padding: 16px 24px;
+      font-size: 18px;
+      margin-top: 20px;
+    }
 
     .icon-btn {
       background: transparent;
       border: none;
       font-size: 18px;
       cursor: pointer;
-      padding: 8px 12px;
+      padding: 12px;
       border-radius: var(--radius-sm);
-      transition: background 0.2s;
+      transition: all 0.2s;
+      font-family: inherit;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.5);
+      transform: scale(1.05);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    .icon-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .btn-link {
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 13px;
+      margin-top: 6px;
+      padding: 0;
       font-family: inherit;
     }
-    .icon-btn:hover { background: var(--primary-light); }
-    .icon-btn.danger:hover { background: #FEE2E2; }
-
-    .btn-link { background: none; border: none; color: var(--primary); cursor: pointer; font-size: 13px; margin-top: 6px; padding: 0; font-family: inherit; }
 
     /* ============ حقول الإدخال ============ */
-    .input-group { margin-bottom: 16px; }
-    .input-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-    .input-group input, .input-group select {
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .input-group input,
+    .input-group select {
       width: 100%;
       padding: 12px 14px;
-      border: 2px solid var(--border);
+      border: 2px solid var(--glass-border);
       border-radius: var(--radius-sm);
       font-size: 16px;
       font-family: inherit;
-      transition: border-color 0.2s;
-      background: white;
+      transition: all 0.2s;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      min-height: 44px;
     }
-    .input-group input:focus, .input-group select:focus { outline: none; border-color: var(--primary); }
 
-    .loading-dot { animation: pulse 1s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .loading-dot {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
 
     /* ============ الصفحة الرئيسية ============ */
-    .home-page .page-header { flex-direction: column; align-items: flex-start; text-align: start; }
-    .home-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    .stat-card { background: var(--card); padding: 20px; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow); }
-    .stat-value { font-size: 32px; font-weight: 700; color: var(--primary); }
-    .stat-label { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+    .home-page .page-header {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: start;
+    }
 
-    .sets-list { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+    .home-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 20px;
+      border-radius: var(--radius);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    .sets-list {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .set-card {
-      background: var(--card);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
       padding: 16px;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.3s;
     }
-    .set-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-    .set-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-    .set-card-header h3 { font-size: 18px; font-weight: 600; }
-    .set-card-meta { color: var(--text-light); font-size: 14px; margin-bottom: 8px; }
-    .set-card-footer { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-light); padding-top: 8px; border-top: 1px solid var(--border); }
+
+    .set-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .set-card:active {
+      transform: scale(0.98);
+    }
+
+    .set-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .set-card-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .set-card-meta {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .set-card-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-light);
+      padding-top: 8px;
+      border-top: 1px solid var(--glass-border);
+    }
 
     /* ============ Modal ============ */
     .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 100; padding: 20px;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
       animation: fadeIn 0.2s;
     }
-    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     .modal {
-      background: var(--card);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
       padding: 24px;
       border-radius: var(--radius);
       max-width: 500px;
@@ -150,48 +387,178 @@
       overflow-y: auto;
       animation: slideUp 0.3s;
     }
-    @keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
-    .modal h2 { margin-bottom: 16px; font-size: 20px; }
-    .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
-    .modal-actions .btn { flex: 1; }
-    .lang-select-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal h2 {
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .modal-actions .btn {
+      flex: 1;
+    }
+
+    .lang-select-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
     /* ============ محرر المجموعة ============ */
-    .editor-page h2 { font-size: 18px; margin: 24px 0 12px; }
-    .word-input-card { background: var(--card); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
-    .input-actions { display: flex; gap: 10px; }
-    .input-actions .btn { flex: 1; }
+    .editor-page h2 {
+      font-size: 18px;
+      margin: 24px 0 12px;
+    }
 
-    .words-list { display: flex; flex-direction: column; gap: 8px; }
+    .word-input-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+    }
+
+    .input-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-actions .btn {
+      flex: 1;
+    }
+
+    .words-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .word-item {
-      background: var(--card);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
       padding: 12px;
       border-radius: var(--radius-sm);
-      box-shadow: var(--shadow);
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+      transition: all 0.2s;
     }
-    .word-item.archived { opacity: 0.6; }
-    .word-content { flex: 1; min-width: 0; }
-    .word-set-name { font-size: 11px; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
-    .word-main { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .word-original { font-weight: 600; font-size: 16px; }
-    .word-arrow { color: var(--text-light); }
-    .word-translation { color: var(--text-light); font-size: 15px; }
-    .word-errors { font-size: 12px; color: var(--danger); margin-top: 4px; }
-    .word-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+    .word-item:hover {
+      transform: translateX(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .word-item.archived {
+      opacity: 0.6;
+    }
+
+    .word-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .word-set-name {
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .word-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .word-original {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .word-arrow {
+      color: var(--text-light);
+    }
+
+    .word-translation {
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    .word-errors {
+      font-size: 12px;
+      color: var(--danger);
+      margin-top: 4px;
+    }
+
+    .word-actions {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
 
     /* ============ لعبة البطاقات ============ */
-    .game-page { padding: 12px; min-height: 100vh; display: flex; flex-direction: column; }
-    .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .game-info { text-align: center; flex: 1; }
-    .game-title { font-weight: 600; font-size: 14px; color: var(--text-light); }
-    .game-counter { font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+    .game-page {
+      padding: 12px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-    .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--success)); transition: width 0.3s ease; }
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .game-info {
+      text-align: center;
+      flex: 1;
+    }
+
+    .game-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    .game-counter {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      transition: width 0.3s ease;
+    }
 
     .game-area {
       flex: 1;
@@ -210,10 +577,12 @@
       aspect-ratio: 3 / 4;
       perspective: 1000px;
       cursor: grab;
-      user-select: none;
       position: relative;
     }
-    .flashcard-wrapper:active { cursor: grabbing; }
+
+    .flashcard-wrapper:active {
+      cursor: grabbing;
+    }
 
     .flashcard {
       width: 100%;
@@ -222,16 +591,21 @@
       transform-style: preserve-3d;
       transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
     }
-    .flashcard.flipped { transform: rotateY(180deg); }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
 
     .flashcard-face {
       position: absolute;
       inset: 0;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 20px;
-      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -240,14 +614,63 @@
       color: white;
       text-align: center;
     }
+
     .flashcard-back {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      background: linear-gradient(135deg, rgba(240, 147, 251, 0.9) 0%, rgba(245, 87, 108, 0.9) 100%);
       transform: rotateY(180deg);
     }
 
-    .flashcard-lang { position: absolute; top: 16px; font-size: 14px; opacity: 0.8; font-weight: 500; }
-    .flashcard-text { font-size: 42px; font-weight: 700; line-height: 1.2; word-break: break-word; }
-    .flashcard-hint { position: absolute; bottom: 16px; font-size: 12px; opacity: 0.7; }
+    .flashcard-lang {
+      position: absolute;
+      top: 16px;
+      font-size: 14px;
+      opacity: 0.8;
+      font-weight: 500;
+    }
+
+    .flashcard-text {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .flashcard-hint {
+      position: absolute;
+      bottom: 16px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .speak-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .speak-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .speak-btn:active {
+      transform: scale(0.95);
+    }
+
+    .speak-btn.speaking {
+      animation: pulse 0.5s infinite;
+    }
 
     .swipe-indicator {
       position: absolute;
@@ -258,29 +681,66 @@
       font-size: 18px;
       animation: pop 0.2s;
     }
-    @keyframes pop { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
-    .swipe-indicator.right { right: 20px; background: var(--success); color: white; }
-    .swipe-indicator.left { left: 20px; background: var(--danger); color: white; }
 
-    .game-hints { display: flex; justify-content: space-between; padding: 12px 8px; font-size: 13px; color: var(--text-light); }
-    .hint-correct { color: var(--success); font-weight: 600; }
-    .hint-wrong { color: var(--danger); font-weight: 600; }
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .swipe-indicator.right {
+      right: 20px;
+      background: var(--success);
+      color: white;
+    }
+
+    .swipe-indicator.left {
+      left: 20px;
+      background: var(--danger);
+      color: white;
+    }
+
+    .game-hints {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 8px;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    .hint-correct {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .hint-wrong {
+      color: var(--danger);
+      font-weight: 600;
+    }
 
     /* ============ Long Press Menu ============ */
     .long-press-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
-      display: flex; align-items: center; justify-content: center;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 200;
       animation: fadeIn 0.2s;
     }
+
     .long-press-menu {
-      background: var(--card);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
       border-radius: var(--radius);
       min-width: 260px;
       overflow: hidden;
       animation: slideUp 0.3s;
     }
+
     .menu-item {
       display: block;
       width: 100%;
@@ -291,48 +751,123 @@
       font-size: 16px;
       font-family: inherit;
       cursor: pointer;
-      transition: background 0.2s;
-      border-bottom: 1px solid var(--border);
+      transition: all 0.2s;
+      border-bottom: 1px solid var(--glass-border);
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .menu-item:hover { background: var(--primary-light); }
-    .menu-item.danger { color: var(--danger); }
-    .menu-item.danger:hover { background: #FEE2E2; }
-    .menu-item.close { color: var(--text-light); border-bottom: none; }
+
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .menu-item:active {
+      transform: scale(0.98);
+    }
+
+    .menu-item.danger {
+      color: var(--danger);
+    }
+
+    .menu-item.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .menu-item.close {
+      color: var(--text-light);
+      border-bottom: none;
+      justify-content: center;
+    }
 
     /* ============ صفحة النتائج ============ */
-    .results-page { text-align: center; padding-top: 40px; }
-    .results-header { margin-bottom: 24px; }
-    .results-emoji { font-size: 64px; margin-bottom: 12px; animation: bounce 0.6s; }
-    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
-    .results-header h1 { font-size: 32px; color: var(--primary); }
+    .results-page {
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .results-header {
+      margin-bottom: 24px;
+    }
+
+    .results-emoji {
+      font-size: 64px;
+      margin-bottom: 12px;
+      animation: bounce 0.6s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .results-header h1 {
+      font-size: 32px;
+      color: var(--primary);
+    }
 
     .results-score-card {
-      background: var(--card);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
       padding: 24px;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
       display: flex;
       align-items: center;
       gap: 20px;
       margin-bottom: 20px;
     }
+
     .score-circle {
-      width: 120px; height: 120px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary), #764ba2);
       color: white;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
     }
-    .score-value { font-size: 36px; font-weight: 700; }
-    .score-label { font-size: 12px; opacity: 0.9; }
-    .score-details { flex: 1; text-align: start; }
-    .score-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
-    .score-row:last-child { border-bottom: none; }
-    .score-row strong { color: var(--primary); }
+
+    .score-value {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .score-label {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .score-details {
+      flex: 1;
+      text-align: start;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .score-row:last-child {
+      border-bottom: none;
+    }
+
+    .score-row strong {
+      color: var(--primary);
+    }
 
     .results-message {
-      background: var(--primary-light);
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
       color: var(--primary-dark);
       padding: 16px;
       border-radius: var(--radius);
@@ -341,29 +876,398 @@
       margin-bottom: 24px;
     }
 
-    .wrong-words-section { text-align: start; margin-bottom: 24px; }
-    .wrong-words-section h2 { font-size: 18px; margin-bottom: 12px; }
-    .wrong-words-list { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-    .wrong-word-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
-    .wrong-word-item:last-child { border-bottom: none; }
-    .wrong-word-text { font-size: 15px; }
-    .wrong-word-count { color: var(--danger); font-weight: 700; font-size: 14px; }
+    .wrong-words-section {
+      text-align: start;
+      margin-bottom: 24px;
+    }
 
-    .results-actions { margin-top: 24px; }
+    .wrong-words-section h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .wrong-words-list {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .wrong-word-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .wrong-word-item:last-child {
+      border-bottom: none;
+    }
+
+    .wrong-word-text {
+      font-size: 15px;
+    }
+
+    .wrong-word-count {
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .results-actions {
+      margin-top: 24px;
+    }
 
     /* ============ Empty State ============ */
-    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); }
-    .empty-state.small { padding: 20px; }
-    .empty-icon { font-size: 64px; margin-bottom: 12px; }
-    .empty-hint { font-size: 13px; margin-top: 8px; opacity: 0.8; }
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-light);
+    }
+
+    .empty-state.small {
+      padding: 20px;
+    }
+
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 12px;
+    }
+
+    .empty-hint {
+      font-size: 13px;
+      margin-top: 8px;
+      opacity: 0.8;
+    }
+
+    /* ============ Toast Notifications ============ */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      min-width: 300px;
+      animation: slideDown 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .toast.success {
+      border-right: 4px solid var(--success);
+    }
+
+    .toast.error {
+      border-right: 4px solid var(--danger);
+    }
+
+    .toast.info {
+      border-right: 4px solid var(--primary);
+    }
+
+    /* ============ Games Selection ============ */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .game-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 20px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .game-card:active {
+      transform: scale(0.95);
+    }
+
+    .game-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .game-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .game-desc {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* ============ Multiple Choice Game ============ */
+    .mcq-game {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .mcq-word {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 32px;
+      border-radius: var(--radius);
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .mcq-options {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mcq-option {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 2px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 20px;
+      border-radius: var(--radius);
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-height: 60px;
+    }
+
+    .mcq-option:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .mcq-option:active {
+      transform: scale(0.98);
+    }
+
+    .mcq-option.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--success);
+    }
+
+    .mcq-option.wrong {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--danger);
+    }
+
+    /* ============ Spelling Game ============ */
+    .spelling-game {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .spelling-input {
+      width: 100%;
+      padding: 20px;
+      font-size: 24px;
+      text-align: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 2px solid var(--glass-border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      min-height: 80px;
+    }
+
+    .spelling-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .spelling-input.correct {
+      border-color: var(--success);
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .spelling-input.wrong {
+      border-color: var(--danger);
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* ============ Matching Game ============ */
+    .matching-game {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .matching-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .matching-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .matching-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 2px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 16px;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .matching-item:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .matching-item.selected {
+      border-color: var(--primary);
+      background: rgba(79, 70, 229, 0.1);
+    }
+
+    .matching-item.matched {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--success);
+      cursor: default;
+    }
 
     /* ============ Responsive ============ */
-    @media (max-width: 480px) {
-      .flashcard-text { font-size: 32px; }
-      .score-circle { width: 100px; height: 100px; }
-      .score-value { font-size: 28px; }
-      .results-score-card { flex-direction: column; text-align: center; }
-      .score-details { text-align: center; width: 100%; }
+    @media (max-width: 640px) {
+      .page {
+        padding: 16px;
+        padding-bottom: 32px;
+      }
+
+      .btn {
+        min-height: 48px;
+        padding: 14px 20px;
+      }
+
+      .flashcard-text {
+        font-size: 32px;
+      }
+
+      .score-circle {
+        width: 100px;
+        height: 100px;
+      }
+
+      .score-value {
+        font-size: 28px;
+      }
+
+      .results-score-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .score-details {
+        text-align: center;
+        width: 100%;
+      }
+
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .matching-columns {
+        gap: 12px;
+      }
+
+      .mcq-word {
+        font-size: 28px;
+        padding: 24px;
+      }
+
+      .spelling-input {
+        font-size: 20px;
+      }
+    }
+
+    /* ============ Loading Spinner ============ */
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ============ Keyboard Shortcuts Hint ============ */
+    .shortcuts-hint {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-light);
+      box-shadow: var(--glass-shadow);
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .shortcuts-hint:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .shortcuts-hint {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -372,7 +1276,7 @@
 
   <script type="text/babel" data-presets="react">
     // ==================== إعداد React ====================
-    const { useState, useEffect, useRef, useMemo } = React;
+    const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
     // ==================== قائمة اللغات ====================
     const LANGUAGES = [
@@ -388,12 +1292,43 @@
       { code: 'zh', name: 'الصينية', flag: '🇨🇳' },
       { code: 'ja', name: 'اليابانية', flag: '🇯🇵' },
       { code: 'ko', name: 'الكورية', flag: '🇰🇷' },
-      { code: 'nl', name: 'الهولندية', flag: '🇳🇱' },
-      { code: 'sv', name: 'السويدية', flag: '🇸🇪' },
     ];
 
     const getLanguageByCode = (code) =>
       LANGUAGES.find((l) => l.code === code) || LANGUAGES[0];
+
+    // ==================== Toast System ====================
+    const ToastContext = React.createContext();
+
+    function ToastProvider({ children }) {
+      const [toasts, setToasts] = useState([]);
+
+      const showToast = useCallback((message, type = 'info') => {
+        const id = Date.now();
+        setToasts((prev) => [...prev, { id, message, type }]);
+        setTimeout(() => {
+          setToasts((prev) => prev.filter((t) => t.id !== id));
+        }, 3000);
+      }, []);
+
+      return (
+        <ToastContext.Provider value={showToast}>
+          {children}
+          <div className="toast-container">
+            {toasts.map((toast) => (
+              <div key={toast.id} className={`toast ${toast.type}`}>
+                {toast.type === 'success' && '✅'}
+                {toast.type === 'error' && '❌'}
+                {toast.type === 'info' && 'ℹ️'}
+                {toast.message}
+              </div>
+            ))}
+          </div>
+        </ToastContext.Provider>
+      );
+    }
+
+    const useToast = () => React.useContext(ToastContext);
 
     // ==================== Hook: localStorage ====================
     function useLocalStorage(key, initialValue) {
@@ -458,6 +1393,50 @@
       }, [text, fromLang, toLang]);
 
       return { translation, loading };
+    }
+
+    // ==================== Web Speech API ====================
+    function useSpeech() {
+      const [speaking, setSpeaking] = useState(false);
+
+      const speak = useCallback((text, language) => {
+        if (!('speechSynthesis' in window)) {
+          console.warn('Speech synthesis not supported');
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = language;
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+
+        utterance.onstart = () => setSpeaking(true);
+        utterance.onend = () => setSpeaking(false);
+        utterance.onerror = () => setSpeaking(false);
+
+        window.speechSynthesis.speak(utterance);
+      }, []);
+
+      return { speak, speaking };
+    }
+
+    // ==================== Keyboard Shortcuts ====================
+    function useKeyboardShortcuts(shortcuts) {
+      useEffect(() => {
+        const handleKeyDown = (e) => {
+          const shortcut = shortcuts[e.key];
+          if (shortcut && typeof shortcut === 'function') {
+            e.preventDefault();
+            shortcut();
+          }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [shortcuts]);
     }
 
     // ==================== مكون: WordInput ====================
@@ -568,21 +1547,33 @@
       return (
         <div className="long-press-overlay" onClick={onClose}>
           <div className="long-press-menu" ref={menuRef} onClick={(e) => e.stopPropagation()}>
-            <button className="menu-item" onClick={onEdit}>✏️ تعديل الكلمة</button>
-            <button className="menu-item" onClick={onArchive}>📦 نقل للمحفوظات</button>
-            <button className="menu-item danger" onClick={onDelete}>🗑️ حذف نهائياً</button>
-            <button className="menu-item close" onClick={onClose}>✕ إغلاق</button>
+            <button className="menu-item" onClick={onEdit}>
+              <span>✏️</span>
+              <span>تعديل الكلمة</span>
+            </button>
+            <button className="menu-item" onClick={onArchive}>
+              <span>📦</span>
+              <span>نقل للمحفوظات</span>
+            </button>
+            <button className="menu-item danger" onClick={onDelete}>
+              <span>🗑️</span>
+              <span>حذف نهائياً</span>
+            </button>
+            <button className="menu-item close" onClick={onClose}>
+              ✕ إغلاق
+            </button>
           </div>
         </div>
       );
     }
 
     // ==================== مكون: Flashcard ====================
-    function Flashcard({ card, lang1Label, lang2Label, onCorrect, onWrong, onEdit, onArchive, onDelete }) {
+    function Flashcard({ card, lang1Label, lang2Label, lang1Code, lang2Code, onCorrect, onWrong, onEdit, onArchive, onDelete }) {
       const [flipped, setFlipped] = useState(false);
       const [menuOpen, setMenuOpen] = useState(false);
       const [swipeOffset, setSwipeOffset] = useState(0);
       const [swipeDirection, setSwipeDirection] = useState(null);
+      const { speak, speaking } = useSpeech();
 
       const startX = useRef(0);
       const startY = useRef(0);
@@ -659,6 +1650,9 @@
       const rotation = swipeOffset / 20;
       const opacity = 1 - Math.min(Math.abs(swipeOffset) / 300, 1) * 0.3;
 
+      const currentLang = flipped ? lang2Code : lang1Code;
+      const currentText = flipped ? card.translation : card.word;
+
       return (
         <>
           <div
@@ -679,11 +1673,29 @@
             <div className={`flashcard ${flipped ? 'flipped' : ''}`}>
               <div className="flashcard-face flashcard-front">
                 <div className="flashcard-lang">{lang1Label}</div>
+                <button
+                  className={`speak-btn ${speaking ? 'speaking' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    speak(card.word, lang1Code);
+                  }}
+                >
+                  🔊
+                </button>
                 <div className="flashcard-text">{card.word}</div>
                 <div className="flashcard-hint">اضغط للتقليب</div>
               </div>
               <div className="flashcard-face flashcard-back">
                 <div className="flashcard-lang">{lang2Label}</div>
+                <button
+                  className={`speak-btn ${speaking ? 'speaking' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    speak(card.translation, lang2Code);
+                  }}
+                >
+                  🔊
+                </button>
                 <div className="flashcard-text">{card.translation}</div>
                 <div className="flashcard-hint">اضغط للعودة</div>
               </div>
@@ -713,9 +1725,13 @@
       const [newSetName, setNewSetName] = useState('');
       const [newLang1, setNewLang1] = useState('fr');
       const [newLang2, setNewLang2] = useState('ar');
+      const showToast = useToast();
 
       const handleCreate = () => {
-        if (!newSetName.trim()) return;
+        if (!newSetName.trim()) {
+          showToast('الرجاء إدخال اسم المجموعة', 'error');
+          return;
+        }
         onCreateSet({
           id: Date.now().toString(),
           name: newSetName.trim(),
@@ -727,12 +1743,13 @@
         });
         setNewSetName('');
         setShowCreate(false);
+        showToast('تم إنشاء المجموعة بنجاح!', 'success');
       };
 
       return (
         <div className="page home-page">
           <header className="page-header">
-            <h1>📚 LinguaFlash</h1>
+            <h1>📚 VOCAflow</h1>
             <p className="subtitle">تعلم الكلمات بطريقة ممتعة</p>
           </header>
 
@@ -817,7 +1834,10 @@
                       className="icon-btn danger"
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (confirm('حذف هذه المجموعة نهائياً؟')) onDeleteSet(set.id);
+                        if (confirm('حذف هذه المجموعة نهائياً؟')) {
+                          onDeleteSet(set.id);
+                          showToast('تم حذف المجموعة', 'info');
+                        }
                       }}
                     >
                       🗑️
@@ -843,12 +1863,15 @@
     // ==================== صفحة: SetEditor ====================
     function SetEditor({ set, onUpdateSet, onBack, onStartGame }) {
       const [editingId, setEditingId] = useState(null);
+      const [showGames, setShowGames] = useState(false);
+      const showToast = useToast();
 
       const l1 = getLanguageByCode(set.lang1);
       const l2 = getLanguageByCode(set.lang2);
 
       const addWord = (word) => {
         onUpdateSet({ ...set, words: [...set.words, word] });
+        showToast('تم إضافة الكلمة!', 'success');
       };
 
       const updateWord = (updated) => {
@@ -857,11 +1880,13 @@
           words: set.words.map((w) => (w.id === updated.id ? updated : w)),
         });
         setEditingId(null);
+        showToast('تم تحديث الكلمة', 'success');
       };
 
       const deleteWord = (id) => {
         if (!confirm('حذف هذه الكلمة؟')) return;
         onUpdateSet({ ...set, words: set.words.filter((w) => w.id !== id) });
+        showToast('تم حذف الكلمة', 'info');
       };
 
       const archiveWord = (id) => {
@@ -869,6 +1894,7 @@
           ...set,
           words: set.words.map((w) => (w.id === id ? { ...w, archived: !w.archived } : w)),
         });
+        showToast('تم نقل الكلمة للمحفوظات', 'info');
       };
 
       const activeWords = set.words.filter((w) => !w.archived);
@@ -957,9 +1983,47 @@
           )}
 
           {activeWords.length > 0 && (
-            <button className="btn btn-primary btn-block btn-large" onClick={onStartGame}>
-              🎮 ابدأ اللعبة ({activeWords.length} كلمة)
-            </button>
+            <>
+              <button className="btn btn-primary btn-block btn-large" onClick={() => onStartGame('flashcards')}>
+                🎮 لعبة البطاقات ({activeWords.length} كلمة)
+              </button>
+              <button className="btn btn-secondary btn-block" onClick={() => setShowGames(true)}>
+                🎯 ألعاب أخرى
+              </button>
+            </>
+          )}
+
+          {showGames && (
+            <div className="modal-overlay" onClick={() => setShowGames(false)}>
+              <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <h2>اختر لعبة</h2>
+                <div className="games-grid">
+                  <div className="game-card" onClick={() => { onStartGame('mcq'); setShowGames(false); }}>
+                    <div className="game-icon">🎯</div>
+                    <div className="game-name">اختيار من متعدد</div>
+                    <div className="game-desc">4 خيارات</div>
+                  </div>
+                  <div className="game-card" onClick={() => { onStartGame('spelling'); setShowGames(false); }}>
+                    <div className="game-icon">✍️</div>
+                    <div className="game-name">الإملاء</div>
+                    <div className="game-desc">اكتب الكلمة</div>
+                  </div>
+                  <div className="game-card" onClick={() => { onStartGame('matching'); setShowGames(false); }}>
+                    <div className="game-icon">🔗</div>
+                    <div className="game-name">المطابقة</div>
+                    <div className="game-desc">طابق الكلمات</div>
+                  </div>
+                  <div className="game-card" onClick={() => { onStartGame('speed'); setShowGames(false); }}>
+                    <div className="game-icon">⚡</div>
+                    <div className="game-name">الكتابة السريعة</div>
+                    <div className="game-desc">سرعة + دقة</div>
+                  </div>
+                </div>
+                <button className="btn btn-secondary btn-block" style={{ marginTop: '16px' }} onClick={() => setShowGames(false)}>
+                  إغلاق
+                </button>
+              </div>
+            </div>
           )}
         </div>
       );
@@ -972,6 +2036,7 @@
       const [editingCard, setEditingCard] = useState(null);
       const [editWord, setEditWord] = useState('');
       const [editTrans, setEditTrans] = useState('');
+      const showToast = useToast();
 
       const l1 = getLanguageByCode(set.lang1);
       const l2 = getLanguageByCode(set.lang2);
@@ -1027,6 +2092,7 @@
         );
         onUpdateSet({ ...set, words: updatedWords });
         setEditingCard(null);
+        showToast('تم تحديث الكلمة', 'success');
       };
 
       const handleArchive = (id) => {
@@ -1043,6 +2109,12 @@
         const updatedWords = set.words.filter((w) => w.id !== id);
         onUpdateSet({ ...set, words: updatedWords });
       };
+
+      useKeyboardShortcuts({
+        ' ': () => handleAnswer(true),
+        'Enter': () => handleAnswer(true),
+        'Escape': onExit,
+      });
 
       if (!currentCard) {
         return (
@@ -1073,6 +2145,8 @@
               card={currentCard}
               lang1Label={`${l1.flag} ${l1.name}`}
               lang2Label={`${l2.flag} ${l2.name}`}
+              lang1Code={set.lang1}
+              lang2Code={set.lang2}
               onCorrect={() => handleAnswer(true)}
               onWrong={() => handleAnswer(false)}
               onEdit={handleEdit}
@@ -1105,6 +2179,351 @@
               </div>
             </div>
           )}
+        </div>
+      );
+    }
+
+    // ==================== لعبة: Multiple Choice ====================
+    function MCQGame({ set, onUpdateSet, onFinish, onExit }) {
+      const [currentIndex, setCurrentIndex] = useState(0);
+      const [results, setResults] = useState([]);
+      const [selected, setSelected] = useState(null);
+      const [options, setOptions] = useState([]);
+      const { speak } = useSpeech();
+
+      const l1 = getLanguageByCode(set.lang1);
+      const l2 = getLanguageByCode(set.lang2);
+
+      const cards = useMemo(() => {
+        const active = set.words.filter((w) => !w.archived);
+        return [...active].sort(() => Math.random() - 0.5);
+      }, [set.id]);
+
+      const currentCard = cards[currentIndex];
+
+      useEffect(() => {
+        if (!currentCard) return;
+
+        // Generate 4 options (1 correct + 3 wrong)
+        const allTranslations = set.words.filter((w) => !w.archived).map((w) => w.translation);
+        const wrongOptions = allTranslations
+          .filter((t) => t !== currentCard.translation)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3);
+
+        const allOptions = [...wrongOptions, currentCard.translation].sort(() => Math.random() - 0.5);
+        setOptions(allOptions);
+        setSelected(null);
+      }, [currentIndex, currentCard]);
+
+      const handleSelect = (option) => {
+        if (selected !== null) return;
+
+        const correct = option === currentCard.translation;
+        setSelected(option);
+
+        const newResults = [...results, { id: currentCard.id, correct }];
+        setResults(newResults);
+
+        const updatedWords = set.words.map((w) => {
+          if (w.id !== currentCard.id) return w;
+          return {
+            ...w,
+            errors: w.errors + (correct ? 0 : 1),
+            correct: w.correct + (correct ? 1 : 0),
+          };
+        });
+        onUpdateSet({ ...set, words: updatedWords });
+
+        setTimeout(() => {
+          if (currentIndex + 1 >= cards.length) {
+            onFinish(newResults, cards);
+          } else {
+            setCurrentIndex(currentIndex + 1);
+          }
+        }, 1000);
+      };
+
+      if (!currentCard) {
+        return (
+          <div className="page">
+            <p>لا توجد كلمات للعب</p>
+            <button className="btn btn-primary" onClick={onExit}>رجوع</button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="page game-page">
+          <header className="game-header">
+            <button className="icon-btn" onClick={onExit}>✕</button>
+            <div className="game-info">
+              <div className="game-title">{set.name} - اختيار من متعدد</div>
+              <div className="game-counter">السؤال {currentIndex + 1} من {cards.length}</div>
+            </div>
+          </header>
+
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${(currentIndex / cards.length) * 100}%` }} />
+          </div>
+
+          <div className="mcq-game">
+            <div className="mcq-word">
+              <button
+                className="speak-btn"
+                style={{ position: 'absolute', top: '16px', right: '16px' }}
+                onClick={() => speak(currentCard.word, set.lang1)}
+              >
+                🔊
+              </button>
+              {currentCard.word}
+            </div>
+
+            <div className="mcq-options">
+              {options.map((option, idx) => {
+                let className = 'mcq-option';
+                if (selected !== null) {
+                  if (option === currentCard.translation) className += ' correct';
+                  else if (option === selected) className += ' wrong';
+                }
+
+                return (
+                  <button
+                    key={idx}
+                    className={className}
+                    onClick={() => handleSelect(option)}
+                    disabled={selected !== null}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== لعبة: Spelling ====================
+    function SpellingGame({ set, onUpdateSet, onFinish, onExit }) {
+      const [currentIndex, setCurrentIndex] = useState(0);
+      const [results, setResults] = useState([]);
+      const [userInput, setUserInput] = useState('');
+      const [feedback, setFeedback] = useState(null);
+      const { speak } = useSpeech();
+
+      const l1 = getLanguageByCode(set.lang1);
+      const l2 = getLanguageByCode(set.lang2);
+
+      const cards = useMemo(() => {
+        const active = set.words.filter((w) => !w.archived);
+        return [...active].sort(() => Math.random() - 0.5);
+      }, [set.id]);
+
+      const currentCard = cards[currentIndex];
+
+      useEffect(() => {
+        if (currentCard) {
+          speak(currentCard.translation, set.lang2);
+        }
+      }, [currentIndex, currentCard]);
+
+      const handleSubmit = () => {
+        if (!userInput.trim() || feedback) return;
+
+        const correct = userInput.trim().toLowerCase() === currentCard.word.toLowerCase();
+        setFeedback(correct ? 'correct' : 'wrong');
+
+        const newResults = [...results, { id: currentCard.id, correct }];
+        setResults(newResults);
+
+        const updatedWords = set.words.map((w) => {
+          if (w.id !== currentCard.id) return w;
+          return {
+            ...w,
+            errors: w.errors + (correct ? 0 : 1),
+            correct: w.correct + (correct ? 1 : 0),
+          };
+        });
+        onUpdateSet({ ...set, words: updatedWords });
+
+        setTimeout(() => {
+          if (currentIndex + 1 >= cards.length) {
+            onFinish(newResults, cards);
+          } else {
+            setCurrentIndex(currentIndex + 1);
+            setUserInput('');
+            setFeedback(null);
+          }
+        }, 1500);
+      };
+
+      if (!currentCard) {
+        return (
+          <div className="page">
+            <p>لا توجد كلمات للعب</p>
+            <button className="btn btn-primary" onClick={onExit}>رجوع</button>
+          </div>
+        );
+      }
+
+      return (
+        <div className="page game-page">
+          <header className="game-header">
+            <button className="icon-btn" onClick={onExit}>✕</button>
+            <div className="game-info">
+              <div className="game-title">{set.name} - الإملاء</div>
+              <div className="game-counter">السؤال {currentIndex + 1} من {cards.length}</div>
+            </div>
+          </header>
+
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${(currentIndex / cards.length) * 100}%` }} />
+          </div>
+
+          <div className="spelling-game">
+            <div className="mcq-word">
+              <button
+                className="speak-btn"
+                style={{ position: 'absolute', top: '16px', right: '16px' }}
+                onClick={() => speak(currentCard.translation, set.lang2)}
+              >
+                🔊
+              </button>
+              استمع واكتب الكلمة
+            </div>
+
+            <input
+              type="text"
+              className={`spelling-input ${feedback || ''}`}
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSubmit();
+              }}
+              placeholder="اكتب الكلمة هنا..."
+              disabled={!!feedback}
+              autoFocus
+            />
+
+            {feedback === 'wrong' && (
+              <div style={{ textAlign: 'center', color: 'var(--danger)', fontSize: '18px', fontWeight: '600', margin: '16px 0' }}>
+                ❌ الإجابة الصحيحة: {currentCard.word}
+              </div>
+            )}
+
+            {feedback === 'correct' && (
+              <div style={{ textAlign: 'center', color: 'var(--success)', fontSize: '18px', fontWeight: '600', margin: '16px 0' }}>
+                ✅ صحيح!
+              </div>
+            )}
+
+            <button className="btn btn-primary btn-block" onClick={handleSubmit} disabled={!userInput.trim() || !!feedback}>
+              تحقق
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // ==================== لعبة: Matching ====================
+    function MatchingGame({ set, onUpdateSet, onFinish, onExit }) {
+      const [words, setWords] = useState([]);
+      const [translations, setTranslations] = useState([]);
+      const [selectedWord, setSelectedWord] = useState(null);
+      const [selectedTranslation, setSelectedTranslation] = useState(null);
+      const [matched, setMatched] = useState(new Set());
+      const [results, setResults] = useState([]);
+
+      useEffect(() => {
+        const active = set.words.filter((w) => !w.archived).slice(0, 6);
+        const shuffledWords = [...active].sort(() => Math.random() - 0.5);
+        const shuffledTranslations = [...active].sort(() => Math.random() - 0.5);
+        setWords(shuffledWords);
+        setTranslations(shuffledTranslations);
+      }, [set.id]);
+
+      const checkMatch = () => {
+        if (selectedWord && selectedTranslation) {
+          const correct = selectedWord.id === selectedTranslation.id;
+
+          if (correct) {
+            setMatched((prev) => new Set([...prev, selectedWord.id]));
+            setResults([...results, { id: selectedWord.id, correct: true }]);
+
+            const updatedWords = set.words.map((w) => {
+              if (w.id !== selectedWord.id) return w;
+              return { ...w, correct: w.correct + 1 };
+            });
+            onUpdateSet({ ...set, words: updatedWords });
+
+            if (matched.size + 1 === words.length) {
+              setTimeout(() => {
+                onFinish(results.concat([{ id: selectedWord.id, correct: true }]), words);
+              }, 500);
+            }
+          } else {
+            setResults([...results, { id: selectedWord.id, correct: false }]);
+
+            const updatedWords = set.words.map((w) => {
+              if (w.id !== selectedWord.id) return w;
+              return { ...w, errors: w.errors + 1 };
+            });
+            onUpdateSet({ ...set, words: updatedWords });
+          }
+
+          setTimeout(() => {
+            setSelectedWord(null);
+            setSelectedTranslation(null);
+          }, 500);
+        }
+      };
+
+      useEffect(() => {
+        if (selectedWord && selectedTranslation) {
+          checkMatch();
+        }
+      }, [selectedWord, selectedTranslation]);
+
+      return (
+        <div className="page game-page">
+          <header className="game-header">
+            <button className="icon-btn" onClick={onExit}>✕</button>
+            <div className="game-info">
+              <div className="game-title">{set.name} - المطابقة</div>
+              <div className="game-counter">طابق {matched.size} من {words.length}</div>
+            </div>
+          </header>
+
+          <div className="matching-game">
+            <div className="matching-columns">
+              <div className="matching-column">
+                {words.map((w) => (
+                  <button
+                    key={w.id}
+                    className={`matching-item ${selectedWord?.id === w.id ? 'selected' : ''} ${matched.has(w.id) ? 'matched' : ''}`}
+                    onClick={() => !matched.has(w.id) && setSelectedWord(w)}
+                    disabled={matched.has(w.id)}
+                  >
+                    {w.word}
+                  </button>
+                ))}
+              </div>
+
+              <div className="matching-column">
+                {translations.map((w) => (
+                  <button
+                    key={w.id}
+                    className={`matching-item ${selectedTranslation?.id === w.id ? 'selected' : ''} ${matched.has(w.id) ? 'matched' : ''}`}
+                    onClick={() => !matched.has(w.id) && setSelectedTranslation(w)}
+                    disabled={matched.has(w.id)}
+                  >
+                    {w.translation}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -1196,7 +2615,7 @@
     }
 
     // ==================== صفحة: Archive ====================
-    function Archive({ sets, onUpdateSet, onBack }) {
+    function Archive({ sets, onUpdateSet, onBack, onPlayArchived }) {
       const allArchived = sets.flatMap((s) =>
         s.words.filter((w) => w.archived).map((w) => ({ ...w, setId: s.id, setName: s.name, set: s }))
       );
@@ -1222,6 +2641,12 @@
             <button className="icon-btn" onClick={onBack}>← رجوع</button>
             <h1>📦 المحفوظات</h1>
           </header>
+
+          {allArchived.length > 0 && (
+            <button className="btn btn-primary btn-block" onClick={() => onPlayArchived(allArchived)}>
+              🎮 لعب لعبة البطاقات بالكلمات المحفوظة ({allArchived.length})
+            </button>
+          )}
 
           {allArchived.length === 0 ? (
             <div className="empty-state">
@@ -1259,13 +2684,15 @@
 
     // ==================== التطبيق الرئيسي ====================
     function App() {
-      const [sets, setSets] = useLocalStorage('linguaflash-sets', []);
+      const [sets, setSets] = useLocalStorage('vocaflow-sets', []);
       const [view, setView] = useState('home');
       const [currentSetId, setCurrentSetId] = useState(null);
       const [gameResults, setGameResults] = useState(null);
       const [gameCards, setGameCards] = useState(null);
       const [retryMode, setRetryMode] = useState(null);
       const [gameKey, setGameKey] = useState(0);
+      const [gameType, setGameType] = useState('flashcards');
+      const [archivedGameWords, setArchivedGameWords] = useState(null);
 
       const currentSet = sets.find((s) => s.id === currentSetId);
 
@@ -1281,7 +2708,8 @@
         setView('editor');
       };
 
-      const startGame = (mode = 'all') => {
+      const startGame = (type = 'flashcards', mode = 'all') => {
+        setGameType(type);
         setRetryMode(mode);
         setGameKey(Date.now());
         setView('game');
@@ -1299,9 +2727,26 @@
         setGameResults(null);
         setGameCards(null);
         setRetryMode(null);
+        setArchivedGameWords(null);
+      };
+
+      const playArchived = (archivedWords) => {
+        // Create a temporary set with archived words
+        const tempSet = {
+          id: 'archived-temp',
+          name: 'الكلمات المحفوظة',
+          lang1: archivedWords[0]?.set?.lang1 || 'fr',
+          lang2: archivedWords[0]?.set?.lang2 || 'ar',
+          words: archivedWords.map(w => ({ ...w, archived: false })),
+        };
+        setArchivedGameWords(tempSet);
+        setGameType('flashcards');
+        setGameKey(Date.now());
+        setView('game');
       };
 
       const gameSet = (() => {
+        if (archivedGameWords) return archivedGameWords;
         if (!currentSet) return null;
         if (retryMode === 'wrong' && gameCards) {
           const wrongIds = new Set(gameResults.filter((r) => !r.correct).map((r) => r.id));
@@ -1329,11 +2774,41 @@
               set={currentSet}
               onUpdateSet={updateSet}
               onBack={goHome}
-              onStartGame={() => startGame('all')}
+              onStartGame={startGame}
             />
           )}
-          {view === 'game' && gameSet && (
+          {view === 'game' && gameSet && gameType === 'flashcards' && (
             <FlashcardsGame
+              key={gameKey}
+              set={gameSet}
+              onUpdateSet={archivedGameWords ? () => {} : updateSet}
+              onFinish={finishGame}
+              onExit={() => {
+                setArchivedGameWords(null);
+                setView(archivedGameWords ? 'archive' : 'editor');
+              }}
+            />
+          )}
+          {view === 'game' && gameSet && gameType === 'mcq' && (
+            <MCQGame
+              key={gameKey}
+              set={gameSet}
+              onUpdateSet={updateSet}
+              onFinish={finishGame}
+              onExit={() => setView('editor')}
+            />
+          )}
+          {view === 'game' && gameSet && gameType === 'spelling' && (
+            <SpellingGame
+              key={gameKey}
+              set={gameSet}
+              onUpdateSet={updateSet}
+              onFinish={finishGame}
+              onExit={() => setView('editor')}
+            />
+          )}
+          {view === 'game' && gameSet && gameType === 'matching' && (
+            <MatchingGame
               key={gameKey}
               set={gameSet}
               onUpdateSet={updateSet}
@@ -1345,21 +2820,35 @@
             <Results
               results={gameResults}
               cards={gameCards}
-              onRetry={() => startGame('all')}
-              onRetryWrong={() => startGame('wrong')}
+              onRetry={() => startGame(gameType, 'all')}
+              onRetryWrong={() => startGame(gameType, 'wrong')}
               onHome={goHome}
             />
           )}
           {view === 'archive' && (
-            <Archive sets={sets} onUpdateSet={updateSet} onBack={goHome} />
+            <Archive
+              sets={sets}
+              onUpdateSet={updateSet}
+              onBack={goHome}
+              onPlayArchived={playArchived}
+            />
           )}
         </div>
       );
     }
 
     // ==================== التشغيل ====================
+    function Root() {
+      return (
+        <ToastProvider>
+          <App />
+        </ToastProvider>
+      );
+    }
+
     const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    root.render(<Root />);
   </script>
 </body>
 </html>
+
