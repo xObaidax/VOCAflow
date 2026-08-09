@@ -90,8 +90,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0%, transparent 40%),
+  background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0%, transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(240,147,251,0.06) 0%, transparent 40%);
   pointer-events: none;
   z-index: 0;
@@ -326,25 +325,39 @@ body::before {
   margin-top: 2px;
 }
 
+/* ============ IMPROVED PROFILE CARD ============ */
 .profile-card {
   background: var(--glass-bg-strong);
   backdrop-filter: blur(25px) saturate(180%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: 22px;
+  padding: 26px;
   box-shadow: var(--glass-shadow-deep);
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .profile-card::before {
   content: '';
   position: absolute;
-  top: -60px;
-  right: -60px;
+  top: -80px;
+  right: -80px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(240,147,251,0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.profile-card::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
   width: 180px;
   height: 180px;
-  background: radial-gradient(circle, rgba(240,147,251,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(102,126,234,0.12) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -352,33 +365,35 @@ body::before {
 .profile-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 20px;
+  margin-bottom: 20px;
   position: relative;
   z-index: 2;
 }
 
 .avatar {
-  width: 72px;
-  height: 72px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 44px;
   font-weight: 900;
   flex-shrink: 0;
-  box-shadow: 0 8px 24px rgba(102,126,234,0.4);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.5), 0 12px 32px rgba(102,126,234,0.5);
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  border: 3px solid rgba(255,255,255,0.7);
 }
 
 .avatar:hover {
-  transform: scale(1.05);
+  transform: scale(1.06);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.6), 0 16px 40px rgba(102,126,234,0.6), 0 0 30px rgba(240,147,251,0.4);
 }
 
 .avatar img {
@@ -390,12 +405,18 @@ body::before {
 .avatar::after {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -6px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary));
   z-index: -1;
-  opacity: 0.4;
-  filter: blur(10px);
+  opacity: 0.5;
+  filter: blur(16px);
+  animation: avatarGlow 3s ease-in-out infinite;
+}
+
+@keyframes avatarGlow {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.06); }
 }
 
 .profile-info {
@@ -404,10 +425,10 @@ body::before {
 }
 
 .profile-greeting {
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--text);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   line-height: 1.3;
 }
 
@@ -424,16 +445,17 @@ body::before {
 }
 
 .profile-note {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-light);
-  line-height: 1.4;
+  line-height: 1.5;
+  font-weight: 500;
 }
 
 .profile-stats {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   flex-wrap: wrap;
-  padding-top: 16px;
+  padding-top: 18px;
   border-top: 1px solid rgba(102,126,234,0.15);
   position: relative;
   z-index: 2;
@@ -451,33 +473,33 @@ body::before {
 .stat-item .value {
   color: var(--text);
   font-weight: 800;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .stat-item .stat-label {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-light);
   font-weight: 600;
 }
 
 .profile-actions {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 20px;
+  right: 20px;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   z-index: 3;
 }
 
 [dir="rtl"] .profile-actions {
   right: auto;
-  left: 18px;
+  left: 20px;
 }
 
-/* ============ ADVANCED FLAME - BIG (96px) ============ */
+/* ============ SMALLER ADVANCED FLAME (48px) ============ */
 .flame-advanced {
-  width: 96px;
-  height: 96px;
+  width: 48px;
+  height: 48px;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -487,7 +509,7 @@ body::before {
 }
 
 .flame-advanced:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .flame-advanced svg.flame-svg {
@@ -500,12 +522,12 @@ body::before {
 
 @keyframes flameFlicker {
   0%,100% { transform: scaleY(1) scaleX(1); opacity: 1; }
-  15% { transform: scaleY(0.96) scaleX(1.02); opacity: 0.95; }
-  30% { transform: scaleY(1.03) scaleX(0.98); opacity: 1; }
-  45% { transform: scaleY(0.98) scaleX(1.01); opacity: 0.97; }
-  60% { transform: scaleY(1.02) scaleX(0.97); opacity: 1; }
-  75% { transform: scaleY(0.97) scaleX(1.03); opacity: 0.98; }
-  90% { transform: scaleY(1.01) scaleX(0.99); opacity: 0.96; }
+  15% { transform: scaleY(0.94) scaleX(1.03); opacity: 0.93; }
+  30% { transform: scaleY(1.04) scaleX(0.97); opacity: 1; }
+  45% { transform: scaleY(0.96) scaleX(1.02); opacity: 0.95; }
+  60% { transform: scaleY(1.03) scaleX(0.96); opacity: 1; }
+  75% { transform: scaleY(0.95) scaleX(1.04); opacity: 0.96; }
+  90% { transform: scaleY(1.02) scaleX(0.98); opacity: 0.94; }
 }
 
 .flame-advanced .flame-num {
@@ -515,45 +537,45 @@ body::before {
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 28px;
+  font-size: 15px;
   z-index: 3;
   line-height: 1;
   font-family: 'Inter', sans-serif;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .flame-num-light {
   color: #1F2937 !important;
-  text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 0 6px rgba(255,255,255,0.9), 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .flame-num-dark {
   color: #FFFFFF !important;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.7), 0 0 12px rgba(255,255,255,0.4);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7), 0 0 8px rgba(255,255,255,0.4);
 }
 
 .flame-particles {
   position: absolute;
-  inset: 0;
+  inset: -10px;
   pointer-events: none;
   overflow: visible;
 }
 
 .flame-particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   background: radial-gradient(circle, #FFEB3B, transparent);
   border-radius: 50%;
-  bottom: 50%;
+  bottom: 55%;
   left: 50%;
-  animation: particleFloat 2.5s ease-out infinite;
+  animation: particleFloat 2.2s ease-out infinite;
 }
 
 @keyframes particleFloat {
-  0% { transform: translate(0, 0) scale(1); opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { transform: translate(var(--px, 0px), var(--py, -40px)) scale(0.3); opacity: 0; }
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { transform: translate(var(--px,0px), var(--py,-30px)) scale(0.2); opacity: 0; }
 }
 
 .flame-rainbow svg.flame-svg {
@@ -561,26 +583,26 @@ body::before {
 }
 
 @keyframes rainbowFlame {
-  0%,100% { filter: drop-shadow(0 0 25px rgba(255,107,53,0.9)) drop-shadow(0 0 45px rgba(255,107,53,0.5)); }
-  25% { filter: drop-shadow(0 0 30px rgba(255,255,255,1)) drop-shadow(0 0 50px rgba(255,255,255,0.7)); }
-  50% { filter: drop-shadow(0 0 25px rgba(91,127,255,0.9)) drop-shadow(0 0 45px rgba(91,127,255,0.5)); }
-  75% { filter: drop-shadow(0 0 25px rgba(168,85,247,0.9)) drop-shadow(0 0 45px rgba(168,85,247,0.5)); }
+  0%,100% { filter: drop-shadow(0 0 12px rgba(255,107,53,0.9)) drop-shadow(0 0 20px rgba(255,107,53,0.5)); }
+  25% { filter: drop-shadow(0 0 16px rgba(255,255,255,1)) drop-shadow(0 0 26px rgba(255,255,255,0.7)); }
+  50% { filter: drop-shadow(0 0 12px rgba(91,127,255,0.9)) drop-shadow(0 0 20px rgba(91,127,255,0.5)); }
+  75% { filter: drop-shadow(0 0 12px rgba(168,85,247,0.9)) drop-shadow(0 0 20px rgba(168,85,247,0.5)); }
 }
 
 .flame-red svg.flame-svg {
-  filter: drop-shadow(0 0 22px rgba(255,107,53,0.9)) drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 0 10px rgba(255,107,53,0.85)) drop-shadow(0 2px 6px rgba(0,0,0,0.25));
 }
 
 .flame-blue svg.flame-svg {
-  filter: drop-shadow(0 0 22px rgba(91,127,255,0.9)) drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 0 10px rgba(91,127,255,0.85)) drop-shadow(0 2px 6px rgba(0,0,0,0.25));
 }
 
 .flame-purple svg.flame-svg {
-  filter: drop-shadow(0 0 22px rgba(168,85,247,0.9)) drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 0 10px rgba(168,85,247,0.85)) drop-shadow(0 2px 6px rgba(0,0,0,0.25));
 }
 
 .flame-white svg.flame-svg {
-  filter: drop-shadow(0 0 22px rgba(252,211,77,0.95)) drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  filter: drop-shadow(0 0 10px rgba(252,211,77,0.9)) drop-shadow(0 2px 6px rgba(0,0,0,0.25));
 }
 
 /* ============ DROPDOWN ============ */
@@ -844,6 +866,54 @@ body::before {
   color: #1F2937;
 }
 
+/* ============ GAMES HEADER ============ */
+.games-header-wrap {
+  margin: 28px 0 6px;
+  position: relative;
+}
+
+.games-header-title {
+  font-size: 26px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-shadow: none;
+  animation: headerGlow 3s ease-in-out infinite;
+  letter-spacing: -0.01em;
+}
+
+@keyframes headerGlow {
+  0%,100% { filter: drop-shadow(0 0 8px rgba(102,126,234,0.3)); }
+  50% { filter: drop-shadow(0 0 18px rgba(240,147,251,0.5)); }
+}
+
+.games-header-title .header-emoji {
+  font-size: 34px;
+  -webkit-text-fill-color: initial;
+  animation: bounceEmoji 2s ease-in-out infinite;
+}
+
+@keyframes bounceEmoji {
+  0%,100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-4px); }
+}
+
+.games-header-desc {
+  font-size: 13px;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-top: 4px;
+  padding-left: 44px;
+  opacity: 0.85;
+}
+
 /* ============ GAMES GRID ============ */
 .section-title {
   margin: 28px 0 14px;
@@ -925,7 +995,317 @@ body::before {
   color: var(--text);
 }
 
-/* ============ EDITOR ============ */
+/* ============ STATS CARDS GRID ============ */
+.stats-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(var(--shadow-color),0.15);
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.stat-card.card-sessions::after { background: linear-gradient(90deg, #667EEA, #5B7FFF); }
+.stat-card.card-best::after { background: linear-gradient(90deg, #FFD700, #F59E0B); }
+.stat-card.card-total::after { background: linear-gradient(90deg, #10B981, #34D399); }
+.stat-card.card-time::after { background: linear-gradient(90deg, #A855F7, #C084FC); }
+.stat-card.card-activity::after { background: linear-gradient(90deg, #F093FB, #F5576C); }
+
+.stat-card-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.stat-card-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.stat-card-label {
+  font-size: 11px;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ============ WORD RUNNER GAME ============ */
+.runner-sky {
+  background: linear-gradient(180deg, #87CEEB 0%, #E0F2FE 60%, #C8E6C9 100%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  min-height: 440px;
+  border: 2px solid rgba(102,126,234,0.2);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] .runner-sky {
+  background: linear-gradient(180deg, #1a2a4a 0%, #2d3a5c 60%, #1a3a2a 100%);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.runner-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(180deg, #8BC34A 0%, #689F38 100%);
+  border-radius: 20px 20px 0 0;
+}
+
+[data-theme="dark"] .runner-ground {
+  background: linear-gradient(180deg, #3a5a2a 0%, #2a4a1a 100%);
+}
+
+.runner-character {
+  position: absolute;
+  bottom: 50px;
+  left: 80px;
+  transition: bottom 0.35s cubic-bezier(0.4,0,0.2,1);
+  z-index: 3;
+}
+
+.runner-character.jumping {
+  bottom: 140px;
+}
+
+.runner-character.hit {
+  animation: runnerShake 0.5s ease-out;
+}
+
+@keyframes runnerShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(4px); }
+}
+
+.runner-word-block {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 14px 24px;
+  border-radius: var(--radius);
+  font-size: 26px;
+  font-weight: 900;
+  color: #1F2937;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 4;
+  text-align: center;
+  border: 3px solid #667EEA;
+}
+
+[data-theme="dark"] .runner-word-block {
+  background: #374151;
+  color: #F3F4F6;
+  border-color: #A855F7;
+}
+
+.runner-options {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.runner-option-btn {
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: 2px solid white;
+  background: rgba(255,255,255,0.9);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  color: #1F2937;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+.runner-option-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.runner-option-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============ BOMB WORD GAME ============ */
+.bomb-container {
+  background: var(--glass-bg-strong);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  text-align: center;
+  border: 2px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-deep);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.bomb-container.danger-shake {
+  animation: dangerShake 0.4s ease-in-out infinite;
+  border-color: var(--danger);
+  box-shadow: 0 0 30px rgba(239,68,68,0.4);
+}
+
+@keyframes dangerShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.bomb-explosion {
+  animation: bombExplode 0.6s ease-out forwards;
+}
+
+@keyframes bombExplode {
+  0% { transform: scale(1); opacity: 1; }
+  30% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.bomb-timer-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 20px;
+}
+
+.bomb-svg {
+  width: 100px;
+  height: 100px;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+  transition: transform 0.3s;
+}
+
+.bomb-timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  font-weight: 900;
+  font-family: 'Inter', sans-serif;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  z-index: 2;
+}
+
+.bomb-word {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 16px 0;
+  color: var(--text);
+}
+
+.bomb-options {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.bomb-option-btn {
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--input-border);
+  background: var(--glass-bg-strong);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 15px;
+  color: var(--text);
+  min-width: 90px;
+}
+
+.bomb-option-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: 0 6px 16px rgba(102,126,234,0.2);
+}
+
+.bomb-option-btn.correct-pick {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: #065F46;
+}
+
+.bomb-option-btn.wrong-pick {
+  background: var(--danger-light);
+  border-color: var(--danger);
+  color: #991B1B;
+}
+
+/* Confetti */
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confettiFall 2s ease-out forwards;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(400px) rotate(720deg) scale(0.3); opacity: 0; }
+}
+
+/* ============ EDITOR & REST ============ */
 .page-header {
   display: flex;
   align-items: center;
@@ -1773,22 +2153,22 @@ body::before {
   }
 
   .avatar {
-    width: 60px;
-    height: 60px;
-    font-size: 26px;
+    width: 90px;
+    height: 90px;
+    font-size: 36px;
   }
 
   .profile-greeting {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .flame-advanced {
-    width: 80px;
-    height: 80px;
+    width: 42px;
+    height: 42px;
   }
 
   .flame-advanced .flame-num {
-    font-size: 24px;
+    font-size: 13px;
   }
 
   .grid-2,
@@ -1826,11 +2206,38 @@ body::before {
   .flashcard {
     min-height: 320px;
   }
+
+  .stats-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .runner-word-block {
+    font-size: 20px;
+    padding: 10px 16px;
+  }
+
+  .runner-options {
+    bottom: 90px;
+    gap: 6px;
+  }
+
+  .runner-option-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .bomb-word {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 400px) {
   .games-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-cards-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -1958,11 +2365,14 @@ const LOCALES = {
     firstLang: "اللغة الأولى",
     secondLang: "اللغة الثانية",
     games: "الألعاب",
+    gamesDesc: "اختر لعبتك وابدأ اللعب! 🚀",
     flashcards: "البطاقات",
     mcq: "اختيار من متعدد",
     spelling: "الإملاء",
     matching: "المطابقة",
     speed: "السرعة",
+    wordRunner: "عدّاء الكلمات",
+    bombWord: "كلمة القنبلة",
     sanctuary: "ملجأك الآمن",
     sanctuarySubtitle: "كلمات ثمينة بأمان",
     preciousWords: "كلمات ثمينة",
@@ -2048,12 +2458,20 @@ const LOCALES = {
     totalWords: "إجمالي الكلمات",
     totalSessions: "إجمالي الجلسات",
     bestScore: "أفضل نتيجة",
+    totalTime: "إجمالي الوقت",
     profilePic: "صورة البروفايل",
     uploadPic: "رفع صورة",
     changePic: "تغيير الصورة",
     errorOccurred: "حدث خطأ",
     speechError: "خطأ في النطق",
-    translationError: "خطأ في الترجمة"
+    translationError: "خطأ في الترجمة",
+    runnerStart: "ابدأ الجري! 🏃",
+    runnerGameOver: "سقطت! 💥",
+    runnerScore: "النقاط",
+    bombStart: "فكّر بسرعة! 💣",
+    bombExploded: "انفجرت! 💥",
+    bombDefused: "تم التعطيل! 🎉",
+    bombScore: "النقاط"
   },
   en: {
     appName: "VOCAflow Pro",
@@ -2069,11 +2487,14 @@ const LOCALES = {
     firstLang: "First language",
     secondLang: "Second language",
     games: "Games",
+    gamesDesc: "Choose your game and start playing! 🚀",
     flashcards: "Flashcards",
     mcq: "Multiple Choice",
     spelling: "Spelling",
     matching: "Matching",
     speed: "Speed",
+    wordRunner: "Word Runner",
+    bombWord: "Bomb Word",
     sanctuary: "Your Sanctuary",
     sanctuarySubtitle: "Precious words in safety",
     preciousWords: "precious words",
@@ -2159,12 +2580,20 @@ const LOCALES = {
     totalWords: "Total Words",
     totalSessions: "Total Sessions",
     bestScore: "Best Score",
+    totalTime: "Total Time",
     profilePic: "Profile Picture",
     uploadPic: "Upload Picture",
     changePic: "Change Picture",
     errorOccurred: "An error occurred",
     speechError: "Speech error",
-    translationError: "Translation error"
+    translationError: "Translation error",
+    runnerStart: "Start running! 🏃",
+    runnerGameOver: "You fell! 💥",
+    runnerScore: "Score",
+    bombStart: "Think fast! 💣",
+    bombExploded: "Exploded! 💥",
+    bombDefused: "Defused! 🎉",
+    bombScore: "Score"
   },
   fr: {
     appName: "VOCAflow Pro",
@@ -2180,11 +2609,14 @@ const LOCALES = {
     firstLang: "Première langue",
     secondLang: "Deuxième langue",
     games: "Jeux",
+    gamesDesc: "Choisissez votre jeu et jouez ! 🚀",
     flashcards: "Cartes",
     mcq: "QCM",
     spelling: "Orthographe",
     matching: "Associer",
     speed: "Vitesse",
+    wordRunner: "Coureur de Mots",
+    bombWord: "Mot Bombe",
     sanctuary: "Votre Sanctuaire",
     sanctuarySubtitle: "Mots précieux en sécurité",
     preciousWords: "mots précieux",
@@ -2270,12 +2702,20 @@ const LOCALES = {
     totalWords: "Total",
     totalSessions: "Sessions",
     bestScore: "Meilleur",
+    totalTime: "Temps Total",
     profilePic: "Photo",
     uploadPic: "Télécharger",
     changePic: "Changer",
     errorOccurred: "Une erreur est survenue",
     speechError: "Erreur vocale",
-    translationError: "Erreur de traduction"
+    translationError: "Erreur de traduction",
+    runnerStart: "Courez ! 🏃",
+    runnerGameOver: "Tombé ! 💥",
+    runnerScore: "Score",
+    bombStart: "Vite ! 💣",
+    bombExploded: "Explosé ! 💥",
+    bombDefused: "Désamorcée ! 🎉",
+    bombScore: "Score"
   },
   es: {
     appName: "VOCAflow Pro",
@@ -2291,11 +2731,14 @@ const LOCALES = {
     firstLang: "Primer idioma",
     secondLang: "Segundo idioma",
     games: "Juegos",
+    gamesDesc: "¡Elige tu juego y empieza a jugar! 🚀",
     flashcards: "Tarjetas",
     mcq: "Opción múltiple",
     spelling: "Ortografía",
     matching: "Emparejar",
     speed: "Velocidad",
+    wordRunner: "Corredor de Palabras",
+    bombWord: "Palabra Bomba",
     sanctuary: "Tu Santuario",
     sanctuarySubtitle: "Palabras preciosas en seguridad",
     preciousWords: "palabras preciosas",
@@ -2381,12 +2824,20 @@ const LOCALES = {
     totalWords: "Total",
     totalSessions: "Sesiones",
     bestScore: "Mejor",
+    totalTime: "Tiempo Total",
     profilePic: "Foto",
     uploadPic: "Subir",
     changePic: "Cambiar",
     errorOccurred: "Ocurrió un error",
     speechError: "Error de voz",
-    translationError: "Error de traducción"
+    translationError: "Error de traducción",
+    runnerStart: "¡A correr! 🏃",
+    runnerGameOver: "¡Caíste! 💥",
+    runnerScore: "Puntos",
+    bombStart: "¡Rápido! 💣",
+    bombExploded: "¡Explotó! 💥",
+    bombDefused: "¡Desactivada! 🎉",
+    bombScore: "Puntos"
   },
   de: {
     appName: "VOCAflow Pro",
@@ -2402,11 +2853,14 @@ const LOCALES = {
     firstLang: "Erste Sprache",
     secondLang: "Zweite Sprache",
     games: "Spiele",
+    gamesDesc: "Wähle dein Spiel und leg los! 🚀",
     flashcards: "Karten",
     mcq: "Multiple Choice",
     spelling: "Rechtschreibung",
     matching: "Zuordnen",
     speed: "Tempo",
+    wordRunner: "Wortläufer",
+    bombWord: "Bombenwort",
     sanctuary: "Dein Heiligtum",
     sanctuarySubtitle: "Kostbare Wörter in Sicherheit",
     preciousWords: "kostbare Wörter",
@@ -2492,12 +2946,20 @@ const LOCALES = {
     totalWords: "Gesamt",
     totalSessions: "Sitzungen",
     bestScore: "Beste",
+    totalTime: "Gesamtzeit",
     profilePic: "Foto",
     uploadPic: "Hochladen",
     changePic: "Ändern",
     errorOccurred: "Ein Fehler ist aufgetreten",
     speechError: "Sprachfehler",
-    translationError: "Übersetzungsfehler"
+    translationError: "Übersetzungsfehler",
+    runnerStart: "Los rennen! 🏃",
+    runnerGameOver: "Gefallen! 💥",
+    runnerScore: "Punkte",
+    bombStart: "Schnell denken! 💣",
+    bombExploded: "Explodiert! 💥",
+    bombDefused: "Entschärft! 🎉",
+    bombScore: "Punkte"
   },
   pt: {
     appName: "VOCAflow Pro",
@@ -2513,11 +2975,14 @@ const LOCALES = {
     firstLang: "Primeiro idioma",
     secondLang: "Segundo idioma",
     games: "Jogos",
+    gamesDesc: "Escolha seu jogo e comece a jogar! 🚀",
     flashcards: "Cartões",
     mcq: "Múltipla escolha",
     spelling: "Ortografia",
     matching: "Combinar",
     speed: "Velocidade",
+    wordRunner: "Corredor de Palavras",
+    bombWord: "Palavra Bomba",
     sanctuary: "Seu Santuário",
     sanctuarySubtitle: "Palavras preciosas em segurança",
     preciousWords: "palavras preciosas",
@@ -2603,12 +3068,20 @@ const LOCALES = {
     totalWords: "Total",
     totalSessions: "Sessões",
     bestScore: "Melhor",
+    totalTime: "Tempo Total",
     profilePic: "Foto",
     uploadPic: "Enviar",
     changePic: "Alterar",
     errorOccurred: "Ocorreu um erro",
     speechError: "Erro de voz",
-    translationError: "Erro de tradução"
+    translationError: "Erro de tradução",
+    runnerStart: "Comece a correr! 🏃",
+    runnerGameOver: "Você caiu! 💥",
+    runnerScore: "Pontos",
+    bombStart: "Pense rápido! 💣",
+    bombExploded: "Explodiu! 💥",
+    bombDefused: "Desarmada! 🎉",
+    bombScore: "Pontos"
   },
   ja: {
     appName: "VOCAflow Pro",
@@ -2624,11 +3097,14 @@ const LOCALES = {
     firstLang: "第一言語",
     secondLang: "第二言語",
     games: "ゲーム",
+    gamesDesc: "ゲームを選んでプレイしよう！ 🚀",
     flashcards: "フラッシュカード",
     mcq: "選択問題",
     spelling: "スペリング",
     matching: "マッチング",
     speed: "スピード",
+    wordRunner: "ワードランナー",
+    bombWord: "ボムワード",
     sanctuary: "あなたのサンクチュアリ",
     sanctuarySubtitle: "大切な言葉を安全に",
     preciousWords: "大切な言葉",
@@ -2714,12 +3190,20 @@ const LOCALES = {
     totalWords: "総単語数",
     totalSessions: "総セッション",
     bestScore: "最高スコア",
+    totalTime: "総時間",
     profilePic: "プロフィール写真",
     uploadPic: "アップロード",
     changePic: "変更",
     errorOccurred: "エラーが発生しました",
     speechError: "音声エラー",
-    translationError: "翻訳エラー"
+    translationError: "翻訳エラー",
+    runnerStart: "走り出せ！ 🏃",
+    runnerGameOver: "落ちた！ 💥",
+    runnerScore: "スコア",
+    bombStart: "早く考えて！ 💣",
+    bombExploded: "爆発！ 💥",
+    bombDefused: "解除！ 🎉",
+    bombScore: "スコア"
   }
 };
 
@@ -2731,7 +3215,6 @@ function I18nProvider({ children }) {
     try {
       const saved = localStorage.getItem("vocaflow_locale");
       if (saved && LOCALES[saved]) return saved;
-      
       const browserLangs = navigator.languages || [navigator.language || "en"];
       for (const lang of browserLangs) {
         const code = lang.split('-')[0];
@@ -2776,7 +3259,7 @@ const ToastContext = createContext();
 
 function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
-  
+
   const showToast = useCallback((message, type = "info") => {
     try {
       const id = uid();
@@ -2828,7 +3311,7 @@ function ThemeProvider({ children }) {
   }, [theme]);
 
   const toggle = () => setTheme(t => t === "light" ? "dark" : "light");
-  
+
   return (
     <ThemeContext.Provider value={{ theme, toggle }}>
       {children}
@@ -2869,7 +3352,6 @@ function useSpeech(rate = 0.92, pitch = 1.0) {
 
   useEffect(() => {
     if (!window.speechSynthesis) return;
-    
     const loadVoices = () => {
       try {
         const available = window.speechSynthesis.getVoices();
@@ -2879,82 +3361,38 @@ function useSpeech(rate = 0.92, pitch = 1.0) {
         logger.error('Voice Load', e);
       }
     };
-    
     loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
-    
     return () => {
-      try {
-        window.speechSynthesis.onvoiceschanged = null;
-      } catch {}
+      try { window.speechSynthesis.onvoiceschanged = null; } catch {}
     };
   }, []);
 
   const getPreferredVoice = useCallback((lang) => {
     try {
       if (!voicesLoaded || voices.length === 0) return null;
-      
       const langMap = {
-        ar: [
-          { name: "Microsoft Hamed", lang: "ar-SA" },
-          { name: "Microsoft Salma", lang: "ar-EG" },
-          { lang: "ar-SA" },
-          { lang: "ar" }
-        ],
-        en: [
-          { name: "Microsoft Aria", lang: "en-US" },
-          { name: "Microsoft Jenny", lang: "en-US" },
-          { name: "Google US", lang: "en-US" },
-          { lang: "en-US" }
-        ],
-        fr: [
-          { name: "Microsoft Henri", lang: "fr-FR" },
-          { name: "Microsoft Denise", lang: "fr-FR" },
-          { lang: "fr-FR" },
-          { lang: "fr" }
-        ],
-        es: [
-          { name: "Microsoft Elvira", lang: "es-ES" },
-          { lang: "es-ES" },
-          { lang: "es" }
-        ],
-        de: [
-          { name: "Microsoft Katja", lang: "de-DE" },
-          { lang: "de-DE" },
-          { lang: "de" }
-        ],
-        pt: [
-          { name: "Microsoft Francisca", lang: "pt-BR" },
-          { lang: "pt-PT" },
-          { lang: "pt" }
-        ],
-        ja: [
-          { name: "Microsoft Nanami", lang: "ja-JP" },
-          { name: "Google 日本語", lang: "ja-JP" },
-          { lang: "ja-JP" },
-          { lang: "ja" }
-        ]
+        ar: [{ name: "Hamed", lang: "ar-SA" }, { name: "Salma", lang: "ar-EG" }, { lang: "ar-SA" }, { lang: "ar" }],
+        en: [{ name: "Aria", lang: "en-US" }, { name: "Jenny", lang: "en-US" }, { name: "Google US", lang: "en-US" }, { lang: "en-US" }],
+        fr: [{ name: "Denise", lang: "fr-FR" }, { name: "Henri", lang: "fr-FR" }, { name: "Google français", lang: "fr-FR" }, { lang: "fr-FR" }],
+        es: [{ name: "Elvira", lang: "es-ES" }, { lang: "es-ES" }],
+        de: [{ name: "Katja", lang: "de-DE" }, { lang: "de-DE" }],
+        pt: [{ name: "Francisca", lang: "pt-BR" }, { lang: "pt-PT" }],
+        ja: [{ name: "Nanami", lang: "ja-JP" }, { name: "Google 日本語", lang: "ja-JP" }, { lang: "ja-JP" }]
       };
-      
       const candidates = langMap[lang] || [{ lang }];
-      
       for (const pref of candidates) {
         if (pref.name) {
-          const match = voices.find(v => 
-            v.name.includes(pref.name) && 
-            (!pref.lang || v.lang.startsWith(pref.lang.split('-')[0]))
-          );
+          const match = voices.find(v => v.name.includes(pref.name) && (!pref.lang || v.lang.startsWith(pref.lang.split('-')[0])));
           if (match) return match;
         }
       }
-      
       for (const pref of candidates) {
         if (pref.lang) {
           const match = voices.find(v => v.lang === pref.lang);
           if (match) return match;
         }
       }
-      
       for (const pref of candidates) {
         if (pref.lang) {
           const prefix = pref.lang.split('-')[0];
@@ -2962,63 +3400,34 @@ function useSpeech(rate = 0.92, pitch = 1.0) {
           if (match) return match;
         }
       }
-      
       return null;
-    } catch (e) {
-      logger.error('getPreferredVoice', e);
-      return null;
-    }
+    } catch (e) { return null; }
   }, [voices, voicesLoaded]);
 
   const speak = useCallback((text, lang, options = {}) => {
     try {
       if (!window.speechSynthesis || !text) return;
-      
       window.speechSynthesis.cancel();
       const processed = text.trim();
       if (!processed) return;
-
       const utterance = new SpeechSynthesisUtterance(processed);
       utterance.rate = options.rate || rate;
       utterance.pitch = options.pitch || pitch;
       utterance.volume = options.volume || 1.0;
-      
-      const langMap = {
-        ar: "ar-SA",
-        en: "en-US",
-        fr: "fr-FR",
-        es: "es-ES",
-        de: "de-DE",
-        pt: "pt-BR",
-        ja: "ja-JP"
-      };
-      
+      const langMap = { ar: "ar-SA", en: "en-US", fr: "fr-FR", es: "es-ES", de: "de-DE", pt: "pt-BR", ja: "ja-JP" };
       utterance.lang = langMap[lang] || lang || "en-US";
       const preferred = getPreferredVoice(lang);
       if (preferred) utterance.voice = preferred;
-      
       utterance.onstart = () => setSpeaking(true);
       utterance.onend = () => setSpeaking(false);
-      utterance.onerror = (e) => {
-        logger.error('Speech', e);
-        setSpeaking(false);
-      };
-      
+      utterance.onerror = (e) => { logger.error('Speech', e); setSpeaking(false); };
       if (window.speechSynthesis.paused) window.speechSynthesis.resume();
       window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      logger.error('Speak', e);
-      setSpeaking(false);
-    }
+    } catch (e) { setSpeaking(false); }
   }, [getPreferredVoice, rate, pitch]);
 
   const cancel = useCallback(() => {
-    try {
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-      setSpeaking(false);
-    } catch (e) {
-      logger.error('Cancel Speech', e);
-    }
+    try { if (window.speechSynthesis) window.speechSynthesis.cancel(); setSpeaking(false); } catch {}
   }, []);
 
   return { speak, cancel, speaking, voices, voicesLoaded };
@@ -3028,115 +3437,61 @@ function useSpeech(rate = 0.92, pitch = 1.0) {
 function useTranslation() {
   const [loading, setLoading] = useState(false);
   const cacheRef = useRef({});
-
   const translate = useCallback(async (text, from, to) => {
     try {
-      if (!text || text.trim().length < 1 || from === to) {
-        return { text, suggestions: [] };
-      }
-      
+      if (!text || text.trim().length < 1 || from === to) return { text, suggestions: [] };
       const key = `${from}|${to}|${text.trim().toLowerCase()}`;
       if (cacheRef.current[key]) return cacheRef.current[key];
-      
       setLoading(true);
-
       const q = encodeURIComponent(text.trim());
       const url = `https://api.mymemory.translated.net/get?q=${q}&langpair=${from}|${to}`;
-      
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-
       try {
         const res = await fetch(url, { signal: controller.signal });
         clearTimeout(timeoutId);
         const data = await res.json();
         const main = data?.responseData?.translatedText || "";
         const matches = data?.matches || [];
-        const suggestions = matches
-          .filter(m => m.translation && m.translation.toLowerCase() !== main.toLowerCase())
-          .slice(0, 3)
-          .map(m => m.translation);
-        
+        const suggestions = matches.filter(m => m.translation && m.translation.toLowerCase() !== main.toLowerCase()).slice(0, 3).map(m => m.translation);
         const result = { text: main, suggestions };
         cacheRef.current[key] = result;
         return result;
       } catch (fetchErr) {
         clearTimeout(timeoutId);
-        logger.error('Translation Fetch', fetchErr);
         return { text: "", suggestions: [] };
       }
-    } catch (e) {
-      logger.error('Translation', e);
-      return { text: "", suggestions: [] };
-    } finally {
-      setLoading(false);
-    }
+    } catch (e) { return { text: "", suggestions: [] }; }
+    finally { setLoading(false); }
   }, []);
-
   return { translate, loading };
 }
 
 // ============ USAGE TRACKING ============
 function useUsage() {
-  const [stored, setStored] = useLocalStorage("vocaflow_usage", {
-    total: 0,
-    daily: {},
-    sessions: 0,
-    bestScore: 0
-  });
-  
+  const [stored, setStored] = useLocalStorage("vocaflow_usage", { total: 0, daily: {}, sessions: 0, bestScore: 0 });
   const sessionRef = useRef(0);
   const [, forceUpdate] = useState(0);
 
   useEffect(() => {
-    const tick = setInterval(() => {
-      sessionRef.current += 1;
-      forceUpdate(n => n + 1);
-    }, 1000);
-
+    const tick = setInterval(() => { sessionRef.current += 1; forceUpdate(n => n + 1); }, 1000);
     const save = () => {
       try {
         const secs = sessionRef.current;
         if (secs > 0) {
           const day = new Date().toISOString().slice(0, 10);
-          setStored(prev => ({
-            total: (prev.total || 0) + secs,
-            sessions: (prev.sessions || 0) + 1,
-            bestScore: prev.bestScore || 0,
-            daily: {
-              ...(prev.daily || {}),
-              [day]: ((prev.daily?.[day]) || 0) + secs
-            }
-          }));
+          setStored(prev => ({ total: (prev.total || 0) + secs, sessions: (prev.sessions || 0) + 1, bestScore: prev.bestScore || 0, daily: { ...(prev.daily || {}), [day]: ((prev.daily?.[day]) || 0) + secs } }));
           sessionRef.current = 0;
         }
-      } catch (e) {
-        logger.error('Usage Save', e);
-      }
+      } catch {}
     };
-
     const periodic = setInterval(save, 30000);
     const onUnload = () => save();
     window.addEventListener("beforeunload", onUnload);
-
-    return () => {
-      clearInterval(tick);
-      clearInterval(periodic);
-      save();
-      window.removeEventListener("beforeunload", onUnload);
-    };
+    return () => { clearInterval(tick); clearInterval(periodic); save(); window.removeEventListener("beforeunload", onUnload); };
   }, []);
 
-  const updateBestScore = (pct) => {
-    try {
-      setStored(prev => ({
-        ...prev,
-        bestScore: Math.max(prev.bestScore || 0, pct)
-      }));
-    } catch (e) {
-      logger.error('Best Score', e);
-    }
-  };
+  const updateBestScore = (pct) => { try { setStored(prev => ({ ...prev, bestScore: Math.max(prev.bestScore || 0, pct) })); } catch {} };
 
   const day = new Date().toISOString().slice(0, 10);
   const total = (stored.total || 0) + sessionRef.current;
@@ -3146,117 +3501,107 @@ function useUsage() {
   const bestScore = stored.bestScore || 0;
 
   const weekDays = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    const key = d.toISOString().slice(0, 10);
-    weekDays.push({
-      label: d.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 2),
-      value: stored.daily?.[key] || 0
-    });
-  }
-  
+  for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const key = d.toISOString().slice(0, 10); weekDays.push({ label: d.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 2), value: stored.daily?.[key] || 0 }); }
   const maxWeek = Math.max(1, ...weekDays.map(d => d.value));
 
-  const fmt = (s) => {
-    if (s < 60) return s + "s";
-    if (s < 3600) return Math.floor(s / 60) + "m";
-    return Math.floor(s / 3600) + "h " + Math.floor((s % 3600) / 60) + "m";
-  };
+  const fmt = (s) => { if (s < 60) return s + "s"; if (s < 3600) return Math.floor(s / 60) + "m"; return Math.floor(s / 3600) + "h " + Math.floor((s % 3600) / 60) + "m"; };
 
   return { total, today, level, sessions, bestScore, weekDays, maxWeek, fmt, updateBestScore };
 }
 
-// ============ ADVANCED FLAME ============
+// ============ ADVANCED FLAME (48px - Smaller) ============
 function AdvancedFlame({ level }) {
   const { theme } = useTheme();
   const isRainbow = level >= 50;
   let colors, flameClass;
-  
-  if (isRainbow) {
-    colors = { main: "#FF6B35", inner: "#FFB088", highlight: "#FFE5D4" };
-    flameClass = "flame-rainbow";
-  } else if (level >= 30) {
-    colors = { main: "#A855F7", inner: "#C4B5FD", highlight: "#E9D5FF" };
-    flameClass = "flame-purple";
-  } else if (level >= 20) {
-    colors = { main: "#5B7FFF", inner: "#93C5FD", highlight: "#DBEAFE" };
-    flameClass = "flame-blue";
-  } else if (level >= 10) {
-    colors = { main: "#FBBF24", inner: "#FCD34D", highlight: "#FEF3C7" };
-    flameClass = "flame-white";
-  } else {
-    colors = { main: "#FF6B35", inner: "#FF8C42", highlight: "#FFEB3B" };
-    flameClass = "flame-red";
-  }
-  
-  const gradId = "fg-" + level + "-" + Math.random().toString(36).slice(2, 6);
+  if (isRainbow) { colors = { main: "#FF6B35", inner: "#FFB088", highlight: "#FFE5D4" }; flameClass = "flame-rainbow"; }
+  else if (level >= 30) { colors = { main: "#A855F7", inner: "#C4B5FD", highlight: "#E9D5FF" }; flameClass = "flame-purple"; }
+  else if (level >= 20) { colors = { main: "#5B7FFF", inner: "#93C5FD", highlight: "#DBEAFE" }; flameClass = "flame-blue"; }
+  else if (level >= 10) { colors = { main: "#FBBF24", inner: "#FCD34D", highlight: "#FEF3C7" }; flameClass = "flame-white"; }
+  else { colors = { main: "#FF6B35", inner: "#FF8C42", highlight: "#FFEB3B" }; flameClass = "flame-red"; }
 
-  const particles = useMemo(() => {
-    return Array.from({ length: 6 }, (_, i) => ({
-      id: i,
-      px: (Math.random() - 0.5) * 40,
-      py: -20 - Math.random() * 40,
-      delay: Math.random() * 2.5,
-      size: 2 + Math.random() * 3
-    }));
-  }, []);
+  const gradId = "fg-" + level + "-" + Math.random().toString(36).slice(2, 6);
+  const particles = useMemo(() => Array.from({ length: 5 }, (_, i) => ({ id: i, px: (Math.random() - 0.5) * 30, py: -15 - Math.random() * 30, delay: Math.random() * 2.2, size: 2 + Math.random() * 2 })), []);
 
   return (
     <div className={`flame-advanced ${flameClass}`}>
       <svg className="flame-svg" viewBox="0 0 100 120">
         <defs>
           <radialGradient id={gradId} cx="50%" cy="35%" r="65%">
-            <stop offset="0%" stopColor={colors.highlight} />
-            <stop offset="45%" stopColor={colors.inner} />
-            <stop offset="100%" stopColor={colors.main} />
+            <stop offset="0%" stopColor={colors.highlight} /><stop offset="45%" stopColor={colors.inner} /><stop offset="100%" stopColor={colors.main} />
           </radialGradient>
           <linearGradient id={gradId + "-inner"} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={colors.highlight} stopOpacity="0.95" />
-            <stop offset="100%" stopColor={colors.inner} stopOpacity="0.5" />
+            <stop offset="0%" stopColor={colors.highlight} stopOpacity="0.95" /><stop offset="100%" stopColor={colors.inner} stopOpacity="0.5" />
           </linearGradient>
           <linearGradient id={gradId + "-core"} x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-            <stop offset="100%" stopColor={colors.highlight} stopOpacity="0.7" />
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" /><stop offset="100%" stopColor={colors.highlight} stopOpacity="0.7" />
           </linearGradient>
         </defs>
-        <path
-          d="M50 4 C66 22 88 40 82 72 C78 100 60 114 50 114 C40 114 22 100 18 72 C12 40 34 22 50 4 Z"
-          fill={`url(#${gradId})`}
-          opacity="0.96"
-        />
-        <path
-          d="M50 24 C60 38 74 50 68 72 C64 90 55 100 50 100 C45 100 36 90 32 72 C26 50 40 38 50 24 Z"
-          fill={`url(#${gradId}-inner)`}
-          opacity="0.88"
-        />
-        <path
-          d="M50 50 C55 58 62 65 58 80 C56 90 52 95 50 95 C48 95 44 90 42 80 C38 65 45 58 50 50 Z"
-          fill={`url(#${gradId}-core)`}
-          opacity="0.95"
-        />
+        <path d="M50 4 C66 22 88 40 82 72 C78 100 60 114 50 114 C40 114 22 100 18 72 C12 40 34 22 50 4 Z" fill={`url(#${gradId})`} opacity="0.96" />
+        <path d="M50 24 C60 38 74 50 68 72 C64 90 55 100 50 100 C45 100 36 90 32 72 C26 50 40 38 50 24 Z" fill={`url(#${gradId}-inner)`} opacity="0.88" />
+        <path d="M50 50 C55 58 62 65 58 80 C56 90 52 95 50 95 C48 95 44 90 42 80 C38 65 45 58 50 50 Z" fill={`url(#${gradId}-core)`} opacity="0.95" />
         <ellipse cx="38" cy="58" rx="5" ry="11" fill="white" opacity="0.35" />
         <ellipse cx="60" cy="80" rx="3" ry="8" fill="white" opacity="0.25" />
       </svg>
-      
       <div className="flame-particles">
         {particles.map(p => (
-          <div
-            key={p.id}
-            className="flame-particle"
-            style={{
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              '--px': `${p.px}px`,
-              '--py': `${p.py}px`,
-              animationDelay: `${p.delay}s`
-            }}
-          />
+          <div key={p.id} className="flame-particle" style={{ width: `${p.size}px`, height: `${p.size}px`, '--px': `${p.px}px`, '--py': `${p.py}px`, animationDelay: `${p.delay}s` }} />
         ))}
       </div>
-      
-      <div className={`flame-num ${theme === 'dark' ? 'flame-num-dark' : 'flame-num-light'}`}>
-        {level}{isRainbow ? "+" : ""}
+      <div className={`flame-num ${theme === 'dark' ? 'flame-num-dark' : 'flame-num-light'}`}>{level}{isRainbow ? "+" : ""}</div>
+    </div>
+  );
+}
+
+// ============ STAT SVG ICONS ============
+function StatIconSessions() {
+  return (<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="rgba(102,126,234,0.15)" stroke="#667EEA" strokeWidth="2.5"/><path d="M24 12v12l8 5" stroke="#667EEA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/><circle cx="24" cy="12" r="3" fill="#667EEA"/></svg>);
+}
+function StatIconBest() {
+  return (<svg viewBox="0 0 48 48" fill="none"><path d="M24 4l5 15h15l-12 9 5 15-13-10-13 10 5-15-12-9h15l5-15z" fill="rgba(255,215,0,0.2)" stroke="#FFD700" strokeWidth="2.5" strokeLinejoin="round"/><path d="M24 12l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6l2-6z" fill="#FFD700"/></svg>);
+}
+function StatIconTotal() {
+  return (<svg viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="4" fill="rgba(16,185,129,0.12)" stroke="#10B981" strokeWidth="2.5"/><line x1="16" y1="14" x2="32" y2="14" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round"/><line x1="16" y1="20" x2="28" y2="20" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round"/><line x1="16" y1="26" x2="30" y2="26" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round"/><circle cx="36" cy="36" r="5" fill="#10B981"/><path d="M34 36l1.5 1.5 2.5-3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>);
+}
+function StatIconTime() {
+  return (<svg viewBox="0 0 48 48" fill="none"><path d="M8 10h32l-4 28H12L8 10z" fill="rgba(168,85,247,0.15)" stroke="#A855F7" strokeWidth="2.5" strokeLinejoin="round"/><line x1="24" y1="14" x2="24" y2="24" stroke="#A855F7" strokeWidth="3" strokeLinecap="round"/><line x1="24" y1="24" x2="30" y2="28" stroke="#A855F7" strokeWidth="2.5" strokeLinecap="round"/><circle cx="12" cy="10" r="2" fill="#A855F7"/><circle cx="36" cy="10" r="2" fill="#A855F7"/></svg>);
+}
+function StatIconActivity() {
+  return (<svg viewBox="0 0 48 48" fill="none"><polygon points="24,4 30,17 44,19 33,29 36,43 24,36 12,43 15,29 4,19 18,17" fill="rgba(240,147,251,0.2)" stroke="#F093FB" strokeWidth="2.5" strokeLinejoin="round"/><circle cx="24" cy="22" r="6" fill="#F093FB" opacity="0.6"/></svg>);
+}
+
+// ============ STATS PANEL (Improved) ============
+function StatsPanel({ usage, totalWords }) {
+  const { t } = useI18n();
+  const statsCards = [
+    { key: 'sessions', icon: <StatIconSessions />, value: usage.sessions, label: t('totalSessions'), cls: 'card-sessions' },
+    { key: 'best', icon: <StatIconBest />, value: usage.bestScore + '%', label: t('bestScore'), cls: 'card-best' },
+    { key: 'total', icon: <StatIconTotal />, value: totalWords, label: t('totalWords'), cls: 'card-total' },
+    { key: 'time', icon: <StatIconTime />, value: usage.fmt(usage.total), label: t('totalTime'), cls: 'card-time' },
+    { key: 'activity', icon: <StatIconActivity />, value: usage.fmt(usage.today), label: t('weeklyActivity'), cls: 'card-activity' }
+  ];
+
+  return (
+    <div className="editor-box glass">
+      <h3 style={{ marginBottom: 16, fontSize: 17, fontWeight: 800 }}>📊 {t("stats")}</h3>
+      <div className="stats-cards-grid">
+        {statsCards.map(card => (
+          <div key={card.key} className={`stat-card ${card.cls}`}>
+            <div className="stat-card-icon">{card.icon}</div>
+            <div className="stat-card-value">{card.value}</div>
+            <div className="stat-card-label">{card.label}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 20 }}>
+        <div className="muted" style={{ marginBottom: 10, fontWeight: 700 }}>{t("weeklyActivity")}</div>
+        <div className="stats-chart">
+          {usage.weekDays.map((d, i) => (
+            <div key={i} className="stats-bar" data-label={d.label} style={{ height: `${Math.max(8, (d.value / usage.maxWeek) * 100)}%` }}>
+              <div className="stats-bar-value">{d.value > 0 ? usage.fmt(d.value) : ""}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -3264,100 +3609,65 @@ function AdvancedFlame({ level }) {
 
 // ============ GAME ICONS ============
 function GameIcon({ type }) {
-  if (type === "flashcards") {
-    return (
-      <svg viewBox="0 0 48 48" fill="none">
-        <rect x="6" y="10" width="26" height="32" rx="4" fill="#667EEA" opacity="0.3" />
-        <rect x="10" y="6" width="26" height="32" rx="4" fill="#667EEA" opacity="0.6" />
-        <rect x="14" y="2" width="26" height="32" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" />
-        <path d="M20 10h14M20 16h14M20 22h10" stroke="#667EEA" strokeWidth="2.5" strokeLinecap="round" />
-      </svg>
-    );
-  }
-  
-  if (type === "mcq") {
-    return (
-      <svg viewBox="0 0 48 48" fill="none">
-        <rect x="4" y="6" width="40" height="10" rx="4" fill="white" stroke="#10B981" strokeWidth="2" />
-        <rect x="4" y="19" width="40" height="10" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" opacity="0.6" />
-        <rect x="4" y="32" width="40" height="10" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" opacity="0.4" />
-        <circle cx="12" cy="11" r="3" fill="#10B981" />
-        <path d="M10 11l2 2 3-3" stroke="white" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    );
-  }
-  
-  if (type === "spelling") {
-    return (
-      <svg viewBox="0 0 48 48" fill="none">
-        <rect x="6" y="8" width="36" height="32" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" />
-        <path d="M12 30l6-12 6 12" stroke="#667EEA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M28 30h8" stroke="#10B981" strokeWidth="3" strokeLinecap="round" />
-        <circle cx="38" cy="14" r="3" fill="#F59E0B" />
-      </svg>
-    );
-  }
-  
-  if (type === "matching") {
-    return (
-      <svg viewBox="0 0 48 48" fill="none">
-        <rect x="4" y="6" width="16" height="16" rx="3" fill="white" stroke="#667EEA" strokeWidth="2" />
-        <rect x="28" y="26" width="16" height="16" rx="3" fill="white" stroke="#10B981" strokeWidth="2" />
-        <path d="M20 14h4a4 4 0 0 1 4 4v10" stroke="#F59E0B" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <circle cx="12" cy="14" r="2" fill="#667EEA" />
-        <circle cx="36" cy="34" r="2" fill="#10B981" />
-      </svg>
-    );
-  }
-  
-  return (
-    <svg viewBox="0 0 48 48" fill="none">
-      <circle cx="24" cy="24" r="20" fill="#F59E0B" opacity="0.15" />
-      <path d="M24 8L28 20L40 24L28 28L24 40L20 28L8 24L20 20L24 8Z" fill="#F59E0B" />
-      <path d="M24 14L26 21L33 24L26 27L24 34L22 27L15 24L22 21L24 14Z" fill="#FCD34D" />
-    </svg>
-  );
+  if (type === "flashcards") return (<svg viewBox="0 0 48 48" fill="none"><rect x="6" y="10" width="26" height="32" rx="4" fill="#667EEA" opacity="0.3"/><rect x="10" y="6" width="26" height="32" rx="4" fill="#667EEA" opacity="0.6"/><rect x="14" y="2" width="26" height="32" rx="4" fill="white" stroke="#667EEA" strokeWidth="2"/><path d="M20 10h14M20 16h14M20 22h10" stroke="#667EEA" strokeWidth="2.5" strokeLinecap="round"/></svg>);
+  if (type === "mcq") return (<svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="40" height="10" rx="4" fill="white" stroke="#10B981" strokeWidth="2"/><rect x="4" y="19" width="40" height="10" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" opacity="0.6"/><rect x="4" y="32" width="40" height="10" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" opacity="0.4"/><circle cx="12" cy="11" r="3" fill="#10B981"/><path d="M10 11l2 2 3-3" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>);
+  if (type === "spelling") return (<svg viewBox="0 0 48 48" fill="none"><rect x="6" y="8" width="36" height="32" rx="4" fill="white" stroke="#667EEA" strokeWidth="2"/><path d="M12 30l6-12 6 12" stroke="#667EEA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/><path d="M28 30h8" stroke="#10B981" strokeWidth="3" strokeLinecap="round"/><circle cx="38" cy="14" r="3" fill="#F59E0B"/></svg>);
+  if (type === "matching") return (<svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="16" height="16" rx="3" fill="white" stroke="#667EEA" strokeWidth="2"/><rect x="28" y="26" width="16" height="16" rx="3" fill="white" stroke="#10B981" strokeWidth="2"/><path d="M20 14h4a4 4 0 0 1 4 4v10" stroke="#F59E0B" strokeWidth="2.5" fill="none" strokeLinecap="round"/><circle cx="12" cy="14" r="2" fill="#667EEA"/><circle cx="36" cy="34" r="2" fill="#10B981"/></svg>);
+  if (type === "speed") return (<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="none" stroke="#A855F7" strokeWidth="2.5"/><path d="M24 8v10M24 30v10M8 24h10M30 24h10" stroke="#A855F7" strokeWidth="3" strokeLinecap="round"/><path d="M14 14l7 7M27 27l7 7M14 34l7-7M27 21l7-7" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round"/><circle cx="24" cy="24" r="6" fill="#A855F7" opacity="0.4"/></svg>);
+  if (type === "wordRunner") return (<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="30" r="6" fill="#667EEA"/><path d="M18 30h-6l-3-6h6l3 6z" fill="#667EEA" opacity="0.7"/><line x1="6" y1="38" x2="42" y2="38" stroke="#10B981" strokeWidth="3" strokeLinecap="round"/><path d="M28 20l4-8 4 4-3 4h-5z" fill="#F59E0B" opacity="0.8"/></svg>);
+  if (type === "bombWord") return (<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="#1F2937" stroke="#EF4444" strokeWidth="2"/><path d="M24 8l3 6h4l-3 5 1 7-5-3-5 3 1-7-3-5h4l3-6z" fill="#F59E0B"/><circle cx="24" cy="22" r="3" fill="#EF4444"/></svg>);
+  return (<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="#F59E0B" opacity="0.15"/><path d="M24 8L28 20L40 24L28 28L24 40L20 28L8 24L20 20L24 8Z" fill="#F59E0B"/></svg>);
 }
 
 // ============ SPARKLE ============
 function useSparkle() {
   const [sparkles, setSparkles] = useState([]);
-  
   const trigger = useCallback((x, y) => {
     try {
       const id = uid();
       const newSparkles = [];
-      
       for (let i = 0; i < 10; i++) {
         const angle = (i / 10) * Math.PI * 2;
         const distance = 45 + Math.random() * 35;
-        newSparkles.push({
-          id: id + "-" + i,
-          x: x + Math.cos(angle) * distance,
-          y: y + Math.sin(angle) * distance,
-          emoji: ["✨","⭐","🌟","💫","🎉"][Math.floor(Math.random() * 5)]
+        newSparkles.push({ id: id + "-" + i, x: x + Math.cos(angle) * distance, y: y + Math.sin(angle) * distance, emoji: ["✨","⭐","🌟","💫","🎉"][Math.floor(Math.random() * 5)] });
+      }
+      setSparkles(prev => [...prev, ...newSparkles]);
+      setTimeout(() => { setSparkles(prev => prev.filter(s => !newSparkles.find(ns => ns.id === s.id))); }, 1200);
+    } catch {}
+  }, []);
+  return { sparkles, trigger };
+}
+
+// ============ CONFETTI ============
+function useConfetti() {
+  const [confetti, setConfetti] = useState([]);
+  const trigger = useCallback((containerEl) => {
+    try {
+      if (!containerEl) return;
+      const rect = containerEl.getBoundingClientRect();
+      const pieces = [];
+      const colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#FF6B9D','#C44DFF','#FF9F43'];
+      for (let i = 0; i < 40; i++) {
+        pieces.push({
+          id: uid(),
+          x: rect.width * Math.random(),
+          y: -20 - Math.random() * 60,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 6 + Math.random() * 10,
+          delay: Math.random() * 0.6,
+          rotation: Math.random() * 360
         });
       }
-      
-      setSparkles(prev => [...prev, ...newSparkles]);
-      
-      setTimeout(() => {
-        setSparkles(prev => prev.filter(s => !newSparkles.find(ns => ns.id === s.id)));
-      }, 1200);
-    } catch (e) {
-      logger.error('Sparkle', e);
-    }
+      setConfetti(pieces);
+      setTimeout(() => setConfetti([]), 2500);
+    } catch {}
   }, []);
-  
-  return { sparkles, trigger };
+  return { confetti, trigger };
 }
 
 // ============ DEFAULT DATA ============
 const DEFAULT_SETS = [{
-  id: "set_demo_1",
-  name: "Français → العربية",
-  lang1: "fr",
-  lang2: "ar",
+  id: "set_demo_1", name: "Français → العربية", lang1: "fr", lang2: "ar",
   words: [
     { id: "w1", word: "Bonjour", translation: "مرحباً" },
     { id: "w2", word: "Merci", translation: "شكراً" },
@@ -3365,71 +3675,38 @@ const DEFAULT_SETS = [{
     { id: "w4", word: "Livre", translation: "كتاب" },
     { id: "w5", word: "Maison", translation: "منزل" },
     { id: "w6", word: "Amour", translation: "حب" },
-    { id: "w7", word: "Famille", translation: "عائلة" }
+    { id: "w7", word: "Famille", translation: "عائلة" },
+    { id: "w8", word: "Voiture", translation: "سيارة" },
+    { id: "w9", word: "Chat", translation: "قطة" },
+    { id: "w10", word: "Chien", translation: "كلب" }
   ]
 }];
 
-// ============ PROFILE CARD ============
+// ============ PROFILE CARD (Improved) ============
 function ProfileCard({ user, usage, savedCount, onSettings, onLogin, onLogout, onThemeToggle, theme, onAvatarClick }) {
   const { t } = useI18n();
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : "👤";
   const greeting = user?.name ? `${t("welcomeBack")}, ${user.name}!` : t("welcomeGuest");
-
   return (
     <div className="profile-card">
       <div className="profile-actions">
-        <button
-          className="icon-btn"
-          onClick={onThemeToggle}
-          title={theme === "light" ? t("darkMode") : t("lightMode")}
-        >
-          {theme === "light" ? "🌙" : "☀️"}
-        </button>
-        <button className="icon-btn" onClick={onSettings} title={t("settings")}>
-          ⚙️
-        </button>
-        {user ? (
-          <button className="icon-btn danger" onClick={onLogout} title={t("logout")}>
-            🚪
-          </button>
-        ) : (
-          <button className="icon-btn" onClick={onLogin} title={t("login")}>
-            🔐
-          </button>
-        )}
+        <button className="icon-btn" onClick={onThemeToggle} title={theme === "light" ? t("darkMode") : t("lightMode")}>{theme === "light" ? "🌙" : "☀️"}</button>
+        <button className="icon-btn" onClick={onSettings} title={t("settings")}>⚙️</button>
+        {user ? <button className="icon-btn danger" onClick={onLogout} title={t("logout")}>🚪</button> : <button className="icon-btn" onClick={onLogin} title={t("login")}>🔐</button>}
       </div>
-      
       <div className="profile-header">
         <div className="avatar" onClick={onAvatarClick} title={t("changePic")}>
           {user?.avatar ? <img src={user.avatar} alt="profile" /> : initial}
         </div>
         <div className="profile-info">
-          <div className="profile-greeting">
-            {greeting} <span className="wave">👋</span>
-          </div>
+          <div className="profile-greeting">{greeting} <span className="wave">👋</span></div>
           <div className="profile-note">{t("guestNote")}</div>
         </div>
       </div>
-      
       <div className="profile-stats">
-        <div className="stat-item">
-          <AdvancedFlame level={usage.level} />
-          <span className="stat-label">{t("level")}</span>
-        </div>
-        <div className="stat-item">
-          <span style={{ fontSize: 24 }}>⏱️</span>
-          <span>
-            <span className="value">{usage.fmt(usage.today)}</span>
-            <div className="stat-label">{t("today")}</div>
-          </span>
-        </div>
-        <div className="stat-item">
-          <span style={{ fontSize: 24 }}>💎</span>
-          <span>
-            <span className="value">{savedCount}</span>
-            <div className="stat-label">{t("saved")}</div>
-          </span>
-        </div>
+        <div className="stat-item"><AdvancedFlame level={usage.level} /><span className="stat-label">{t("level")}</span></div>
+        <div className="stat-item"><span style={{ fontSize: 24 }}>⏱️</span><span><span className="value">{usage.fmt(usage.today)}</span><div className="stat-label">{t("today")}</div></span></div>
+        <div className="stat-item"><span style={{ fontSize: 24 }}>💎</span><span><span className="value">{savedCount}</span><div className="stat-label">{t("saved")}</div></span></div>
       </div>
     </div>
   );
@@ -3441,89 +3718,30 @@ function SelectSetDropdown({ sets, currentSetId, onSelect, onEdit, onDelete, onC
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const current = sets.find(s => s.id === currentSetId);
-  const filtered = sets
-    .filter(s => s.name.toLowerCase().includes(q.toLowerCase()))
-    .sort((a, b) => a.name.localeCompare(b.name));
-
+  const filtered = sets.filter(s => s.name.toLowerCase().includes(q.toLowerCase())).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="dropdown-wrapper">
       <button className="dropdown-trigger" onClick={() => setOpen(!open)}>
         <span>📂 {current ? current.name : t("selectSet")}</span>
         <span className={`arrow ${open ? "open" : ""}`}>▼</span>
       </button>
-      
       {open && (
         <div className="dropdown-menu">
-          <input
-            className="dropdown-search"
-            value={q}
-            onChange={e => setQ(e.target.value)}
-            placeholder={t("search")}
-            autoFocus
-          />
-          
-          {filtered.length === 0 && (
-            <div className="muted" style={{ padding: "14px" }}>
-              {t("noSet")}
-            </div>
-          )}
-          
+          <input className="dropdown-search" value={q} onChange={e => setQ(e.target.value)} placeholder={t("search")} autoFocus />
+          {filtered.length === 0 && <div className="muted" style={{ padding: "14px" }}>{t("noSet")}</div>}
           {filtered.map(set => {
-            const l1 = getLang(set.lang1);
-            const l2 = getLang(set.lang2);
+            const l1 = getLang(set.lang1); const l2 = getLang(set.lang2);
             return (
-              <div
-                key={set.id}
-                className="dropdown-item"
-                onClick={() => {
-                  onSelect(set.id);
-                  setOpen(false);
-                }}
-              >
-                <div className="dropdown-item-main">
-                  <div className="dropdown-item-name">
-                    {l1.flag} {l2.flag} {set.name}
-                  </div>
-                  <div className="dropdown-item-meta">
-                    {set.words.length} {t("words")}
-                  </div>
-                </div>
+              <div key={set.id} className="dropdown-item" onClick={() => { onSelect(set.id); setOpen(false); }}>
+                <div className="dropdown-item-main"><div className="dropdown-item-name">{l1.flag} {l2.flag} {set.name}</div><div className="dropdown-item-meta">{set.words.length} {t("words")}</div></div>
                 <div className="dropdown-item-actions">
-                  <button
-                    className="icon-btn"
-                    title={t("edit")}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEdit(set.id);
-                      setOpen(false);
-                    }}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    className="icon-btn danger"
-                    title={t("delete")}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (confirm(t("confirmDeleteSet"))) onDelete(set.id);
-                    }}
-                  >
-                    🗑️
-                  </button>
+                  <button className="icon-btn" title={t("edit")} onClick={(e) => { e.stopPropagation(); onEdit(set.id); setOpen(false); }}>✏️</button>
+                  <button className="icon-btn danger" title={t("delete")} onClick={(e) => { e.stopPropagation(); if (confirm(t("confirmDeleteSet"))) onDelete(set.id); }}>🗑️</button>
                 </div>
               </div>
             );
           })}
-          
-          <div
-            className="dropdown-item primary"
-            onClick={() => {
-              setOpen(false);
-              onCreate();
-            }}
-          >
-            ➕ {t("createSet")}
-          </div>
+          <div className="dropdown-item primary" onClick={() => { setOpen(false); onCreate(); }}>➕ {t("createSet")}</div>
         </div>
       )}
     </div>
@@ -3533,211 +3751,56 @@ function SelectSetDropdown({ sets, currentSetId, onSelect, onEdit, onDelete, onC
 // ============ WORD INPUT ============
 function WordInput({ fromLang, toLang, onSave, onCancel }) {
   const { t } = useI18n();
-  const [word, setWord] = useState("");
-  const [translation, setTranslation] = useState("");
-  const [manualEdit, setManualEdit] = useState(false);
-  const { translate, loading } = useTranslation();
-  const [autoResult, setAutoResult] = useState({ text: "", suggestions: [] });
-
+  const [word, setWord] = useState(""); const [translation, setTranslation] = useState(""); const [manualEdit, setManualEdit] = useState(false);
+  const { translate, loading } = useTranslation(); const [autoResult, setAutoResult] = useState({ text: "", suggestions: [] });
   useEffect(() => {
-    if (!manualEdit && word.trim().length >= 2) {
-      translate(word, fromLang, toLang).then(r => {
-        setAutoResult(r);
-        if (r.text && !manualEdit) setTranslation(r.text);
-      });
-    } else if (word.trim().length < 2) {
-      setAutoResult({ text: "", suggestions: [] });
-    }
+    if (!manualEdit && word.trim().length >= 2) { translate(word, fromLang, toLang).then(r => { setAutoResult(r); if (r.text && !manualEdit) setTranslation(r.text); }); }
+    else if (word.trim().length < 2) { setAutoResult({ text: "", suggestions: [] }); }
   }, [word, fromLang, toLang, manualEdit, translate]);
-
-  const handleSave = () => {
-    if (!word.trim() || !translation.trim()) return;
-    onSave({ id: "w" + uid(), word: word.trim(), translation: translation.trim() });
-    setWord("");
-    setTranslation("");
-    setManualEdit(false);
-    setAutoResult({ text: "", suggestions: [] });
-  };
-
-  const l1 = getLang(fromLang);
-  const l2 = getLang(toLang);
-
+  const handleSave = () => { if (!word.trim() || !translation.trim()) return; onSave({ id: "w" + uid(), word: word.trim(), translation: translation.trim() }); setWord(""); setTranslation(""); setManualEdit(false); setAutoResult({ text: "", suggestions: [] }); };
+  const l1 = getLang(fromLang); const l2 = getLang(toLang);
   return (
     <div className="editor-box glass">
-      <h3 style={{ marginBottom: 16, fontSize: 17, fontWeight: 800 }}>
-        ➕ {t("addWord")}
-      </h3>
-      
-      <div className="field">
-        <label>{l1.flag} {l1.name}</label>
-        <input
-          value={word}
-          onChange={e => setWord(e.target.value)}
-          placeholder={`${t("word")} (${l1.name})...`}
-          autoFocus
-        />
-      </div>
-      
-      <div className="field">
-        <label>{l2.flag} {l2.name}</label>
+      <h3 style={{ marginBottom: 16, fontSize: 17, fontWeight: 800 }}>➕ {t("addWord")}</h3>
+      <div className="field"><label>{l1.flag} {l1.name}</label><input value={word} onChange={e => setWord(e.target.value)} placeholder={`${t("word")} (${l1.name})...`} autoFocus /></div>
+      <div className="field"><label>{l2.flag} {l2.name}</label>
         <div className="translation-box">
-          <input
-            value={translation}
-            onChange={e => {
-              setTranslation(e.target.value);
-              setManualEdit(true);
-            }}
-            placeholder={loading ? t("translating") : `${t("translation")}...`}
-          />
-          <span className="translation-status">
-            {loading ? "⏳" : translation && !manualEdit ? "✨" : manualEdit ? "✏️" : ""}
-          </span>
+          <input value={translation} onChange={e => { setTranslation(e.target.value); setManualEdit(true); }} placeholder={loading ? t("translating") : `${t("translation")}...`} />
+          <span className="translation-status">{loading ? "⏳" : translation && !manualEdit ? "✨" : manualEdit ? "✏️" : ""}</span>
         </div>
-        
-        {autoResult.suggestions.length > 0 && !manualEdit && (
-          <div className="suggestions-list">
-            {autoResult.suggestions.map((s, i) => (
-              <div
-                key={i}
-                className="suggestion-chip"
-                onClick={() => {
-                  setTranslation(s);
-                  setManualEdit(true);
-                }}
-              >
-                💡 {s}
-              </div>
-            ))}
-          </div>
-        )}
+        {autoResult.suggestions.length > 0 && !manualEdit && (<div className="suggestions-list">{autoResult.suggestions.map((s, i) => (<div key={i} className="suggestion-chip" onClick={() => { setTranslation(s); setManualEdit(true); }}>💡 {s}</div>))}</div>)}
       </div>
-      
-      <div className="flex-row" style={{ gap: 8 }}>
-        <button
-          className="btn btn-success"
-          onClick={handleSave}
-          disabled={!word.trim() || !translation.trim()}
-          style={{ flex: 1 }}
-        >
-          💾 {t("add")}
-        </button>
-        {onCancel && (
-          <button className="btn btn-secondary" onClick={onCancel}>
-            {t("cancel")}
-          </button>
-        )}
-      </div>
+      <div className="flex-row" style={{ gap: 8 }}><button className="btn btn-success" onClick={handleSave} disabled={!word.trim() || !translation.trim()} style={{ flex: 1 }}>💾 {t("add")}</button>{onCancel && <button className="btn btn-secondary" onClick={onCancel}>{t("cancel")}</button>}</div>
     </div>
   );
 }
 
 // ============ SET EDITOR ============
 function SetEditor({ set, onBack, onUpdate, onDeleteWord }) {
-  const { t } = useI18n();
-  const toast = useToast();
-  const { speak } = useSpeech();
-  const [name, setName] = useState(set.name);
-  const [lang1, setLang1] = useState(set.lang1);
-  const [lang2, setLang2] = useState(set.lang2);
-
-  useEffect(() => {
-    setName(set.name);
-    setLang1(set.lang1);
-    setLang2(set.lang2);
-  }, [set.id]);
-
-  const saveSetInfo = () => {
-    onUpdate({ ...set, name, lang1, lang2 });
-    toast(t("savedMsg"), "success");
-  };
-
-  const addWord = (w) => {
-    onUpdate({ ...set, words: [...set.words, w] });
-    toast(t("savedMsg"), "success");
-  };
-
+  const { t } = useI18n(); const toast = useToast(); const { speak } = useSpeech();
+  const [name, setName] = useState(set.name); const [lang1, setLang1] = useState(set.lang1); const [lang2, setLang2] = useState(set.lang2);
+  useEffect(() => { setName(set.name); setLang1(set.lang1); setLang2(set.lang2); }, [set.id]);
+  const saveSetInfo = () => { onUpdate({ ...set, name, lang1, lang2 }); toast(t("savedMsg"), "success"); };
+  const addWord = (w) => { onUpdate({ ...set, words: [...set.words, w] }); toast(t("savedMsg"), "success"); };
   return (
     <div>
-      <div className="page-header">
-        <button className="btn btn-secondary" onClick={onBack}>
-          ← {t("back")}
-        </button>
-        <h2>✏️ {t("editor")}</h2>
-      </div>
-      
+      <div className="page-header"><button className="btn btn-secondary" onClick={onBack}>← {t("back")}</button><h2>✏️ {t("editor")}</h2></div>
       <div className="editor-box glass">
-        <div className="field">
-          <label>{t("setName")}</label>
-          <input value={name} onChange={e => setName(e.target.value)} />
-        </div>
-        
-        <div className="grid-2">
-          <div className="field">
-            <label>{t("firstLang")}</label>
-            <select value={lang1} onChange={e => setLang1(e.target.value)}>
-              {LANGS.map(l => (
-                <option key={l.code} value={l.code}>
-                  {l.flag} {l.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          
-          <div className="field">
-            <label>{t("secondLang")}</label>
-            <select value={lang2} onChange={e => setLang2(e.target.value)}>
-              {LANGS.map(l => (
-                <option key={l.code} value={l.code}>
-                  {l.flag} {l.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        
-        <button className="btn btn-primary" onClick={saveSetInfo}>
-          💾 {t("save")}
-        </button>
+        <div className="field"><label>{t("setName")}</label><input value={name} onChange={e => setName(e.target.value)} /></div>
+        <div className="grid-2"><div className="field"><label>{t("firstLang")}</label><select value={lang1} onChange={e => setLang1(e.target.value)}>{LANGS.map(l => (<option key={l.code} value={l.code}>{l.flag} {l.name}</option>))}</select></div><div className="field"><label>{t("secondLang")}</label><select value={lang2} onChange={e => setLang2(e.target.value)}>{LANGS.map(l => (<option key={l.code} value={l.code}>{l.flag} {l.name}</option>))}</select></div></div>
+        <button className="btn btn-primary" onClick={saveSetInfo}>💾 {t("save")}</button>
       </div>
-      
       <WordInput fromLang={lang1} toLang={lang2} onSave={addWord} />
-      
       <div className="editor-box glass">
-        <h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}>
-          📝 {t("words")} ({set.words.length})
-        </h3>
-        
-        {set.words.length === 0 && (
-          <div className="empty-state">
-            <div className="empty-icon">📚</div>
-            <div className="empty-text">{t("noWords")}</div>
-          </div>
-        )}
-        
+        <h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}>📝 {t("words")} ({set.words.length})</h3>
+        {set.words.length === 0 && (<div className="empty-state"><div className="empty-icon">📚</div><div className="empty-text">{t("noWords")}</div></div>)}
         {set.words.map(w => (
           <div key={w.id} className="word-row">
-            <div className="word-row-main">
-              <div className="word-row-text">{w.word}</div>
-              <div className="word-row-translation">→ {w.translation}</div>
-            </div>
+            <div className="word-row-main"><div className="word-row-text">{w.word}</div><div className="word-row-translation">→ {w.translation}</div></div>
             <div className="flex-row">
-              <button className="icon-btn" onClick={() => speak(w.word, lang1)}>
-                🔊
-              </button>
-              <button className="icon-btn" onClick={() => speak(w.translation, lang2)}>
-                🔊
-              </button>
-              <button
-                className="icon-btn danger"
-                onClick={() => {
-                  if (confirm(t("confirmDeleteWord"))) {
-                    onDeleteWord(set.id, w.id);
-                    toast(t("deleted"), "info");
-                  }
-                }}
-              >
-                🗑️
-              </button>
+              <button className="icon-btn" onClick={() => speak(w.word, lang1)} title="🔊">🔊</button>
+              <button className="icon-btn" onClick={() => speak(w.translation, lang2)} title="🔊">🔊</button>
+              <button className="icon-btn danger" onClick={() => { if (confirm(t("confirmDeleteWord"))) { onDeleteWord(set.id, w.id); toast(t("deleted"), "info"); } }}>🗑️</button>
             </div>
           </div>
         ))}
@@ -3750,21 +3813,11 @@ function SetEditor({ set, onBack, onUpdate, onDeleteWord }) {
 function Sanctuary({ count, onPlay }) {
   const { t } = useI18n();
   const countText = count === 1 ? t("preciousWordSingular") : `${count} ${t("preciousWords")}`;
-
   return (
     <div className="sanctuary">
       <div className="sanctuary-header">
-        <div className="sanctuary-info">
-          <div className="sanctuary-icon">🏰</div>
-          <div>
-            <div className="sanctuary-title">{t("sanctuary")}</div>
-            <div className="sanctuary-subtitle">{t("sanctuarySubtitle")}</div>
-            <span className="sanctuary-count">💎 {countText}</span>
-          </div>
-        </div>
-        <button className="btn btn-gold" onClick={onPlay} disabled={count === 0}>
-          ▶ {t("playSanctuary")}
-        </button>
+        <div className="sanctuary-info"><div className="sanctuary-icon">🏰</div><div><div className="sanctuary-title">{t("sanctuary")}</div><div className="sanctuary-subtitle">{t("sanctuarySubtitle")}</div><span className="sanctuary-count">💎 {countText}</span></div></div>
+        <button className="btn btn-gold" onClick={onPlay} disabled={count === 0}>▶ {t("playSanctuary")}</button>
       </div>
     </div>
   );
@@ -3772,562 +3825,327 @@ function Sanctuary({ count, onPlay }) {
 
 // ============ FLASHCARDS GAME ============
 function FlashcardsGame({ set, savedIds, onToggleSaved, onFinish, onExit, voiceSettings }) {
-  const { t } = useI18n();
-  const { speak, speaking } = useSpeech(voiceSettings.rate, voiceSettings.pitch);
-  const { sparkles, trigger } = useSparkle();
+  const { t } = useI18n(); const { speak, speaking } = useSpeech(voiceSettings.rate, voiceSettings.pitch); const { sparkles, trigger } = useSparkle();
   const cards = useMemo(() => shuffle(set.words), [set.id, set.words.length]);
-  const [idx, setIdx] = useState(0);
-  const [flipped, setFlipped] = useState(false);
-  const [results, setResults] = useState([]);
+  const [idx, setIdx] = useState(0); const [flipped, setFlipped] = useState(false); const [results, setResults] = useState([]);
   const card = cards[idx];
-
-  useEffect(() => {
-    setFlipped(false);
-  }, [idx]);
-
-  if (!card) {
-    return (
-      <div className="glass results-box">
-        <p>{t("noWords")}</p>
-        <button className="btn btn-primary" onClick={onExit}>
-          {t("home")}
-        </button>
-      </div>
-    );
-  }
-
+  useEffect(() => { setFlipped(false); }, [idx]);
+  if (!card) return (<div className="glass results-box"><p>{t("noWords")}</p><button className="btn btn-primary" onClick={onExit}>{t("home")}</button></div>);
   const answer = (ok, e) => {
-    if (ok && e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      trigger(rect.left + rect.width / 2, rect.top + rect.height / 2);
-    }
-    
-    const newResults = [
-      ...results,
-      { id: card.id, correct: ok, word: card.word, translation: card.translation }
-    ];
-    
+    if (ok && e) { const rect = e.currentTarget.getBoundingClientRect(); trigger(rect.left + rect.width / 2, rect.top + rect.height / 2); }
+    const newResults = [...results, { id: card.id, correct: ok, word: card.word, translation: card.translation }];
     setResults(newResults);
-    
-    if (idx + 1 >= cards.length) {
-      onFinish(newResults, cards);
-    } else {
-      setIdx(idx + 1);
-    }
+    if (idx + 1 >= cards.length) { onFinish(newResults, cards); } else { setIdx(idx + 1); }
   };
-
   const isSaved = savedIds.includes(card.id);
   const progress = cards.length ? ((idx + 1) / cards.length) * 100 : 0;
-  const l1 = getLang(set.lang1);
-  const l2 = getLang(set.lang2);
-
+  const l1 = getLang(set.lang1); const l2 = getLang(set.lang2);
   return (
     <div>
-      {sparkles.length > 0 && (
-        <div className="sparkle-container">
-          {sparkles.map(s => (
-            <div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>
-              {s.emoji}
-            </div>
-          ))}
-        </div>
-      )}
-      
-      <div className="game-header">
-        <button className="icon-btn" onClick={onExit}>✕</button>
-        <div style={{ textAlign: "center", flex: 1 }}>
-          <div className="game-title">{set.name}</div>
-          <div className="game-subtitle">
-            {t("card")} {idx + 1} {t("of")} {cards.length}
-          </div>
-        </div>
-        <button className="icon-btn" onClick={() => answer(false)}>⏭️</button>
-      </div>
-      
-      <div className="progress-bar">
-        <div className="progress-fill" style={{ width: progress + "%" }} />
-      </div>
-      
+      {sparkles.length > 0 && (<div className="sparkle-container">{sparkles.map(s => (<div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>{s.emoji}</div>))}</div>)}
+      <div className="game-header"><button className="icon-btn" onClick={onExit}>✕</button><div style={{ textAlign: "center", flex: 1 }}><div className="game-title">{set.name}</div><div className="game-subtitle">{t("card")} {idx + 1} {t("of")} {cards.length}</div></div><button className="icon-btn" onClick={() => answer(false)}>⏭️</button></div>
+      <div className="progress-bar"><div className="progress-fill" style={{ width: progress + "%" }} /></div>
       <div className="flashcard-wrap">
-        <div
-          className={`flashcard ${flipped ? "flipped" : ""}`}
-          onClick={() => setFlipped(f => !f)}
-        >
+        <div className={`flashcard ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(f => !f)}>
           <div className="face front">
-            <div className="card-top-actions">
-              <button
-                className={`card-round-btn ${isSaved ? "saved" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleSaved(card.id);
-                }}
-              >
-                {isSaved ? "⭐" : "☆"}
-              </button>
-              <span className="card-chip">
-                {idx + 1}/{cards.length}
-              </span>
-              <button
-                className={`card-round-btn ${speaking ? "speaking" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  speak(card.word, set.lang1);
-                }}
-              >
-                🔊
-              </button>
-            </div>
-            <div className="lang-label">
-              {l1.flag} {l1.name}
-            </div>
-            <div className="big">{card.word}</div>
-            <div className="hint">✨ {t("tapToFlip")}</div>
+            <div className="card-top-actions"><button className={`card-round-btn ${isSaved ? "saved" : ""}`} onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>{isSaved ? "⭐" : "☆"}</button><span className="card-chip">{idx + 1}/{cards.length}</span><button className={`card-round-btn ${speaking ? "speaking" : ""}`} onClick={(e) => { e.stopPropagation(); speak(card.word, set.lang1); }}>🔊</button></div>
+            <div className="lang-label">{l1.flag} {l1.name}</div><div className="big">{card.word}</div><div className="hint">✨ {t("tapToFlip")}</div>
           </div>
-          
           <div className="face back">
-            <div className="card-top-actions">
-              <button
-                className={`card-round-btn ${isSaved ? "saved" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleSaved(card.id);
-                }}
-              >
-                {isSaved ? "⭐" : "☆"}
-              </button>
-              <span className="card-chip">
-                {idx + 1}/{cards.length}
-              </span>
-              <button
-                className={`card-round-btn ${speaking ? "speaking" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  speak(card.translation, set.lang2);
-                }}
-              >
-                🔊
-              </button>
-            </div>
-            <div className="lang-label">
-              {l2.flag} {l2.name}
-            </div>
-            <div className="big">{card.translation}</div>
-            <div className="hint">✨ {t("tapToFlip")}</div>
+            <div className="card-top-actions"><button className={`card-round-btn ${isSaved ? "saved" : ""}`} onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>{isSaved ? "⭐" : "☆"}</button><span className="card-chip">{idx + 1}/{cards.length}</span><button className={`card-round-btn ${speaking ? "speaking" : ""}`} onClick={(e) => { e.stopPropagation(); speak(card.translation, set.lang2); }}>🔊</button></div>
+            <div className="lang-label">{l2.flag} {l2.name}</div><div className="big">{card.translation}</div><div className="hint">✨ {t("tapToFlip")}</div>
           </div>
         </div>
       </div>
-      
-      <div className="game-actions">
-        <button className="btn btn-danger btn-lg" onClick={() => answer(false)}>
-          ✗ {t("wrong")}
-        </button>
-        <button className="btn btn-success btn-lg" onClick={(e) => answer(true, e)}>
-          ✓ {t("correct")}
-        </button>
-      </div>
+      <div className="game-actions"><button className="btn btn-danger btn-lg" onClick={() => answer(false)}>✗ {t("wrong")}</button><button className="btn btn-success btn-lg" onClick={(e) => answer(true, e)}>✓ {t("correct")}</button></div>
     </div>
   );
 }
 
 // ============ MCQ GAME ============
 function MCQGame({ set, onFinish, onExit, speed, voiceSettings }) {
-  const { t } = useI18n();
-  const { speak } = useSpeech(voiceSettings.rate, voiceSettings.pitch);
-  const { sparkles, trigger } = useSparkle();
+  const { t } = useI18n(); const { speak } = useSpeech(voiceSettings.rate, voiceSettings.pitch); const { sparkles, trigger } = useSparkle();
   const cards = useMemo(() => shuffle(set.words), [set.id, set.words.length]);
-  const [idx, setIdx] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [options, setOptions] = useState([]);
-  const [results, setResults] = useState([]);
-  const [time, setTime] = useState(speed ? 10 : 0);
+  const [idx, setIdx] = useState(0); const [selected, setSelected] = useState(null); const [options, setOptions] = useState([]); const [results, setResults] = useState([]); const [time, setTime] = useState(speed ? 10 : 0);
   const card = cards[idx];
-
-  useEffect(() => {
-    if (!card) return;
-    
-    const others = set.words
-      .filter(w => w.id !== card.id)
-      .map(w => w.translation)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-    
-    setOptions(shuffle([card.translation, ...others]));
-    setSelected(null);
-    
-    if (speed) setTime(10);
-  }, [idx, card?.id]);
-
-  useEffect(() => {
-    if (!speed || selected !== null || !card) return;
-    
-    if (time <= 0) {
-      choose(null);
-      return;
-    }
-    
-    const timer = setTimeout(() => setTime(tt => tt - 1), 1000);
-    return () => clearTimeout(timer);
-  }, [time, speed, selected, card?.id]);
-
-  if (!card) {
-    return (
-      <div className="glass results-box">
-        <p>{t("noWords")}</p>
-        <button className="btn btn-primary" onClick={onExit}>
-          {t("home")}
-        </button>
-      </div>
-    );
-  }
-
-  const choose = (opt, e) => {
-    if (selected !== null) return;
-    
-    const ok = opt === card.translation;
-    
-    if (ok && e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      trigger(rect.left + rect.width / 2, rect.top + rect.height / 2);
-    }
-    
-    setSelected(opt === null ? "__timeout__" : opt);
-    
-    const res = [
-      ...results,
-      { id: card.id, correct: ok, word: card.word, translation: card.translation }
-    ];
-    
-    setResults(res);
-    
-    setTimeout(() => {
-      if (idx + 1 >= cards.length) {
-        onFinish(res, cards);
-      } else {
-        setIdx(idx + 1);
-      }
-    }, 1100);
-  };
-
+  useEffect(() => { if (!card) return; const others = set.words.filter(w => w.id !== card.id).map(w => w.translation).sort(() => Math.random() - 0.5).slice(0, 3); setOptions(shuffle([card.translation, ...others])); setSelected(null); if (speed) setTime(10); }, [idx, card?.id]);
+  useEffect(() => { if (!speed || selected !== null || !card) return; if (time <= 0) { choose(null); return; } const timer = setTimeout(() => setTime(tt => tt - 1), 1000); return () => clearTimeout(timer); }, [time, speed, selected, card?.id]);
+  if (!card) return (<div className="glass results-box"><p>{t("noWords")}</p><button className="btn btn-primary" onClick={onExit}>{t("home")}</button></div>);
+  const choose = (opt, e) => { if (selected !== null) return; const ok = opt === card.translation; if (ok && e) { const rect = e.currentTarget.getBoundingClientRect(); trigger(rect.left + rect.width / 2, rect.top + rect.height / 2); } setSelected(opt === null ? "__timeout__" : opt); const res = [...results, { id: card.id, correct: ok, word: card.word, translation: card.translation }]; setResults(res); setTimeout(() => { if (idx + 1 >= cards.length) { onFinish(res, cards); } else { setIdx(idx + 1); } }, 1100); };
   const progress = cards.length ? ((idx + 1) / cards.length) * 100 : 0;
-
   return (
     <div>
-      {sparkles.length > 0 && (
-        <div className="sparkle-container">
-          {sparkles.map(s => (
-            <div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>
-              {s.emoji}
-            </div>
-          ))}
-        </div>
-      )}
-      
-      <div className="game-header">
-        <button className="icon-btn" onClick={onExit}>✕</button>
-        <div style={{ textAlign: "center", flex: 1 }}>
-          <div className="game-title">
-            {speed ? "⚡ " : "🎯 "}
-            {set.name}
-          </div>
-          <div className="game-subtitle">
-            {t("question")} {idx + 1} {t("of")} {cards.length}
-          </div>
-        </div>
-        {speed ? (
-          <span
-            className="card-chip"
-            style={{ background: "rgba(255,255,255,0.2)", color: "white" }}
-          >
-            ⏱️ {time}s
-          </span>
-        ) : (
-          <div></div>
-        )}
-      </div>
-      
-      <div className="progress-bar">
-        <div className="progress-fill" style={{ width: progress + "%" }} />
-      </div>
-      
-      <div className="mcq-word-box glass">
-        <button
-          className="icon-btn"
-          style={{ position: "absolute", top: 14, right: 14 }}
-          onClick={() => speak(card.word, set.lang1)}
-        >
-          🔊
-        </button>
-        <div>{card.word}</div>
-      </div>
-      
-      <div className="mcq-options">
-        {options.map((opt, i) => {
-          let cls = "mcq-option";
-          
-          if (selected !== null) {
-            if (opt === card.translation) cls += " correct";
-            else if (opt === selected) cls += " wrong";
-          }
-          
-          return (
-            <button
-              key={i}
-              className={cls}
-              disabled={selected !== null}
-              onClick={(e) => choose(opt, e)}
-            >
-              {opt}
-            </button>
-          );
-        })}
-      </div>
+      {sparkles.length > 0 && (<div className="sparkle-container">{sparkles.map(s => (<div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>{s.emoji}</div>))}</div>)}
+      <div className="game-header"><button className="icon-btn" onClick={onExit}>✕</button><div style={{ textAlign: "center", flex: 1 }}><div className="game-title">{speed ? "⚡ " : "🎯 "}{set.name}</div><div className="game-subtitle">{t("question")} {idx + 1} {t("of")} {cards.length}</div></div>{speed ? <span className="card-chip" style={{ background: "rgba(255,255,255,0.2)", color: "white" }}>⏱️ {time}s</span> : <div></div>}</div>
+      <div className="progress-bar"><div className="progress-fill" style={{ width: progress + "%" }} /></div>
+      <div className="mcq-word-box glass"><button className="icon-btn" style={{ position: "absolute", top: 14, right: 14 }} onClick={() => speak(card.word, set.lang1)}>🔊</button><div>{card.word}</div></div>
+      <div className="mcq-options">{options.map((opt, i) => { let cls = "mcq-option"; if (selected !== null) { if (opt === card.translation) cls += " correct"; else if (opt === selected) cls += " wrong"; } return (<button key={i} className={cls} disabled={selected !== null} onClick={(e) => choose(opt, e)}>{opt}</button>); })}</div>
     </div>
   );
 }
 
 // ============ SPELLING GAME ============
 function SpellingGame({ set, onFinish, onExit, voiceSettings }) {
-  const { t } = useI18n();
-  const { speak } = useSpeech(voiceSettings.rate, voiceSettings.pitch);
-  const { sparkles, trigger } = useSparkle();
+  const { t } = useI18n(); const { speak } = useSpeech(voiceSettings.rate, voiceSettings.pitch); const { sparkles, trigger } = useSparkle();
   const cards = useMemo(() => shuffle(set.words), [set.id, set.words.length]);
-  const [idx, setIdx] = useState(0);
-  const [val, setVal] = useState("");
-  const [msg, setMsg] = useState(null);
-  const [results, setResults] = useState([]);
+  const [idx, setIdx] = useState(0); const [val, setVal] = useState(""); const [msg, setMsg] = useState(null); const [results, setResults] = useState([]);
   const card = cards[idx];
-
-  useEffect(() => {
-    setVal("");
-    setMsg(null);
-    
-    if (card) {
-      setTimeout(() => speak(card.translation, set.lang2), 300);
-    }
-  }, [idx, card?.id]);
-
-  if (!card) {
-    return (
-      <div className="glass results-box">
-        <p>{t("noWords")}</p>
-        <button className="btn btn-primary" onClick={onExit}>
-          {t("home")}
-        </button>
-      </div>
-    );
-  }
-
-  const submit = (e) => {
-    if (!card || msg) return;
-    
-    const ok = val.trim().toLowerCase() === card.word.toLowerCase();
-    
-    if (ok && e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      trigger(rect.left + rect.width / 2, rect.top + rect.height / 2);
-    }
-    
-    setMsg(ok ? "correct" : "wrong");
-    
-    const res = [
-      ...results,
-      { id: card.id, correct: ok, word: card.word, translation: card.translation }
-    ];
-    
-    setResults(res);
-    
-    setTimeout(() => {
-      if (idx + 1 >= cards.length) {
-        onFinish(res, cards);
-      } else {
-        setIdx(idx + 1);
-      }
-    }, 1500);
-  };
-
+  useEffect(() => { setVal(""); setMsg(null); if (card) { setTimeout(() => speak(card.translation, set.lang2), 300); } }, [idx, card?.id]);
+  if (!card) return (<div className="glass results-box"><p>{t("noWords")}</p><button className="btn btn-primary" onClick={onExit}>{t("home")}</button></div>);
+  const submit = (e) => { if (!card || msg) return; const ok = val.trim().toLowerCase() === card.word.toLowerCase(); if (ok && e) { const rect = e.currentTarget.getBoundingClientRect(); trigger(rect.left + rect.width / 2, rect.top + rect.height / 2); } setMsg(ok ? "correct" : "wrong"); const res = [...results, { id: card.id, correct: ok, word: card.word, translation: card.translation }]; setResults(res); setTimeout(() => { if (idx + 1 >= cards.length) { onFinish(res, cards); } else { setIdx(idx + 1); } }, 1500); };
   const progress = cards.length ? ((idx + 1) / cards.length) * 100 : 0;
   const l2 = getLang(set.lang2);
-
   return (
     <div>
-      {sparkles.length > 0 && (
-        <div className="sparkle-container">
-          {sparkles.map(s => (
-            <div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>
-              {s.emoji}
-            </div>
-          ))}
-        </div>
-      )}
-      
-      <div className="game-header">
-        <button className="icon-btn" onClick={onExit}>✕</button>
-        <div style={{ textAlign: "center", flex: 1 }}>
-          <div className="game-title">✍️ {set.name}</div>
-          <div className="game-subtitle">
-            {t("question")} {idx + 1} {t("of")} {cards.length}
-          </div>
-        </div>
-        <button className="icon-btn" onClick={() => speak(card.translation, set.lang2)}>
-          🔊
-        </button>
-      </div>
-      
-      <div className="progress-bar">
-        <div className="progress-fill" style={{ width: progress + "%" }} />
-      </div>
-      
-      <div className="spelling-box glass">
-        <div style={{ fontSize: 13, color: "var(--text-light)", fontWeight: 600 }}>
-          {l2.flag} {t("listenWrite")}
-        </div>
-        <div className="spelling-translation">{card.translation}</div>
-      </div>
-      
-      <input
-        className={`spelling-input ${msg || ""}`}
-        value={val}
-        onChange={e => setVal(e.target.value)}
-        onKeyDown={e => {
-          if (e.key === "Enter") submit(e);
-        }}
-        placeholder={t("typeWord")}
-        disabled={!!msg}
-        autoFocus
-      />
-      
-      {msg === "wrong" && (
-        <div style={{ textAlign: "center", color: "var(--danger)", fontWeight: 700, marginBottom: 14 }}>
-          ❌ {t("letsLearn")} <strong>{card.word}</strong>
-        </div>
-      )}
-      
-      {msg === "correct" && (
-        <div style={{ textAlign: "center", color: "var(--success)", fontWeight: 700, marginBottom: 14 }}>
-          ✅ {t("greatJob")}
-        </div>
-      )}
-      
-      <button
-        className="btn btn-primary btn-block btn-lg"
-        onClick={(e) => submit(e)}
-        disabled={!val.trim() || !!msg}
-      >
-        {t("check")}
-      </button>
+      {sparkles.length > 0 && (<div className="sparkle-container">{sparkles.map(s => (<div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>{s.emoji}</div>))}</div>)}
+      <div className="game-header"><button className="icon-btn" onClick={onExit}>✕</button><div style={{ textAlign: "center", flex: 1 }}><div className="game-title">✍️ {set.name}</div><div className="game-subtitle">{t("question")} {idx + 1} {t("of")} {cards.length}</div></div><button className="icon-btn" onClick={() => speak(card.translation, set.lang2)}>🔊</button></div>
+      <div className="progress-bar"><div className="progress-fill" style={{ width: progress + "%" }} /></div>
+      <div className="spelling-box glass"><div style={{ fontSize: 13, color: "var(--text-light)", fontWeight: 600 }}>{l2.flag} {t("listenWrite")}</div><div className="spelling-translation">{card.translation}</div></div>
+      <input className={`spelling-input ${msg || ""}`} value={val} onChange={e => setVal(e.target.value)} onKeyDown={e => { if (e.key === "Enter") submit(e); }} placeholder={t("typeWord")} disabled={!!msg} autoFocus />
+      {msg === "wrong" && (<div style={{ textAlign: "center", color: "var(--danger)", fontWeight: 700, marginBottom: 14 }}>❌ {t("letsLearn")} <strong>{card.word}</strong></div>)}
+      {msg === "correct" && (<div style={{ textAlign: "center", color: "var(--success)", fontWeight: 700, marginBottom: 14 }}>✅ {t("greatJob")}</div>)}
+      <button className="btn btn-primary btn-block btn-lg" onClick={(e) => submit(e)} disabled={!val.trim() || !!msg}>{t("check")}</button>
     </div>
   );
 }
 
 // ============ MATCHING GAME ============
 function MatchingGame({ set, onFinish, onExit }) {
-  const { t } = useI18n();
-  const { sparkles, trigger } = useSparkle();
+  const { t } = useI18n(); const { sparkles, trigger } = useSparkle();
   const pairs = useMemo(() => set.words.slice(0, 6), [set.id, set.words.length]);
-  const [left] = useState(() => shuffle(pairs));
-  const [right] = useState(() => shuffle(pairs));
-  const [selL, setSelL] = useState(null);
-  const [selR, setSelR] = useState(null);
-  const [matched, setMatched] = useState([]);
-  const [results, setResults] = useState([]);
+  const [left] = useState(() => shuffle(pairs)); const [right] = useState(() => shuffle(pairs));
+  const [selL, setSelL] = useState(null); const [selR, setSelR] = useState(null); const [matched, setMatched] = useState([]); const [results, setResults] = useState([]);
+  useEffect(() => { if (!selL || !selR) return; const ok = selL.id === selR.id; if (ok) { const btn = document.querySelector(`[data-match="${selL.id}-l"]`); if (btn) { const rect = btn.getBoundingClientRect(); trigger(rect.left + rect.width / 2, rect.top + rect.height / 2); } } const res = [...results, { id: selL.id, correct: ok, word: selL.word, translation: selL.translation }]; setResults(res); if (ok) { setMatched(m => [...m, selL.id]); } setTimeout(() => { setSelL(null); setSelR(null); if (ok && matched.length + 1 === pairs.length) { onFinish(res, pairs); } }, 500); }, [selL, selR]);
+  if (pairs.length < 2) return (<div className="glass results-box"><p>{t("noWords")}</p><button className="btn btn-primary" onClick={onExit}>{t("home")}</button></div>);
+  return (
+    <div>
+      {sparkles.length > 0 && (<div className="sparkle-container">{sparkles.map(s => (<div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>{s.emoji}</div>))}</div>)}
+      <div className="game-header"><button className="icon-btn" onClick={onExit}>✕</button><div style={{ textAlign: "center", flex: 1 }}><div className="game-title">🔗 {set.name}</div><div className="game-subtitle">{matched.length}/{pairs.length} {t("matchPairs")}</div></div></div>
+      <div className="match-grid">
+        <div>{left.map(item => (<button key={item.id} data-match={`${item.id}-l`} className={`match-btn ${selL?.id === item.id ? "selected" : ""} ${matched.includes(item.id) ? "matched" : ""}`} disabled={matched.includes(item.id)} onClick={() => { if (!selL || !selR) setSelL(item); }}>{item.word}</button>))}</div>
+        <div>{right.map(item => (<button key={item.id} className={`match-btn ${selR?.id === item.id ? "selected" : ""} ${matched.includes(item.id) ? "matched" : ""}`} disabled={matched.includes(item.id)} onClick={() => { if (!selL || !selR) setSelR(item); }}>{item.translation}</button>))}</div>
+      </div>
+    </div>
+  );
+}
+
+// ============ WORD RUNNER GAME ============
+function WordRunnerGame({ set, onFinish, onExit }) {
+  const { t } = useI18n();
+  const cards = useMemo(() => shuffle(set.words), [set.id, set.words.length]);
+  const [idx, setIdx] = useState(0);
+  const [score, setScore] = useState(0);
+  const [jumping, setJumping] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [options, setOptions] = useState([]);
+  const card = cards[idx];
+  const { sparkles, trigger } = useSparkle();
 
   useEffect(() => {
-    if (!selL || !selR) return;
-    
-    const ok = selL.id === selR.id;
-    
-    if (ok) {
-      const btn = document.querySelector(`[data-match="${selL.id}-l"]`);
-      if (btn) {
-        const rect = btn.getBoundingClientRect();
-        trigger(rect.left + rect.width / 2, rect.top + rect.height / 2);
-      }
-    }
-    
-    const res = [
-      ...results,
-      { id: selL.id, correct: ok, word: selL.word, translation: selL.translation }
-    ];
-    
-    setResults(res);
-    
-    if (ok) {
-      setMatched(m => [...m, selL.id]);
-    }
-    
-    setTimeout(() => {
-      setSelL(null);
-      setSelR(null);
-      
-      if (ok && matched.length + 1 === pairs.length) {
-        onFinish(res, pairs);
-      }
-    }, 500);
-  }, [selL, selR]);
+    if (!card || gameOver) return;
+    const others = set.words.filter(w => w.id !== card.id).map(w => w.translation).sort(() => Math.random() - 0.5).slice(0, 3);
+    setOptions(shuffle([card.translation, ...others]));
+    setSelected(null);
+  }, [idx, card?.id, gameOver]);
 
-  if (pairs.length < 2) {
+  if (!card || gameOver) {
+    const pct = cards.length ? Math.round((score / cards.length) * 100) : 0;
+    const results = Array.from({ length: idx + 1 }, (_, i) => ({ id: cards[i]?.id || '', correct: i < score, word: cards[i]?.word || '', translation: cards[i]?.translation || '' }));
     return (
-      <div className="glass results-box">
-        <p>{t("noWords")}</p>
-        <button className="btn btn-primary" onClick={onExit}>
-          {t("home")}
-        </button>
+      <div className="results-box glass">
+        <div className="results-emoji">{gameOver ? '💥' : '🏁'}</div>
+        <h2>{gameOver ? t('runnerGameOver') : t('results')}</h2>
+        <div className="score-circle">{score}</div>
+        <div className="results-message">{t('runnerScore')}: {score}</div>
+        <button className="btn btn-primary btn-block btn-lg" onClick={() => onFinish(results, cards)}>🔄 {t('retry')}</button>
+        <button className="btn btn-secondary btn-block" style={{ marginTop: 10 }} onClick={onExit}>🏠 {t('home')}</button>
       </div>
     );
   }
 
+  const choose = (opt, e) => {
+    if (selected !== null || gameOver) return;
+    const ok = opt === card.translation;
+    setSelected(opt);
+
+    if (ok) {
+      setJumping(true);
+      setScore(s => s + 1);
+      if (e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        trigger(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+      setTimeout(() => {
+        setJumping(false);
+        if (idx + 1 >= cards.length) {
+          setGameOver(true);
+        } else {
+          setIdx(i => i + 1);
+        }
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setGameOver(true);
+      }, 400);
+    }
+  };
+
   return (
     <div>
-      {sparkles.length > 0 && (
-        <div className="sparkle-container">
-          {sparkles.map(s => (
-            <div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>
-              {s.emoji}
-            </div>
-          ))}
-        </div>
-      )}
-      
+      {sparkles.length > 0 && (<div className="sparkle-container">{sparkles.map(s => (<div key={s.id} className="sparkle" style={{ left: s.x, top: s.y }}>{s.emoji}</div>))}</div>)}
       <div className="game-header">
         <button className="icon-btn" onClick={onExit}>✕</button>
         <div style={{ textAlign: "center", flex: 1 }}>
-          <div className="game-title">🔗 {set.name}</div>
-          <div className="game-subtitle">
-            {matched.length}/{pairs.length} {t("matchPairs")}
-          </div>
+          <div className="game-title">🏃 {t('wordRunner')}</div>
+          <div className="game-subtitle">{t('runnerScore')}: {score}</div>
         </div>
+        <span className="card-chip" style={{ background: "rgba(102,126,234,0.3)", color: "white" }}>⭐ {score}</span>
       </div>
-      
-      <div className="match-grid">
-        <div>
-          {left.map(item => (
-            <button
-              key={item.id}
-              data-match={`${item.id}-l`}
-              className={`match-btn ${selL?.id === item.id ? "selected" : ""} ${matched.includes(item.id) ? "matched" : ""}`}
-              disabled={matched.includes(item.id)}
-              onClick={() => {
-                if (!selL || !selR) setSelL(item);
-              }}
-            >
-              {item.word}
-            </button>
+      <div className="runner-sky">
+        <div style={{ position: 'absolute', top: 12, left: 20, fontSize: 28, opacity: 0.6 }}>☁️</div>
+        <div style={{ position: 'absolute', top: 30, right: 30, fontSize: 22, opacity: 0.5 }}>☁️</div>
+        <div style={{ position: 'absolute', top: 50, left: '40%', fontSize: 20, opacity: 0.4 }}>☁️</div>
+        <div className="runner-word-block">{card.word}</div>
+        <div className={`runner-character ${jumping ? 'jumping' : ''} ${selected && !jumping ? 'hit' : ''}`}>
+          <svg width="50" height="60" viewBox="0 0 50 60">
+            <circle cx="25" cy="18" r="14" fill="#667EEA" stroke="white" strokeWidth="2" />
+            <ellipse cx="25" cy="20" rx="8" ry="5" fill="#FFD93D" opacity="0.3" />
+            <circle cx="20" cy="15" r="3" fill="white" /><circle cx="21" cy="15" r="1.5" fill="#1F2937" />
+            <circle cx="30" cy="15" r="3" fill="white" /><circle cx="31" cy="15" r="1.5" fill="#1F2937" />
+            <path d="M20 24 Q25 30 30 24" stroke="#1F2937" strokeWidth="2" fill="none" strokeLinecap="round" />
+            <rect x="18" y="32" width="5" height="14" rx="3" fill="#667EEA" />
+            <rect x="27" y="32" width="5" height="14" rx="3" fill="#667EEA" />
+            <rect x="10" y="38" width="8" height="3" rx="2" fill="#667EEA" opacity="0.8" />
+            <rect x="32" y="38" width="8" height="3" rx="2" fill="#667EEA" opacity="0.8" />
+          </svg>
+        </div>
+        <div className="runner-options">
+          {options.map((opt, i) => (
+            <button key={i} className="runner-option-btn"
+              style={selected ? { opacity: 0.6 } : {}}
+              disabled={selected !== null}
+              onClick={(e) => choose(opt, e)}>{opt}</button>
           ))}
         </div>
-        
-        <div>
-          {right.map(item => (
-            <button
-              key={item.id}
-              className={`match-btn ${selR?.id === item.id ? "selected" : ""} ${matched.includes(item.id) ? "matched" : ""}`}
-              disabled={matched.includes(item.id)}
-              onClick={() => {
-                if (!selL || !selR) setSelR(item);
-              }}
-            >
-              {item.translation}
-            </button>
-          ))}
+        <div className="runner-ground" />
+      </div>
+    </div>
+  );
+}
+
+// ============ BOMB WORD GAME ============
+function BombWordGame({ set, onFinish, onExit }) {
+  const { t } = useI18n();
+  const cards = useMemo(() => shuffle(set.words), [set.id, set.words.length]);
+  const [idx, setIdx] = useState(0);
+  const [timer, setTimer] = useState(5.0);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [exploded, setExploded] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [options, setOptions] = useState([]);
+  const [danger, setDanger] = useState(false);
+  const card = cards[idx];
+  const { confetti, trigger: triggerConfetti } = useConfetti();
+  const bombRef = useRef(null);
+
+  useEffect(() => {
+    if (!card || gameOver) return;
+    const others = set.words.filter(w => w.id !== card.id).map(w => w.translation).sort(() => Math.random() - 0.5).slice(0, 3);
+    setOptions(shuffle([card.translation, ...others]));
+    setSelected(null);
+    setTimer(5.0);
+    setDanger(false);
+  }, [idx, card?.id, gameOver]);
+
+  useEffect(() => {
+    if (!card || gameOver || selected !== null) return;
+    if (timer <= 0) {
+      setExploded(true);
+      setGameOver(true);
+      return;
+    }
+    if (timer <= 2) setDanger(true);
+    else setDanger(false);
+    const interval = setInterval(() => setTimer(t => Math.max(0, t - 0.1)), 100);
+    return () => clearInterval(interval);
+  }, [timer, gameOver, selected, card?.id]);
+
+  const choose = (opt) => {
+    if (selected !== null || gameOver) return;
+    const ok = opt === card.translation;
+    setSelected(opt);
+    if (ok) {
+      setScore(s => s + Math.ceil(timer * 10));
+      if (bombRef.current) triggerConfetti(bombRef.current);
+      setTimeout(() => {
+        if (idx + 1 >= cards.length) {
+          setGameOver(true);
+        } else {
+          setIdx(i => i + 1);
+        }
+      }, 600);
+    } else {
+      setExploded(true);
+      setTimeout(() => setGameOver(true), 500);
+    }
+  };
+
+  const timerDisplay = timer.toFixed(1);
+  const timerColor = timer <= 2 ? '#EF4444' : timer <= 3.5 ? '#F59E0B' : '#10B981';
+
+  if (gameOver) {
+    return (
+      <div className="results-box glass">
+        <div className="results-emoji">{exploded ? '💥' : '🎉'}</div>
+        <h2>{exploded ? t('bombExploded') : t('bombDefused')}</h2>
+        <div className="score-circle">{score}</div>
+        <div className="results-message">{t('bombScore')}: {score}</div>
+        <button className="btn btn-primary btn-block btn-lg" onClick={() => { const results = Array.from({ length: idx + 1 }, (_, i) => ({ id: cards[i]?.id || '', correct: true, word: cards[i]?.word || '', translation: cards[i]?.translation || '' })); onFinish(results, cards); }}>🔄 {t('retry')}</button>
+        <button className="btn btn-secondary btn-block" style={{ marginTop: 10 }} onClick={onExit}>🏠 {t('home')}</button>
+      </div>
+    );
+  }
+
+  if (!card) return (<div className="glass results-box"><p>{t("noWords")}</p><button className="btn btn-primary" onClick={onExit}>{t("home")}</button></div>);
+
+  return (
+    <div>
+      <div className="game-header">
+        <button className="icon-btn" onClick={onExit}>✕</button>
+        <div style={{ textAlign: "center", flex: 1 }}>
+          <div className="game-title">💣 {t('bombWord')}</div>
+          <div className="game-subtitle">{t('bombScore')}: {score}</div>
+        </div>
+        <span className="card-chip" style={{ background: timerColor, color: "white", fontSize: 16 }}>⏱️ {timerDisplay}s</span>
+      </div>
+      <div className={`bomb-container ${danger ? 'danger-shake' : ''}`} ref={bombRef} style={{ position: 'relative', overflow: 'hidden' }}>
+        {confetti.length > 0 && confetti.map(c => (
+          <div key={c.id} className="confetti-piece" style={{ left: c.x, top: c.y, backgroundColor: c.color, width: c.size, height: c.size, animationDelay: c.delay + 's', transform: `rotate(${c.rotation}deg)` }} />
+        ))}
+        <div className={`bomb-timer-wrap ${exploded ? 'bomb-explosion' : ''}`}>
+          <svg className="bomb-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" fill="#1F2937" stroke={timerColor} strokeWidth="4" />
+            <circle cx="50" cy="50" r="38" fill="#2D2D2D" />
+            <path d="M50 18l8 14h8l-6 10 3 16-13-8-13 8 3-16-6-10h8l8-14z" fill="#F59E0B" />
+            <circle cx="50" cy="44" r="7" fill="#EF4444" opacity="0.8" />
+            <rect x="46" y="0" width="8" height="18" rx="3" fill="#6B7280" />
+          </svg>
+          <div className="bomb-timer-text" style={{ color: timerColor }}>{timerDisplay}</div>
+        </div>
+        <div className="bomb-word">{card.word}</div>
+        <div className="bomb-options">
+          {options.map((opt, i) => {
+            let cls = "bomb-option-btn";
+            if (selected !== null) {
+              if (opt === card.translation) cls += " correct-pick";
+              else if (opt === selected) cls += " wrong-pick";
+            }
+            return (
+              <button key={i} className={cls} disabled={selected !== null} onClick={() => choose(opt)}>{opt}</button>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -4341,158 +4159,22 @@ function Results({ results, onRetry, onRetryWrong, onHome }) {
   const correct = results.filter(r => r.correct).length;
   const pct = total ? Math.round((correct / total) * 100) : 0;
   const wrong = results.filter(r => !r.correct);
-  
-  let label = t("tryAgain");
-  let msg = t("msgTryAgain");
-  let emoji = "💪";
-  
-  if (pct >= 90) {
-    label = t("excellent");
-    msg = t("msgExcellent");
-    emoji = "🌟";
-  } else if (pct >= 70) {
-    label = t("good");
-    msg = t("msgGood");
-    emoji = "👏";
-  } else if (pct >= 50) {
-    label = t("fair");
-    msg = t("msgFair");
-    emoji = "👍";
-  }
-
+  let label = t("tryAgain"), msg = t("msgTryAgain"), emoji = "💪";
+  if (pct >= 90) { label = t("excellent"); msg = t("msgExcellent"); emoji = "🌟"; }
+  else if (pct >= 70) { label = t("good"); msg = t("msgGood"); emoji = "👏"; }
+  else if (pct >= 50) { label = t("fair"); msg = t("msgFair"); emoji = "👍"; }
   return (
     <div className="results-box glass">
       <div className="results-emoji">{emoji}</div>
-      <h2 style={{ fontSize: 30, fontWeight: 900, marginBottom: 10 }}>
-        {t("results")}
-      </h2>
-      
+      <h2 style={{ fontSize: 30, fontWeight: 900, marginBottom: 10 }}>{t("results")}</h2>
       <div className="score-circle">{pct}%</div>
-      
-      <div className="muted">
-        {t("correctAnswers")}:{" "}
-        <strong style={{ color: "var(--primary)", fontSize: 16 }}>
-          {correct}/{total}
-        </strong>
-      </div>
-      
-      <div style={{ margin: "16px 0", fontWeight: 800, fontSize: 19 }}>
-        {label}
-      </div>
-      
+      <div className="muted">{t("correctAnswers")}: <strong style={{ color: "var(--primary)", fontSize: 16 }}>{correct}/{total}</strong></div>
+      <div style={{ margin: "16px 0", fontWeight: 800, fontSize: 19 }}>{label}</div>
       <div className="results-message">{msg}</div>
-      
-      {wrong.length > 0 && (
-        <div className="wrong-words-section">
-          <div className="wrong-words-title">❌ {t("wrongWords")}</div>
-          {wrong.map((w, i) => (
-            <div key={i} className="word-row">
-              <div>
-                <div className="word-row-text">{w.word}</div>
-                <div className="word-row-translation">→ {w.translation}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      
-      <button className="btn btn-primary btn-block btn-lg" onClick={onRetry}>
-        🔄 {t("retry")}
-      </button>
-      
-      {wrong.length > 0 && (
-        <button
-          className="btn btn-secondary btn-block"
-          style={{ marginTop: 10 }}
-          onClick={onRetryWrong}
-        >
-          ⭐ {t("retryWrong")}
-        </button>
-      )}
-      
-      <button
-        className="btn btn-secondary btn-block"
-        style={{ marginTop: 10 }}
-        onClick={onHome}
-      >
-        🏠 {t("home")}
-      </button>
-    </div>
-  );
-}
-
-// ============ STATS PANEL ============
-function StatsPanel({ usage, totalWords }) {
-  const { t } = useI18n();
-  
-  return (
-    <div className="editor-box glass">
-      <h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}>
-        📊 {t("stats")}
-      </h3>
-      
-      <div className="grid-2">
-        <div className="stat-item">
-          <span style={{ fontSize: 24 }}>⏱️</span>
-          <div>
-            <div className="muted">{t("totalSessions")}</div>
-            <div className="value" style={{ fontSize: 20, color: "var(--text)" }}>
-              {usage.sessions}
-            </div>
-          </div>
-        </div>
-        
-        <div className="stat-item">
-          <span style={{ fontSize: 24 }}>🏆</span>
-          <div>
-            <div className="muted">{t("bestScore")}</div>
-            <div className="value" style={{ fontSize: 20, color: "var(--text)" }}>
-              {usage.bestScore}%
-            </div>
-          </div>
-        </div>
-        
-        <div className="stat-item">
-          <span style={{ fontSize: 24 }}>📚</span>
-          <div>
-            <div className="muted">{t("totalWords")}</div>
-            <div className="value" style={{ fontSize: 20, color: "var(--text)" }}>
-              {totalWords}
-            </div>
-          </div>
-        </div>
-        
-        <div className="stat-item">
-          <span style={{ fontSize: 24 }}>⏳</span>
-          <div>
-            <div className="muted">Total</div>
-            <div className="value" style={{ fontSize: 20, color: "var(--text)" }}>
-              {usage.fmt(usage.total)}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div style={{ marginTop: 20 }}>
-        <div className="muted" style={{ marginBottom: 10, fontWeight: 700 }}>
-          {t("weeklyActivity")}
-        </div>
-        
-        <div className="stats-chart">
-          {usage.weekDays.map((d, i) => (
-            <div
-              key={i}
-              className="stats-bar"
-              data-label={d.label}
-              style={{ height: `${Math.max(8, (d.value / usage.maxWeek) * 100)}%` }}
-            >
-              <div className="stats-bar-value">
-                {d.value > 0 ? usage.fmt(d.value) : ""}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {wrong.length > 0 && (<div className="wrong-words-section"><div className="wrong-words-title">❌ {t("wrongWords")}</div>{wrong.map((w, i) => (<div key={i} className="word-row"><div><div className="word-row-text">{w.word}</div><div className="word-row-translation">→ {w.translation}</div></div></div>))}</div>)}
+      <button className="btn btn-primary btn-block btn-lg" onClick={onRetry}>🔄 {t("retry")}</button>
+      {wrong.length > 0 && (<button className="btn btn-secondary btn-block" style={{ marginTop: 10 }} onClick={onRetryWrong}>⭐ {t("retryWrong")}</button>)}
+      <button className="btn btn-secondary btn-block" style={{ marginTop: 10 }} onClick={onHome}>🏠 {t("home")}</button>
     </div>
   );
 }
@@ -4507,10 +4189,7 @@ function AppContent() {
   const [sets, setSets] = useLocalStorage("vocaflow_sets", DEFAULT_SETS);
   const [user, setUser] = useLocalStorage("vocaflow_user", null);
   const [savedIds, setSavedIds] = useLocalStorage("vocaflow_saved", []);
-  const [voiceSettings, setVoiceSettings] = useLocalStorage("vocaflow_voice", {
-    rate: 0.92,
-    pitch: 1.0
-  });
+  const [voiceSettings, setVoiceSettings] = useLocalStorage("vocaflow_voice", { rate: 0.92, pitch: 1.0 });
 
   const [view, setView] = useState("home");
   const [currentSetId, setCurrentSetId] = useState(sets[0]?.id || null);
@@ -4525,103 +4204,37 @@ function AppContent() {
 
   useEffect(() => {
     if (!currentSetId && sets.length) setCurrentSetId(sets[0].id);
-    if (currentSetId && !sets.find(s => s.id === currentSetId)) {
-      setCurrentSetId(sets[0]?.id || null);
-    }
+    if (currentSetId && !sets.find(s => s.id === currentSetId)) setCurrentSetId(sets[0]?.id || null);
   }, [sets, currentSetId]);
 
   const currentSet = sets.find(s => s.id === currentSetId) || null;
-  const savedWords = sets.flatMap(s =>
-    s.words
-      .filter(w => savedIds.includes(w.id))
-      .map(w => ({ ...w, lang1: s.lang1, lang2: s.lang2 }))
-  );
-  const savedSet = savedWords.length
-    ? {
-        id: "saved",
-        name: t("sanctuary"),
-        lang1: savedWords[0].lang1,
-        lang2: savedWords[0].lang2,
-        words: savedWords
-      }
-    : null;
+  const savedWords = sets.flatMap(s => s.words.filter(w => savedIds.includes(w.id)).map(w => ({ ...w, lang1: s.lang1, lang2: s.lang2 })));
+  const savedSet = savedWords.length ? { id: "saved", name: t("sanctuary"), lang1: savedWords[0].lang1, lang2: savedWords[0].lang2, words: savedWords } : null;
   const totalWords = sets.reduce((acc, s) => acc + s.words.length, 0);
 
   const baseSet = gameType === "saved" ? savedSet : currentSet;
-  const wrongIds = gameResults
-    ? [...new Set(gameResults.filter(r => !r.correct).map(r => r.id))]
-    : [];
-  const gameSet =
-    retryWrong && gameResults && baseSet
-      ? { ...baseSet, words: baseSet.words.filter(w => wrongIds.includes(w.id)) }
-      : baseSet;
+  const wrongIds = gameResults ? [...new Set(gameResults.filter(r => !r.correct).map(r => r.id))] : [];
+  const gameSet = retryWrong && gameResults && baseSet ? { ...baseSet, words: baseSet.words.filter(w => wrongIds.includes(w.id)) } : baseSet;
 
-  const updateSet = (updated) =>
-    setSets(prev => prev.map(s => (s.id === updated.id ? updated : s)));
-  const deleteSet = (id) => {
-    setSets(prev => prev.filter(s => s.id !== id));
-    toast(t("deleted"), "info");
-  };
-  const deleteWord = (setId, wordId) => {
-    setSets(prev =>
-      prev.map(s =>
-        s.id !== setId ? s : { ...s, words: s.words.filter(w => w.id !== wordId) }
-      )
-    );
-  };
-  const toggleSaved = (wordId) =>
-    setSavedIds(prev =>
-      prev.includes(wordId) ? prev.filter(id => id !== wordId) : [...prev, wordId]
-    );
+  const updateSet = (updated) => setSets(prev => prev.map(s => (s.id === updated.id ? updated : s)));
+  const deleteSet = (id) => { setSets(prev => prev.filter(s => s.id !== id)); toast(t("deleted"), "info"); };
+  const deleteWord = (setId, wordId) => setSets(prev => prev.map(s => s.id !== setId ? s : { ...s, words: s.words.filter(w => w.id !== wordId) }));
+  const toggleSaved = (wordId) => setSavedIds(prev => prev.includes(wordId) ? prev.filter(id => id !== wordId) : [...prev, wordId]);
 
   const createSet = () => {
-    if (!newSet.name.trim()) {
-      toast(t("setName"), "error");
-      return;
-    }
-    
-    const set = {
-      id: "set" + uid(),
-      name: newSet.name.trim(),
-      lang1: newSet.lang1,
-      lang2: newSet.lang2,
-      words: []
-    };
-    
-    setSets(prev => [...prev, set]);
-    setCurrentSetId(set.id);
-    setModal(null);
-    setNewSet({ name: "", lang1: "fr", lang2: "ar" });
-    toast(t("created"), "success");
+    if (!newSet.name.trim()) { toast(t("setName"), "error"); return; }
+    const set = { id: "set" + uid(), name: newSet.name.trim(), lang1: newSet.lang1, lang2: newSet.lang2, words: [] };
+    setSets(prev => [...prev, set]); setCurrentSetId(set.id); setModal(null); setNewSet({ name: "", lang1: "fr", lang2: "ar" }); toast(t("created"), "success");
   };
 
   const startGame = (type) => {
     if (type === "saved") {
-      if (!savedWords.length) {
-        toast(t("noSaved"), "error");
-        return;
-      }
-      setGameType("saved");
-      setRetryWrong(false);
-      setGameKey(Date.now());
-      setView("game");
-      return;
+      if (!savedWords.length) { toast(t("noSaved"), "error"); return; }
+      setGameType("saved"); setRetryWrong(false); setGameKey(Date.now()); setView("game"); return;
     }
-    
-    if (!currentSet) {
-      toast(t("needSelectSet"), "error");
-      return;
-    }
-    
-    if (!currentSet.words.length) {
-      toast(t("noWords"), "error");
-      return;
-    }
-    
-    setGameType(type);
-    setRetryWrong(false);
-    setGameKey(Date.now());
-    setView("game");
+    if (!currentSet) { toast(t("needSelectSet"), "error"); return; }
+    if (!currentSet.words.length) { toast(t("noWords"), "error"); return; }
+    setGameType(type); setRetryWrong(false); setGameKey(Date.now()); setView("game");
   };
 
   const finishGame = (results) => {
@@ -4635,52 +4248,25 @@ function AppContent() {
 
   const handleAvatarUpload = (file) => {
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      toast("Max 2MB", "error");
-      return;
-    }
-    
+    if (file.size > 2 * 1024 * 1024) { toast("Max 2MB", "error"); return; }
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const newDataUrl = e.target.result;
-      if (user) {
-        setUser({ ...user, avatar: newDataUrl });
-      } else {
-        setUser({ name: "User", email: "", avatar: newDataUrl });
-      }
-      toast(t("savedMsg"), "success");
-    };
+    reader.onload = (e) => { const newDataUrl = e.target.result; if (user) { setUser({ ...user, avatar: newDataUrl }); } else { setUser({ name: "User", email: "", avatar: newDataUrl }); } toast(t("savedMsg"), "success"); };
     reader.onerror = () => toast(t("errorOccurred"), "error");
     reader.readAsDataURL(file);
   };
 
   const handleExport = () => {
     try {
-      const data = {
-        version: "3.0",
-        sets,
-        user,
-        savedIds,
-        voiceSettings,
-        exportedAt: new Date().toISOString()
-      };
+      const data = { version: "4.0", sets, user, savedIds, voiceSettings, exportedAt: new Date().toISOString() };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `vocaflo-backup-${new Date().toISOString().slice(0, 10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast(t("dataExported"), "success");
-    } catch (e) {
-      logger.error('Export', e);
-      toast(t("errorOccurred"), "error");
-    }
+      const url = URL.createObjectURL(blob); const a = document.createElement("a");
+      a.href = url; a.download = `vocaflo-backup-${new Date().toISOString().slice(0, 10)}.json`; a.click();
+      URL.revokeObjectURL(url); toast(t("dataExported"), "success");
+    } catch (e) { toast(t("errorOccurred"), "error"); }
   };
 
   const handleImport = (file) => {
     if (!file) return;
-    
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -4689,33 +4275,23 @@ function AppContent() {
         if (data.user) setUser(data.user);
         if (data.savedIds) setSavedIds(data.savedIds);
         if (data.voiceSettings) setVoiceSettings(data.voiceSettings);
-        toast(t("dataImported"), "success");
-        setModal(null);
-      } catch (err) {
-        logger.error('Import', err);
-        toast(t("invalidFile"), "error");
-      }
+        toast(t("dataImported"), "success"); setModal(null);
+      } catch (err) { toast(t("invalidFile"), "error"); }
     };
     reader.onerror = () => toast(t("errorOccurred"), "error");
     reader.readAsText(file);
   };
 
-  const handleReset = () => {
-    if (!confirm(t("confirmReset"))) return;
-    try {
-      localStorage.clear();
-      window.location.reload();
-    } catch (e) {
-      logger.error('Reset', e);
-    }
-  };
+  const handleReset = () => { if (!confirm(t("confirmReset"))) return; try { localStorage.clear(); window.location.reload(); } catch {} };
 
   const games = [
     { type: "flashcards", name: t("flashcards"), color: "#667EEA" },
     { type: "mcq", name: t("mcq"), color: "#10B981" },
     { type: "spelling", name: t("spelling"), color: "#F59E0B" },
     { type: "matching", name: t("matching"), color: "#EF4444" },
-    { type: "speed", name: t("speed"), color: "#A855F7" }
+    { type: "speed", name: t("speed"), color: "#A855F7" },
+    { type: "wordRunner", name: t("wordRunner"), color: "#667EEA" },
+    { type: "bombWord", name: t("bombWord"), color: "#EF4444" }
   ];
 
   return (
@@ -4728,187 +4304,71 @@ function AppContent() {
               <div className="tagline">{t("tagline")}</div>
             </div>
           </div>
-          
-          <ProfileCard
-            user={user}
-            usage={usage}
-            savedCount={savedWords.length}
-            onSettings={() => setModal("settings")}
-            onLogin={() => setModal("login")}
-            onLogout={() => {
-              setUser(null);
-              toast(t("logout"), "info");
-            }}
-            onThemeToggle={toggleTheme}
-            theme={theme}
-            onAvatarClick={() => document.getElementById("avatar-upload").click()}
-          />
-          
-          <input
-            type="file"
-            id="avatar-upload"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={e => handleAvatarUpload(e.target.files[0])}
-          />
-
+          <ProfileCard user={user} usage={usage} savedCount={savedWords.length} onSettings={() => setModal("settings")} onLogin={() => setModal("login")} onLogout={() => { setUser(null); toast(t("logout"), "info"); }} onThemeToggle={toggleTheme} theme={theme} onAvatarClick={() => document.getElementById("avatar-upload").click()} />
+          <input type="file" id="avatar-upload" accept="image/*" style={{ display: "none" }} onChange={e => handleAvatarUpload(e.target.files[0])} />
           <div style={{ marginTop: 18 }}>
-            <SelectSetDropdown
-              sets={sets}
-              currentSetId={currentSetId}
-              onSelect={id => setCurrentSetId(id)}
-              onEdit={id => {
-                setCurrentSetId(id);
-                setView("editor");
-              }}
-              onDelete={deleteSet}
-              onCreate={() => setModal("createSet")}
-            />
+            <SelectSetDropdown sets={sets} currentSetId={currentSetId} onSelect={id => setCurrentSetId(id)} onEdit={id => { setCurrentSetId(id); setView("editor"); }} onDelete={deleteSet} onCreate={() => setModal("createSet")} />
           </div>
-          
           <Sanctuary count={savedWords.length} onPlay={() => startGame("saved")} />
-          
-          <div className="section-title">🎮 {t("games")}</div>
-          
+          <div className="games-header-wrap">
+            <div className="games-header-title">
+              <span className="header-emoji">🎮</span> {t("games")}
+            </div>
+            <div className="games-header-desc">{t("gamesDesc")}</div>
+          </div>
           <div className="games-grid">
             {games.map(g => (
               <div key={g.type} className="game-card" onClick={() => startGame(g.type)}>
-                <div className="game-icon-wrap" style={{ background: `${g.color}20` }}>
-                  <GameIcon type={g.type} />
-                </div>
+                <div className="game-icon-wrap" style={{ background: `${g.color}20` }}><GameIcon type={g.type} /></div>
                 <div className="game-name">{g.name}</div>
               </div>
             ))}
           </div>
-          
           <StatsPanel usage={usage} totalWords={totalWords} />
         </div>
       )}
 
       {view === "editor" && currentSet && (
-        <SetEditor
-          set={currentSet}
-          onBack={() => setView("home")}
-          onUpdate={updateSet}
-          onDeleteWord={deleteWord}
-        />
+        <SetEditor set={currentSet} onBack={() => setView("home")} onUpdate={updateSet} onDeleteWord={deleteWord} />
       )}
 
       {view === "game" && gameSet && (
         <div>
           {(gameType === "flashcards" || gameType === "saved") && (
-            <FlashcardsGame
-              key={gameKey}
-              set={gameSet}
-              savedIds={savedIds}
-              onToggleSaved={toggleSaved}
-              onFinish={finishGame}
-              onExit={() => setView("home")}
-              voiceSettings={voiceSettings}
-            />
+            <FlashcardsGame key={gameKey} set={gameSet} savedIds={savedIds} onToggleSaved={toggleSaved} onFinish={finishGame} onExit={() => setView("home")} voiceSettings={voiceSettings} />
           )}
-          
           {(gameType === "mcq" || gameType === "speed") && (
-            <MCQGame
-              key={gameKey}
-              set={gameSet}
-              onFinish={finishGame}
-              onExit={() => setView("home")}
-              speed={gameType === "speed"}
-              voiceSettings={voiceSettings}
-            />
+            <MCQGame key={gameKey} set={gameSet} onFinish={finishGame} onExit={() => setView("home")} speed={gameType === "speed"} voiceSettings={voiceSettings} />
           )}
-          
           {gameType === "spelling" && (
-            <SpellingGame
-              key={gameKey}
-              set={gameSet}
-              onFinish={finishGame}
-              onExit={() => setView("home")}
-              voiceSettings={voiceSettings}
-            />
+            <SpellingGame key={gameKey} set={gameSet} onFinish={finishGame} onExit={() => setView("home")} voiceSettings={voiceSettings} />
           )}
-          
           {gameType === "matching" && (
-            <MatchingGame
-              key={gameKey}
-              set={gameSet}
-              onFinish={finishGame}
-              onExit={() => setView("home")}
-            />
+            <MatchingGame key={gameKey} set={gameSet} onFinish={finishGame} onExit={() => setView("home")} />
+          )}
+          {gameType === "wordRunner" && (
+            <WordRunnerGame key={gameKey} set={gameSet} onFinish={finishGame} onExit={() => setView("home")} />
+          )}
+          {gameType === "bombWord" && (
+            <BombWordGame key={gameKey} set={gameSet} onFinish={finishGame} onExit={() => setView("home")} />
           )}
         </div>
       )}
 
       {view === "results" && gameResults && (
-        <Results
-          results={gameResults}
-          onRetry={() => {
-            setRetryWrong(false);
-            setGameKey(Date.now());
-            setView("game");
-          }}
-          onRetryWrong={() => {
-            setRetryWrong(true);
-            setGameKey(Date.now());
-            setView("game");
-          }}
-          onHome={() => setView("home")}
-        />
+        <Results results={gameResults} onRetry={() => { setRetryWrong(false); setGameKey(Date.now()); setView("game"); }} onRetryWrong={() => { setRetryWrong(true); setGameKey(Date.now()); setView("game"); }} onHome={() => setView("home")} />
       )}
 
       {modal === "createSet" && (
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <h3>➕ {t("createSet")}</h3>
-            
-            <div className="field">
-              <label>{t("setName")}</label>
-              <input
-                value={newSet.name}
-                onChange={e => setNewSet({ ...newSet, name: e.target.value })}
-                autoFocus
-              />
-            </div>
-            
+            <div className="field"><label>{t("setName")}</label><input value={newSet.name} onChange={e => setNewSet({ ...newSet, name: e.target.value })} autoFocus /></div>
             <div className="grid-2">
-              <div className="field">
-                <label>{t("firstLang")}</label>
-                <select
-                  value={newSet.lang1}
-                  onChange={e => setNewSet({ ...newSet, lang1: e.target.value })}
-                >
-                  {langs.map(l => (
-                    <option key={l.code} value={l.code}>
-                      {l.flag} {l.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              
-              <div className="field">
-                <label>{t("secondLang")}</label>
-                <select
-                  value={newSet.lang2}
-                  onChange={e => setNewSet({ ...newSet, lang2: e.target.value })}
-                >
-                  {langs.map(l => (
-                    <option key={l.code} value={l.code}>
-                      {l.flag} {l.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <div className="field"><label>{t("firstLang")}</label><select value={newSet.lang1} onChange={e => setNewSet({ ...newSet, lang1: e.target.value })}>{langs.map(l => (<option key={l.code} value={l.code}>{l.flag} {l.name}</option>))}</select></div>
+              <div className="field"><label>{t("secondLang")}</label><select value={newSet.lang2} onChange={e => setNewSet({ ...newSet, lang2: e.target.value })}>{langs.map(l => (<option key={l.code} value={l.code}>{l.flag} {l.name}</option>))}</select></div>
             </div>
-            
-            <div className="modal-actions">
-              <button className="btn btn-secondary" onClick={() => setModal(null)}>
-                {t("cancel")}
-              </button>
-              <button className="btn btn-primary" onClick={createSet}>
-                {t("save")}
-              </button>
-            </div>
+            <div className="modal-actions"><button className="btn btn-secondary" onClick={() => setModal(null)}>{t("cancel")}</button><button className="btn btn-primary" onClick={createSet}>{t("save")}</button></div>
           </div>
         </div>
       )}
@@ -4917,141 +4377,31 @@ function AppContent() {
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <h3>⚙️ {t("settings")}</h3>
-            
             <div className="tabs">
-              <div
-                className={`tab ${settingsTab === "general" ? "active" : ""}`}
-                onClick={() => setSettingsTab("general")}
-              >
-                🌍 {t("language")}
-              </div>
-              <div
-                className={`tab ${settingsTab === "voice" ? "active" : ""}`}
-                onClick={() => setSettingsTab("voice")}
-              >
-                🔊 {t("voiceSettings")}
-              </div>
-              <div
-                className={`tab ${settingsTab === "data" ? "active" : ""}`}
-                onClick={() => setSettingsTab("data")}
-              >
-                💾 Backup
-              </div>
+              <div className={`tab ${settingsTab === "general" ? "active" : ""}`} onClick={() => setSettingsTab("general")}>🌍 {t("language")}</div>
+              <div className={`tab ${settingsTab === "voice" ? "active" : ""}`} onClick={() => setSettingsTab("voice")}>🔊 {t("voiceSettings")}</div>
+              <div className={`tab ${settingsTab === "data" ? "active" : ""}`} onClick={() => setSettingsTab("data")}>💾 Backup</div>
             </div>
-
             {settingsTab === "general" && (
               <div>
-                <div className="field">
-                  <label>🌍 {t("language")}</label>
-                  <select value={locale} onChange={e => setLocale(e.target.value)}>
-                    {langs.map(l => (
-                      <option key={l.code} value={l.code}>
-                        {l.flag} {l.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="field">
-                  <label>{t("theme")}</label>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={toggleTheme}
-                    style={{ width: "100%" }}
-                  >
-                    {theme === "light" ? "🌙 " + t("darkMode") : "☀️ " + t("lightMode")}
-                  </button>
-                </div>
+                <div className="field"><label>🌍 {t("language")}</label><select value={locale} onChange={e => setLocale(e.target.value)}>{langs.map(l => (<option key={l.code} value={l.code}>{l.flag} {l.name}</option>))}</select></div>
+                <div className="field"><label>{t("theme")}</label><button className="btn btn-secondary" onClick={toggleTheme} style={{ width: "100%" }}>{theme === "light" ? "🌙 " + t("darkMode") : "☀️ " + t("lightMode")}</button></div>
               </div>
             )}
-
             {settingsTab === "voice" && (
               <div>
-                <div className="field">
-                  <label>
-                    ⚡ {t("speechRate")}: {voiceSettings.rate.toFixed(2)}
-                  </label>
-                  <div className="slider-wrap">
-                    <span>🐢</span>
-                    <input
-                      type="range"
-                      min="0.5"
-                      max="1.5"
-                      step="0.05"
-                      value={voiceSettings.rate}
-                      onChange={e =>
-                        setVoiceSettings({
-                          ...voiceSettings,
-                          rate: parseFloat(e.target.value)
-                        })
-                      }
-                    />
-                    <span>🐇</span>
-                    <span className="slider-value">{voiceSettings.rate.toFixed(2)}</span>
-                  </div>
-                </div>
-                
-                <div className="field">
-                  <label>
-                    🎵 {t("pitch")}: {voiceSettings.pitch.toFixed(2)}
-                  </label>
-                  <div className="slider-wrap">
-                    <span>⬇</span>
-                    <input
-                      type="range"
-                      min="0.5"
-                      max="1.5"
-                      step="0.05"
-                      value={voiceSettings.pitch}
-                      onChange={e =>
-                        setVoiceSettings({
-                          ...voiceSettings,
-                          pitch: parseFloat(e.target.value)
-                        })
-                      }
-                    />
-                    <span>⬆</span>
-                    <span className="slider-value">{voiceSettings.pitch.toFixed(2)}</span>
-                  </div>
-                </div>
+                <div className="field"><label>⚡ {t("speechRate")}: {voiceSettings.rate.toFixed(2)}</label><div className="slider-wrap"><span>🐢</span><input type="range" min="0.5" max="1.5" step="0.05" value={voiceSettings.rate} onChange={e => setVoiceSettings({ ...voiceSettings, rate: parseFloat(e.target.value) })} /><span>🐇</span><span className="slider-value">{voiceSettings.rate.toFixed(2)}</span></div></div>
+                <div className="field"><label>🎵 {t("pitch")}: {voiceSettings.pitch.toFixed(2)}</label><div className="slider-wrap"><span>⬇</span><input type="range" min="0.5" max="1.5" step="0.05" value={voiceSettings.pitch} onChange={e => setVoiceSettings({ ...voiceSettings, pitch: parseFloat(e.target.value) })} /><span>⬆</span><span className="slider-value">{voiceSettings.pitch.toFixed(2)}</span></div></div>
               </div>
             )}
-
             {settingsTab === "data" && (
               <div>
-                <div className="field">
-                  <label>📤 {t("exportData")}</label>
-                  <button className="btn btn-primary btn-block" onClick={handleExport}>
-                    📥 Download Backup
-                  </button>
-                </div>
-                
-                <div className="field">
-                  <label>📥 {t("importData")}</label>
-                  <div className="file-upload-wrap">
-                    📂 Choose backup file
-                    <input
-                      type="file"
-                      accept=".json"
-                      onChange={e => handleImport(e.target.files[0])}
-                    />
-                  </div>
-                </div>
-                
-                <div className="field" style={{ marginTop: 20 }}>
-                  <label>⚠️ {t("resetAll")}</label>
-                  <button className="btn btn-danger btn-block" onClick={handleReset}>
-                    🗑️ {t("resetAll")}
-                  </button>
-                </div>
+                <div className="field"><label>📤 {t("exportData")}</label><button className="btn btn-primary btn-block" onClick={handleExport}>📥 Download Backup</button></div>
+                <div className="field"><label>📥 {t("importData")}</label><div className="file-upload-wrap">📂 Choose backup file<input type="file" accept=".json" onChange={e => handleImport(e.target.files[0])} /></div></div>
+                <div className="field" style={{ marginTop: 20 }}><label>⚠️ {t("resetAll")}</label><button className="btn btn-danger btn-block" onClick={handleReset}>🗑️ {t("resetAll")}</button></div>
               </div>
             )}
-
-            <div className="modal-actions">
-              <button className="btn btn-primary btn-block" onClick={() => setModal(null)}>
-                {t("close")}
-              </button>
-            </div>
+            <div className="modal-actions"><button className="btn btn-primary btn-block" onClick={() => setModal(null)}>{t("close")}</button></div>
           </div>
         </div>
       )}
@@ -5060,44 +4410,9 @@ function AppContent() {
         <div className="modal-overlay" onClick={() => setModal(null)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <h3>🔐 {t("login")}</h3>
-            
-            <div className="field">
-              <label>{t("name")}</label>
-              <input
-                value={loginData.name}
-                onChange={e => setLoginData({ ...loginData, name: e.target.value })}
-                autoFocus
-              />
-            </div>
-            
-            <div className="field">
-              <label>{t("email")}</label>
-              <input
-                value={loginData.email}
-                onChange={e => setLoginData({ ...loginData, email: e.target.value })}
-                type="email"
-              />
-            </div>
-            
-            <div className="modal-actions">
-              <button className="btn btn-secondary" onClick={() => setModal(null)}>
-                {t("cancel")}
-              </button>
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (!loginData.name.trim()) return;
-                  setUser({
-                    name: loginData.name.trim(),
-                    email: loginData.email.trim()
-                  });
-                  setModal(null);
-                  toast(t("savedMsg"), "success");
-                }}
-              >
-                {t("login")}
-              </button>
-            </div>
+            <div className="field"><label>{t("name")}</label><input value={loginData.name} onChange={e => setLoginData({ ...loginData, name: e.target.value })} autoFocus /></div>
+            <div className="field"><label>{t("email")}</label><input value={loginData.email} onChange={e => setLoginData({ ...loginData, email: e.target.value })} type="email" /></div>
+            <div className="modal-actions"><button className="btn btn-secondary" onClick={() => setModal(null)}>{t("cancel")}</button><button className="btn btn-primary" onClick={() => { if (!loginData.name.trim()) return; setUser({ name: loginData.name.trim(), email: loginData.email.trim() }); setModal(null); toast(t("savedMsg"), "success"); }}>{t("login")}</button></div>
           </div>
         </div>
       )}
