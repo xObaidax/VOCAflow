@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
     <style>
+        /* ===== all your existing CSS goes here – unchanged ===== */
         :root {
             --primary: #667EEA;
             --primary-dark: #5568D3;
@@ -289,7 +290,6 @@
             font-weight: 500;
             margin-top: 2px;
         }
-        /* ============ IMPROVED PROFILE CARD ============ */
         .profile-card {
             background: var(--glass-bg-strong);
             backdrop-filter: blur(25px) saturate(180%);
@@ -454,7 +454,6 @@
             right: auto;
             left: 20px;
         }
-        /* ============ ADVANCED FLAME ============ */
         .flame-advanced {
             width: 48px;
             height: 48px;
@@ -586,7 +585,6 @@
         .flame-white svg.flame-svg {
             filter: drop-shadow(0 0 10px rgba(252, 211, 77, 0.9)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
         }
-        /* ============ DROPDOWN ============ */
         .dropdown-wrapper {
             position: relative;
             margin-bottom: 18px;
@@ -709,7 +707,6 @@
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
             transform: translateY(-1px);
         }
-        /* ============ SANCTUARY ============ */
         .sanctuary {
             background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 40%, #FDE68A 100%);
             border: 2px solid rgba(245, 158, 11, 0.25);
@@ -829,7 +826,6 @@
         [data-theme="dark"] .btn-gold {
             color: #1F2937;
         }
-        /* ============ GAMES HEADER ============ */
         .games-header-wrap {
             margin: 28px 0 6px;
             position: relative;
@@ -885,7 +881,6 @@
             padding-left: 44px;
             opacity: 0.85;
         }
-        /* ============ GAMES GRID ============ */
         .section-title {
             margin: 28px 0 14px;
             font-size: 20px;
@@ -955,7 +950,6 @@
             font-weight: 800;
             color: var(--text);
         }
-        /* ============ STATS CARDS GRID ============ */
         .stats-cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -1026,7 +1020,6 @@
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
-        /* ============ WORD RUNNER GAME ============ */
         .runner-sky {
             background: linear-gradient(180deg, #87CEEB 0%, #E0F2FE 60%, #C8E6C9 100%);
             border-radius: var(--radius-lg);
@@ -1165,7 +1158,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             animation: bounceIn 0.3s;
         }
-        /* ============ BOMB WORD GAME ============ */
         .bomb-container {
             background: var(--glass-bg-strong);
             border-radius: var(--radius-lg);
@@ -1282,7 +1274,6 @@
             border-color: var(--danger);
             color: #991B1B;
         }
-        /* Confetti */
         .confetti-piece {
             position: absolute;
             width: 10px;
@@ -1302,7 +1293,6 @@
                 opacity: 0;
             }
         }
-        /* ============ EDITOR & REST ============ */
         .page-header {
             display: flex;
             align-items: center;
@@ -1421,7 +1411,6 @@
             color: var(--text-light);
             margin-top: 3px;
         }
-        /* ============ GAME PAGES ============ */
         .game-header {
             display: flex;
             justify-content: space-between;
@@ -1464,7 +1453,6 @@
                 background-position: 200% 50%;
             }
         }
-        /* ============ NEW SWIPE FLIP CARD ============ */
         .swipe-wrap {
             position: relative;
             width: 100%;
@@ -2112,7 +2100,6 @@
             color: var(--text-light);
             margin-bottom: 16px;
         }
-        /* ============ PRO STATS ICON ============ */
         .stat-icon-pulse {
             animation: statPulse 2s infinite ease-in-out;
         }
@@ -2247,19 +2234,217 @@
         const { useState, useEffect, useMemo, useRef, useCallback, createContext, useContext, Component } = React;
 
         // ============================================================
-        // 🔑 AZURE TEXT-TO-SPEECH — ضع مفتاحك ونقطة النهاية هنا
+        //  🔥  IMPROVED PRONUNCIATION SYSTEM  (Web Speech API only)
+        //  - No paid APIs, no API keys, no backend
+        //  - Supports all languages available on the device
+        //  - Optimized for iPhone / iOS Safari
+        //  - Voice selection: exact locale → base language → fallback
+        //  - Default rate = 0.9 for language learning
+        //  - Centralized speakText() function
         // ============================================================
-        // 1. أنشئ مورد Speech في Azure Portal
-        // 2. انسخ Key1 و Endpoint من صفحة "Keys and Endpoint"
-        // 3. الصقهم بين علامتي التنصيص أدناه
-        // ============================================================
-        const AZURE_KEY = "YOUR_AZURE_KEY_HERE";
-        const AZURE_ENDPOINT = "YOUR_AZURE_ENDPOINT_HERE";
-        // مثال: "https://YOUR_REGION.api.cognitive.microsoft.com/"
 
-        // ============================================================
-        // 🌐 FALLBACK: Web Speech API (يعمل بدون مفتاح)
-        // ============================================================
+        // ---------- LANGUAGE MAP: 2-letter → full locale ----------
+        const LOCALE_MAP = {
+            ar: 'ar-SA',
+            en: 'en-US',
+            fr: 'fr-FR',
+            es: 'es-ES',
+            de: 'de-DE',
+            it: 'it-IT',
+            pt: 'pt-PT',
+            nl: 'nl-NL',
+            tr: 'tr-TR',
+            ja: 'ja-JP',
+            ko: 'ko-KR',
+            zh: 'zh-CN',
+            ru: 'ru-RU',
+            // additional common ones
+            hi: 'hi-IN',
+            pl: 'pl-PL',
+            uk: 'uk-UA',
+            el: 'el-GR',
+            he: 'he-IL',
+            th: 'th-TH',
+            vi: 'vi-VN',
+            id: 'id-ID',
+            ms: 'ms-MY',
+            fi: 'fi-FI',
+            sv: 'sv-SE',
+            no: 'nb-NO',
+            da: 'da-DK',
+            cs: 'cs-CZ',
+            hu: 'hu-HU',
+            ro: 'ro-RO',
+            sk: 'sk-SK',
+            hr: 'hr-HR',
+            sr: 'sr-RS',
+            bg: 'bg-BG',
+            lt: 'lt-LT',
+            lv: 'lv-LV',
+            et: 'et-EE',
+            sl: 'sl-SI',
+            is: 'is-IS',
+            af: 'af-ZA',
+            sw: 'sw-KE',
+            am: 'am-ET',
+            fa: 'fa-IR',
+            ur: 'ur-PK',
+            bn: 'bn-BD',
+            ta: 'ta-IN',
+            te: 'te-IN',
+            ml: 'ml-IN',
+            kn: 'kn-IN',
+            mr: 'mr-IN',
+            gu: 'gu-IN',
+            pa: 'pa-IN',
+        };
+
+        // ---------- the one true speech hook ----------
+        function useSpeech(rate = 0.9, pitch = 1.0) {
+            const [voices, setVoices] = useState([]);
+            const [voicesLoaded, setVoicesLoaded] = useState(false);
+            const [speaking, setSpeaking] = useState(false);
+            const loadPending = useRef(false);
+
+            // load voices and listen for changes (critical for iOS)
+            const loadVoices = useCallback(() => {
+                try {
+                    if (!window.speechSynthesis) return;
+                    const available = window.speechSynthesis.getVoices();
+                    if (available.length > 0) {
+                        setVoices(available);
+                        setVoicesLoaded(true);
+                        loadPending.current = false;
+                    } else if (!loadPending.current) {
+                        loadPending.current = true;
+                        // on some iOS versions, voices arrive after a short delay
+                        setTimeout(() => {
+                            const retry = window.speechSynthesis?.getVoices?.() || [];
+                            if (retry.length > 0) {
+                                setVoices(retry);
+                                setVoicesLoaded(true);
+                                loadPending.current = false;
+                            }
+                        }, 300);
+                    }
+                } catch (e) {
+                    console.warn('[Speech] loadVoices error:', e);
+                    loadPending.current = false;
+                }
+            }, []);
+
+            useEffect(() => {
+                if (!window.speechSynthesis) return;
+                // initial load
+                loadVoices();
+                // register event for when voices become available (iOS key)
+                const synth = window.speechSynthesis;
+                synth.onvoiceschanged = loadVoices;
+                return () => {
+                    try { synth.onvoiceschanged = null; } catch {}
+                };
+            }, [loadVoices]);
+
+            // ---------- voice selection ----------
+            const getBestVoice = useCallback((langCode) => {
+                try {
+                    if (!voicesLoaded || voices.length === 0) return null;
+
+                    // normalize: if we have a 2-letter code, expand to full locale
+                    let targetLocale = langCode;
+                    if (langCode && langCode.length === 2) {
+                        targetLocale = LOCALE_MAP[langCode] || langCode;
+                    }
+                    // if it's like "fr" but we want "fr-FR"
+                    // also handle "fr-FR" already
+                    const baseLang = targetLocale.split('-')[0].toLowerCase();
+
+                    // 1) exact match on locale
+                    let match = voices.find(v => v.lang === targetLocale);
+                    if (match) return match;
+
+                    // 2) match on base language (e.g. "fr" matches "fr-FR", "fr-CA", etc.)
+                    match = voices.find(v => v.lang.toLowerCase().startsWith(baseLang + '-'));
+                    if (match) return match;
+
+                    // 3) fallback: any voice whose name or lang contains the base language
+                    const lowerBase = baseLang.toLowerCase();
+                    match = voices.find(v =>
+                        v.lang.toLowerCase().includes(lowerBase) ||
+                        v.name.toLowerCase().includes(lowerBase)
+                    );
+                    if (match) return match;
+
+                    // 4) last resort: first available voice
+                    return voices[0] || null;
+                } catch (e) {
+                    console.warn('[Speech] getBestVoice error:', e);
+                    return null;
+                }
+            }, [voices, voicesLoaded]);
+
+            // ---------- speak ----------
+            const speak = useCallback((text, lang, options = {}) => {
+                try {
+                    if (!text || !window.speechSynthesis) return;
+
+                    // clean text
+                    const cleaned = text.trim();
+                    if (!cleaned) return;
+
+                    // cancel any ongoing speech (important: stop before speaking new)
+                    window.speechSynthesis.cancel();
+
+                    // determine locale
+                    let locale = lang;
+                    if (lang && lang.length === 2) {
+                        locale = LOCALE_MAP[lang] || lang;
+                    }
+                    // if it's still a 2-letter code, use it as-is (browser may handle it)
+                    // but we prefer the full locale
+                    const finalLocale = locale || 'en-US';
+
+                    const utterance = new SpeechSynthesisUtterance(cleaned);
+                    utterance.lang = finalLocale;
+                    utterance.rate = options.rate !== undefined ? options.rate : rate;
+                    utterance.pitch = options.pitch !== undefined ? options.pitch : pitch;
+                    utterance.volume = options.volume !== undefined ? options.volume : 1.0;
+
+                    // find the best matching voice
+                    const best = getBestVoice(lang);
+                    if (best) {
+                        utterance.voice = best;
+                        // if the voice has a different but compatible lang, keep utterance.lang as the requested one
+                        // because the browser will use the voice's native accent but still pronounce the text correctly
+                    }
+
+                    utterance.onstart = () => setSpeaking(true);
+                    utterance.onend = () => setSpeaking(false);
+                    utterance.onerror = (e) => {
+                        console.warn('[Speech] error:', e);
+                        setSpeaking(false);
+                    };
+
+                    // iOS Safari sometimes needs a small delay after cancel
+                    // but we call speak directly
+                    window.speechSynthesis.speak(utterance);
+                } catch (e) {
+                    console.warn('[Speech] speak error:', e);
+                    setSpeaking(false);
+                }
+            }, [getBestVoice, rate, pitch]);
+
+            const cancel = useCallback(() => {
+                try {
+                    if (window.speechSynthesis) {
+                        window.speechSynthesis.cancel();
+                    }
+                    setSpeaking(false);
+                } catch {}
+            }, []);
+
+            return { speak, cancel, speaking, voices, voicesLoaded };
+        }
 
         // ============ ERROR LOGGER ============
         const logger = {
@@ -3290,199 +3475,6 @@
             return [value, setValue];
         }
 
-        // ========================================================================
-        // 🎙️ ARABIC SPEECH — Azure TTS + Web Speech API fallback
-        // ========================================================================
-        function useArabicSpeech() {
-            const [isSpeaking, setIsSpeaking] = useState(false);
-
-            const speakArabic = useCallback(async (word) => {
-                if (!word) return;
-                setIsSpeaking(true);
-
-                // 1️⃣ Try Azure TTS if keys are provided
-                const hasAzureKey = AZURE_KEY && AZURE_KEY.trim() !== "" && AZURE_KEY !== "YOUR_AZURE_KEY_HERE";
-                const hasAzureEndpoint = AZURE_ENDPOINT && AZURE_ENDPOINT.trim() !== "" && AZURE_ENDPOINT !==
-                    "YOUR_AZURE_ENDPOINT_HERE";
-
-                if (hasAzureKey && hasAzureEndpoint) {
-                    try {
-                        // Ensure endpoint ends with /
-                        let endpoint = AZURE_ENDPOINT.trim();
-                        if (!endpoint.endsWith('/')) endpoint += '/';
-
-                        const response = await fetch(
-                            `${endpoint}cognitiveservices/v1`,
-                            {
-                                method: 'POST',
-                                headers: {
-                                    'Ocp-Apim-Subscription-Key': AZURE_KEY.trim(),
-                                    'Content-Type': 'application/ssml+xml',
-                                    'X-Microsoft-OutputFormat': 'audio-16khz-32kbitrate-mono-mp3'
-                                },
-                                body: `<speak version='1.0' xml:lang='ar-SA'>
-                                        <voice xml:lang='ar-SA' name='ar-SA-HamedNeural'>
-                                            ${word}
-                                        </voice>
-                                    </speak>`
-                            }
-                        );
-
-                        if (!response.ok) {
-                            const errText = await response.text().catch(() => '');
-                            throw new Error(`Azure TTS error ${response.status}: ${errText}`);
-                        }
-
-                        const audioBlob = await response.blob();
-                        const audioUrl = URL.createObjectURL(audioBlob);
-                        const audio = new Audio(audioUrl);
-                        audio.volume = 1.0;
-                        audio.onended = () => { setIsSpeaking(false);
-                            URL.revokeObjectURL(audioUrl); };
-                        audio.onerror = () => {
-                            setIsSpeaking(false);
-                            URL.revokeObjectURL(audioUrl);
-                            // Fallback to Web Speech
-                            speakArabicFallback(word);
-                        };
-                        await audio.play();
-                        return;
-                    } catch (error) {
-                        console.warn('Azure TTS failed, using fallback...', error);
-                        // Fall through to Web Speech API
-                    }
-                }
-
-                // 2️⃣ Fallback: Web Speech API
-                speakArabicFallback(word);
-            }, []);
-
-            const speakArabicFallback = (word) => {
-                try {
-                    if (!window.speechSynthesis) {
-                        setIsSpeaking(false);
-                        return;
-                    }
-                    window.speechSynthesis.cancel();
-                    const utterance = new SpeechSynthesisUtterance(word);
-                    utterance.lang = 'ar-SA';
-                    utterance.rate = 0.9;
-                    utterance.pitch = 1.0;
-                    // Try to find an Arabic voice
-                    const voices = window.speechSynthesis.getVoices();
-                    const arabicVoice = voices.find(v => v.lang.includes('ar'));
-                    if (arabicVoice) utterance.voice = arabicVoice;
-                    utterance.onstart = () => setIsSpeaking(true);
-                    utterance.onend = () => setIsSpeaking(false);
-                    utterance.onerror = () => setIsSpeaking(false);
-                    window.speechSynthesis.speak(utterance);
-                } catch (e) {
-                    console.warn('Web Speech fallback failed:', e);
-                    setIsSpeaking(false);
-                }
-            };
-
-            return { speakArabic, isSpeaking };
-        }
-
-        // ============ SPEECH (general) ============
-        function useSpeech(rate = 0.92, pitch = 1.0) {
-            const { speakArabic, isSpeaking: isArabicSpeaking } = useArabicSpeech();
-            const [speaking, setSpeaking] = useState(false);
-            const [voices, setVoices] = useState([]);
-            const [voicesLoaded, setVoicesLoaded] = useState(false);
-
-            useEffect(() => {
-                if (!window.speechSynthesis) return;
-                const loadVoices = () => {
-                    try {
-                        const available = window.speechSynthesis.getVoices();
-                        setVoices(available);
-                        if (available.length > 0) setVoicesLoaded(true);
-                    } catch (e) { logger.error('Voice Load', e); }
-                };
-                loadVoices();
-                window.speechSynthesis.onvoiceschanged = loadVoices;
-                return () => { try { window.speechSynthesis.onvoiceschanged = null; } catch {} };
-            }, []);
-
-            const getPreferredVoice = useCallback((lang) => {
-                try {
-                    if (!voicesLoaded || voices.length === 0) return null;
-                    const langMap = {
-                        ar: [{ name: "Hamed", lang: "ar-SA" }, { name: "Salma", lang: "ar-EG" }, { lang: "ar-SA" },
-                        { lang: "ar" }],
-                        en: [{ name: "Aria", lang: "en-US" }, { name: "Jenny", lang: "en-US" },
-                        { name: "Google US", lang: "en-US" }, { lang: "en-US" }],
-                        fr: [{ name: "Denise", lang: "fr-FR" }, { name: "Henri", lang: "fr-FR" },
-                        { name: "Google français", lang: "fr-FR" }, { lang: "fr-FR" }],
-                        es: [{ name: "Elvira", lang: "es-ES" }, { lang: "es-ES" }],
-                        de: [{ name: "Katja", lang: "de-DE" }, { lang: "de-DE" }],
-                        pt: [{ name: "Francisca", lang: "pt-BR" }, { lang: "pt-PT" }],
-                        ja: [{ name: "Nanami", lang: "ja-JP" }, { name: "Google 日本語", lang: "ja-JP" }, { lang: "ja-JP" }]
-                    };
-                    const candidates = langMap[lang] || [{ lang }];
-                    for (const pref of candidates) {
-                        if (pref.name) {
-                            const match = voices.find(v => v.name.includes(pref.name) && (!pref.lang || v.lang
-                            .startsWith(pref.lang.split('-')[0])));
-                            if (match) return match;
-                        }
-                    }
-                    for (const pref of candidates) {
-                        if (pref.lang) {
-                            const match = voices.find(v => v.lang === pref.lang);
-                            if (match) return match;
-                        }
-                    }
-                    for (const pref of candidates) {
-                        if (pref.lang) {
-                            const prefix = pref.lang.split('-')[0];
-                            const match = voices.find(v => v.lang.startsWith(prefix));
-                            if (match) return match;
-                        }
-                    }
-                    return null;
-                } catch (e) { return null; }
-            }, [voices, voicesLoaded]);
-
-            const speak = useCallback((text, lang, options = {}) => {
-                try {
-                    // For Arabic, use the dedicated Arabic speech (Azure + fallback)
-                    if (lang === 'ar') {
-                        speakArabic(text);
-                        return;
-                    }
-                    if (!window.speechSynthesis || !text) return;
-                    window.speechSynthesis.cancel();
-                    const processed = text.trim();
-                    if (!processed) return;
-                    const utterance = new SpeechSynthesisUtterance(processed);
-                    utterance.rate = options.rate || rate;
-                    utterance.pitch = options.pitch || pitch;
-                    utterance.volume = options.volume || 1.0;
-                    const langMap = { ar: "ar-SA", en: "en-US", fr: "fr-FR", es: "es-ES", de: "de-DE", pt: "pt-BR",
-                        ja: "ja-JP" };
-                    utterance.lang = langMap[lang] || lang || "en-US";
-                    const preferred = getPreferredVoice(lang);
-                    if (preferred) utterance.voice = preferred;
-                    utterance.onstart = () => setSpeaking(true);
-                    utterance.onend = () => setSpeaking(false);
-                    utterance.onerror = (e) => { logger.error('Speech', e);
-                        setSpeaking(false); };
-                    if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-                    window.speechSynthesis.speak(utterance);
-                } catch (e) { setSpeaking(false); }
-            }, [speakArabic, getPreferredVoice, rate, pitch]);
-
-            const cancel = useCallback(() => {
-                try { if (window.speechSynthesis) window.speechSynthesis.cancel();
-                    setSpeaking(false); } catch {}
-            }, []);
-
-            return { speak, cancel, speaking: speaking || isArabicSpeaking, voices, voicesLoaded };
-        }
-
         // ============ TRANSLATION ============
         function useTranslation() {
             const [loading, setLoading] = useState(false);
@@ -3520,7 +3512,7 @@
         // ============ USAGE TRACKING ============
         function useUsage() {
             const [stored, setStored] = useLocalStorage("vocaflow_usage", { total: 0, daily: {}, sessions: 0,
-                bestScore: 0 });
+                    bestScore: 0 });
             const sessionRef = useRef(0);
             const [, forceUpdate] = useState(0);
             useEffect(() => {
@@ -3547,7 +3539,7 @@
                     window.removeEventListener("beforeunload", onUnload); };
             }, []);
             const updateBestScore = (pct) => { try { setStored(prev => ({ ...prev, bestScore: Math.max(prev.bestScore ||
-                        0, pct) })); } catch {} };
+                            0, pct) })); } catch {} };
             const day = new Date().toISOString().slice(0, 10);
             const total = (stored.total || 0) + sessionRef.current;
             const today = ((stored.daily?.[day]) || 0) + sessionRef.current;
@@ -4555,7 +4547,7 @@
             const [sets, setSets] = useLocalStorage("vocaflow_sets", DEFAULT_SETS);
             const [user, setUser] = useLocalStorage("vocaflow_user", null);
             const [savedIds, setSavedIds] = useLocalStorage("vocaflow_saved", []);
-            const [voiceSettings, setVoiceSettings] = useLocalStorage("vocaflow_voice", { rate: 0.92, pitch: 1.0 });
+            const [voiceSettings, setVoiceSettings] = useLocalStorage("vocaflow_voice", { rate: 0.9, pitch: 1.0 });
             const [view, setView] = useState("home");
             const [currentSetId, setCurrentSetId] = useState(sets[0]?.id || null);
             const [gameType, setGameType] = useState("flashcards");
