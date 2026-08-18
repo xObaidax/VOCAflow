@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
-<meta name="theme-color" content="#667EEA" />
+<meta name="theme-color" content="#8B5CF6" />
 <title>VOCAflow Pro - Learn words the fun way ✨</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,52 +14,52 @@
 /* SECTION: CSS VARIABLES & RESET                */
 /* ============================================= */
 :root {
---primary: #667EEA;
---primary-dark: #5568D3;
---secondary: #764BA2;
---accent: #F093FB;
+--primary: #8B5CF6;
+--primary-dark: #7C3AED;
+--secondary: #6D28D9;
+--accent: #C4B5FD;
 --success: #10B981;
 --success-light: rgba(16, 185, 129, 0.15);
 --warning: #F59E0B;
 --warning-light: rgba(245, 158, 11, 0.15);
 --danger: #EF4444;
 --danger-light: rgba(239, 68, 68, 0.15);
---info: #3B82F6;
---bg-start: #F0E5FF;
---bg-end: #E0F2FE;
---text: #1F2937;
---text-light: #6B7280;
---text-muted: #9CA3AF;
---glass-bg: rgba(255, 255, 255, 0.88);
---glass-bg-strong: rgba(255, 255, 255, 0.96);
---glass-border: rgba(255, 255, 255, 0.45);
---glass-shadow: 0 8px 32px rgba(102, 126, 234, 0.12);
---glass-shadow-deep: 0 20px 60px rgba(102, 126, 234, 0.18);
+--info: #8B5CF6;
+--bg-start: #FFFFFF;
+--bg-end: #F4F4F5;
+--text: #18181B;
+--text-light: #3F3F46;
+--text-muted: #71717A;
+--glass-bg: rgba(255, 255, 255, 0.75);
+--glass-bg-strong: rgba(255, 255, 255, 0.92);
+--glass-border: rgba(0, 0, 0, 0.08);
+--glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+--glass-shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.12);
 --radius: 24px;
 --radius-sm: 14px;
 --radius-lg: 28px;
 --card-bg: #FFFFFF;
 --card-border: rgba(0, 0, 0, 0.08);
 --input-bg: rgba(255, 255, 255, 0.95);
---input-border: rgba(102, 126, 234, 0.15);
+--input-border: rgba(139, 92, 246, 0.25);
 --shadow-color: 0, 0, 0;
 --nav-height: 72px;
 --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 [data-theme="dark"] {
---bg-start: #1F2937;
---bg-end: #2D1B69;
---text: #F3F4F6;
---text-light: #D1D5DB;
---text-muted: #9CA3AF;
---glass-bg: rgba(55, 65, 81, 0.88);
---glass-bg-strong: rgba(55, 65, 81, 0.96);
+--bg-start: #18181B;
+--bg-end: #0C0A09;
+--text: #FAFAFA;
+--text-light: #D4D4D8;
+--text-muted: #A1A1AA;
+--glass-bg: rgba(24, 24, 27, 0.75);
+--glass-bg-strong: rgba(24, 24, 27, 0.92);
 --glass-border: rgba(255, 255, 255, 0.10);
---glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.30);
---glass-shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.40);
---card-bg: #374151;
+--glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40);
+--glass-shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.50);
+--card-bg: #27272A;
 --card-border: rgba(255, 255, 255, 0.08);
---input-bg: rgba(55, 65, 81, 0.95);
+--input-bg: rgba(39, 39, 42, 0.95);
 --input-border: rgba(255, 255, 255, 0.12);
 --shadow-color: 255, 255, 255;
 }
@@ -79,8 +80,8 @@ body { background: linear-gradient(145deg, var(--bg-start) 0%, var(--bg-end) 100
 body::before {
 content: '';
 position: fixed; inset: 0;
-background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0%, transparent 40%),
-radial-gradient(circle at 80% 70%, rgba(240,147,251,0.06) 0%, transparent 40%);
+background-image: radial-gradient(circle at 20% 30%, rgba(139,92,246,0.06) 0%, transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(139,92,246,0.06) 0%, transparent 40%);
 pointer-events: none; z-index: 0;
 }
 #root { position: relative; z-index: 1; min-height: 100vh; }
@@ -129,11 +130,11 @@ transition: width 0.6s, height 0.6s;
 .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(var(--shadow-color), 0.15); }
 .btn:active:not(:disabled) { transform: translateY(0) scale(0.98); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 6px 20px rgba(139,92,246,0.4); }
 .btn-success { background: linear-gradient(135deg, #10B981, #059669); color: white; box-shadow: 0 6px 20px rgba(16,185,129,0.4); }
 .btn-danger { background: linear-gradient(135deg, #EF4444, #DC2626); color: white; box-shadow: 0 6px 20px rgba(239,68,68,0.4); }
 .btn-secondary { background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); color: var(--text); border: 1px solid var(--glass-border); }
-[data-theme="dark"] .btn-secondary { background: rgba(55,65,81,0.85); border-color: rgba(255,255,255,0.12); }
+[data-theme="dark"] .btn-secondary { background: rgba(39,39,42,0.85); border-color: rgba(255,255,255,0.12); }
 .btn-block { width: 100%; }
 .btn-lg { padding: 16px 28px; font-size: clamp(15px, 4vw, 17px); min-height: 56px; }
 .icon-btn {
@@ -144,10 +145,10 @@ transition: all 0.2s; min-width: 44px; min-height: 44px;
 display: flex; align-items: center; justify-content: center; color: var(--text);
 touch-action: manipulation;
 }
-.icon-btn:hover { background: rgba(255,255,255,0.7); transform: scale(1.08); }
+.icon-btn:hover { background: rgba(139,92,246,0.15); transform: scale(1.08); color: var(--primary); }
 .icon-btn.danger:hover { background: var(--danger-light); color: var(--danger); }
 [data-theme="dark"] .icon-btn { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.08); }
-[data-theme="dark"] .icon-btn:hover { background: rgba(255,255,255,0.15); }
+[data-theme="dark"] .icon-btn:hover { background: rgba(139,92,246,0.2); }
 .muted { color: var(--text-light); font-size: 13px; font-weight: 500; }
 .flex-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -155,11 +156,12 @@ touch-action: manipulation;
 .site-logo { cursor: pointer; }
 .site-logo h1 {
 font-weight: 900;
-background: linear-gradient(135deg, #fff 0%, #F093FB 50%, #667EEA 100%);
+background: linear-gradient(135deg, #8B5CF6 0%, #18181B 100%);
 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 display: flex; align-items: center; gap: 10px;
 letter-spacing: -0.02em;
 }
+[data-theme="dark"] .site-logo h1 { background: linear-gradient(135deg, #C4B5FD 0%, #FFFFFF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .site-logo .tagline { color: var(--text-light); font-weight: 500; margin-top: 2px; }
 .profile-card {
 background: var(--glass-bg-strong);
@@ -175,7 +177,7 @@ width: clamp(80px, 20vw, 120px); height: clamp(80px, 20vw, 120px);
 border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary));
 color: white; display: flex; align-items: center; justify-content: center;
 font-size: clamp(32px, 8vw, 44px); font-weight: 900; flex-shrink: 0;
-box-shadow: 0 0 0 4px rgba(255,255,255,0.5), 0 12px 32px rgba(102,126,234,0.5);
+box-shadow: 0 0 0 4px rgba(139,92,246,0.3), 0 12px 32px rgba(139,92,246,0.4);
 position: relative; overflow: hidden; cursor: pointer;
 transition: all 0.3s; border: 3px solid rgba(255,255,255,0.7);
 }
@@ -185,7 +187,7 @@ transition: all 0.3s; border: 3px solid rgba(255,255,255,0.7);
 .profile-note { color: var(--text-light); line-height: 1.5; font-weight: 500; }
 .profile-stats {
 display: flex; gap: 20px; flex-wrap: wrap; padding-top: 18px;
-border-top: 1px solid rgba(102,126,234,0.15); position: relative; z-index: 2;
+border-top: 1px solid rgba(139,92,246,0.2); position: relative; z-index: 2;
 }
 .stat-item { display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 3.5vw, 14px); color: var(--text-light); font-weight: 600; }
 .stat-item .value { color: var(--text); font-weight: 800; font-size: clamp(15px, 4vw, 17px); }
@@ -211,14 +213,14 @@ font-weight: 900; font-size: clamp(13px, 3.5vw, 16px);
 color: white; text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 z-index: 5; pointer-events: none;
 }
-.flame-red .flame-svg { filter: drop-shadow(0 3px 12px rgba(255, 60, 60, 0.7)); }
-.flame-blue .flame-svg { filter: drop-shadow(0 3px 12px rgba(60, 130, 255, 0.7)); }
-.flame-purple .flame-svg { filter: drop-shadow(0 3px 12px rgba(160, 80, 255, 0.7)); }
-.flame-rainbow .flame-svg { animation: flameFlicker 2.2s ease-in-out infinite, rainbowGlow 9s linear infinite; }
-@keyframes rainbowGlow {
-0%, 100% { filter: drop-shadow(0 3px 12px rgba(255, 60, 60, 0.8)); }
-33% { filter: drop-shadow(0 3px 12px rgba(60, 130, 255, 0.8)); }
-66% { filter: drop-shadow(0 3px 12px rgba(160, 80, 255, 0.8)); }
+.flame-red .flame-svg { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.7)); }
+.flame-blue .flame-svg { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.7)); }
+.flame-purple .flame-svg { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.7)); }
+.flame-rainbow .flame-svg { animation: flameFlicker 2.2s ease-in-out infinite, purpleGlow 9s linear infinite; }
+@keyframes purpleGlow {
+0%, 100% { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.8)); }
+33% { filter: drop-shadow(0 3px 12px rgba(255,255,255,0.8)); }
+66% { filter: drop-shadow(0 3px 12px rgba(24,24,27,0.8)); }
 }
 .dropdown-wrapper { position: relative; margin-bottom: 18px; }
 .dropdown-trigger {
@@ -230,7 +232,7 @@ display: flex; justify-content: space-between; align-items: center;
 min-height: 54px; color: var(--text); transition: all 0.3s;
 touch-action: manipulation;
 }
-.dropdown-trigger:hover { border-color: var(--primary); box-shadow: 0 6px 20px rgba(102,126,234,0.2); }
+.dropdown-trigger:hover { border-color: var(--primary); box-shadow: 0 6px 20px rgba(139,92,246,0.2); }
 .dropdown-trigger .arrow { transition: transform 0.3s; font-size: 14px; color: var(--primary); display: flex; align-items: center; }
 .dropdown-trigger .arrow.open { transform: rotate(180deg); }
 .dropdown-menu {
@@ -243,40 +245,41 @@ animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
 .dropdown-search { width: 100%; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--input-border); background: var(--input-bg); margin-bottom: 10px; font-size: 14px; color: var(--text); }
-.dropdown-search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+.dropdown-search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139,92,246,0.15); }
 .dropdown-item { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; border-radius: 12px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; }
-.dropdown-item:hover { background: rgba(102,126,234,0.08); }
+.dropdown-item:hover { background: rgba(139,92,246,0.08); }
 .dropdown-item-main { flex: 1; min-width: 0; }
 .dropdown-item-name { font-weight: 700; font-size: 14px; color: var(--text); }
 .dropdown-item-meta { font-size: 12px; color: var(--text-light); margin-top: 3px; }
 .dropdown-item-actions { display: flex; gap: 6px; }
-.dropdown-item.primary { background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12)); color: var(--primary); font-weight: 700; justify-content: center; margin-top: 10px; border: 1px dashed rgba(102,126,234,0.3); }
+.dropdown-item.primary { background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(109,40,217,0.12)); color: var(--primary); font-weight: 700; justify-content: center; margin-top: 10px; border: 1px dashed rgba(139,92,246,0.4); }
 .sanctuary {
-background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 40%, #FDE68A 100%);
-border: 2px solid rgba(245,158,11,0.25); border-radius: var(--radius-lg);
+background: linear-gradient(135deg, #FAFAFA 0%, #EDE9FE 40%, #DDD6FE 100%);
+border: 2px solid rgba(139,92,246,0.25); border-radius: var(--radius-lg);
 padding: 22px; margin: 20px 0; position: relative; overflow: hidden;
-box-shadow: 0 12px 40px rgba(245,158,11,0.2);
+box-shadow: 0 12px 40px rgba(139,92,246,0.15);
 }
-[data-theme="dark"] .sanctuary { background: linear-gradient(135deg, #2D1B69 0%, #1F2937 40%, #374151 100%); border-color: rgba(168,85,247,0.3); }
+[data-theme="dark"] .sanctuary { background: linear-gradient(135deg, #18181B 0%, #27272A 40%, #3F3F46 100%); border-color: rgba(139,92,246,0.4); }
 .sanctuary-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; position: relative; z-index: 2; }
 .sanctuary-info { display: flex; align-items: center; gap: 14px; }
 .sanctuary-icon { font-size: clamp(32px, 8vw, 44px); animation: floatCastle 4s ease-in-out infinite; }
 @keyframes floatCastle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-.sanctuary-title { font-size: clamp(16px, 4.5vw, 19px); font-weight: 900; color: #7C2D12; }
-[data-theme="dark"] .sanctuary-title { color: #FDE68A; }
-.sanctuary-subtitle { font-size: clamp(11px, 3.2vw, 13px); color: #92400E; font-weight: 600; }
-[data-theme="dark"] .sanctuary-subtitle { color: #D1D5DB; }
-.sanctuary-count { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.75); padding: 4px 14px; border-radius: 20px; font-size: clamp(10px, 3vw, 12px); color: #92400E; font-weight: 800; margin-top: 6px; }
-[data-theme="dark"] .sanctuary-count { background: rgba(55,65,81,0.75); color: #FDE68A; }
-.btn-gold { background: linear-gradient(135deg, #F59E0B, #FCD34D); color: #7C2D12; box-shadow: 0 6px 20px rgba(245,158,11,0.5); font-weight: 800; }
-[data-theme="dark"] .btn-gold { color: #1F2937; }
+.sanctuary-title { font-size: clamp(16px, 4.5vw, 19px); font-weight: 900; color: #18181B; }
+[data-theme="dark"] .sanctuary-title { color: #FAFAFA; }
+.sanctuary-subtitle { font-size: clamp(11px, 3.2vw, 13px); color: #3F3F46; font-weight: 600; }
+[data-theme="dark"] .sanctuary-subtitle { color: #D4D4D8; }
+.sanctuary-count { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.75); padding: 4px 14px; border-radius: 20px; font-size: clamp(10px, 3vw, 12px); color: #18181B; font-weight: 800; margin-top: 6px; }
+[data-theme="dark"] .sanctuary-count { background: rgba(24,24,27,0.75); color: #FAFAFA; }
+.btn-gold { background: linear-gradient(135deg, #8B5CF6, #C4B5FD); color: white; box-shadow: 0 6px 20px rgba(139,92,246,0.5); font-weight: 800; }
+[data-theme="dark"] .btn-gold { color: white; }
 .games-header-wrap { margin: 28px 0 6px; }
 .games-header-title {
 font-weight: 900;
-background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
+background: linear-gradient(135deg, #8B5CF6 0%, #18181B 50%, #C4B5FD 100%);
 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 display: flex; align-items: center; gap: 10px; letter-spacing: -0.01em;
 }
+[data-theme="dark"] .games-header-title { background: linear-gradient(135deg, #C4B5FD 0%, #FFFFFF 50%, #8B5CF6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .games-header-desc { color: var(--text-light); font-weight: 600; margin-top: 4px; padding-left: 44px; opacity: 0.85; }
 .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(10px, 2vw, 14px); margin-bottom: 20px; }
 .game-card {
@@ -288,65 +291,117 @@ transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 text-align: center; position: relative; overflow: hidden; min-height: 44px;
 touch-action: manipulation;
 }
-.game-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(102,126,234,0.25); border-color: var(--primary); }
+.game-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(139,92,246,0.25); border-color: var(--primary); }
 .game-card:active { transform: scale(0.97); }
 .game-icon-wrap { width: clamp(44px, 11vw, 54px); height: clamp(44px, 11vw, 54px); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; border-radius: 16px; transition: transform 0.3s; }
 .game-card:hover .game-icon-wrap { transform: scale(1.1) rotate(-3deg); }
 .game-icon-wrap svg { width: 100%; height: 100%; }
 .game-name { font-size: clamp(11px, 3vw, 13px); font-weight: 800; color: var(--text); }
-.flashcard-game { max-width: 560px; margin: 0 auto; }
-.flashcard-container {
-perspective: 1500px;
+.flashcard-game { max-width: 660px; margin: 0 auto; }
+.dual-card-container {
+display: flex;
+flex-direction: row;
+gap: 20px;
 width: 92%;
-max-width: 480px;
+max-width: 600px;
 margin: 28px auto;
 min-height: 340px;
 -webkit-user-select: none;
 user-select: none;
 -webkit-touch-callout: none;
-cursor: pointer;
+justify-content: center;
+align-items: stretch;
 }
-.flashcard {
-position: relative; width: 100%; height: 100%; min-height: 340px;
-transform-style: preserve-3d;
-transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
-cursor: pointer; border-radius: 28px;
+@media (max-width: 600px) {
+.dual-card-container {
+flex-direction: column;
+align-items: center;
 }
-.flashcard.flipped { transform: rotateY(180deg); }
-.flashcard-face {
-position: absolute; inset: 0;
-backface-visibility: hidden; -webkit-backface-visibility: hidden;
-border-radius: 28px; display: flex; flex-direction: column;
-align-items: center; justify-content: center;
+}
+.dual-card {
+flex: 1;
+min-width: 200px;
+max-width: 280px;
+width: 100%;
+min-height: 340px;
+position: relative;
+border-radius: 28px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 padding: clamp(24px, 6vw, 40px);
-box-shadow: 0 25px 70px rgba(102,126,234,0.25), 0 10px 30px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.15);
+box-shadow: 0 25px 70px rgba(139,92,246,0.25), 0 10px 30px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.15);
 overflow: hidden;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.flashcard-face::before {
+.dual-card::before {
 content: '';
 position: absolute; inset: 0;
 background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 50%),
 radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 40%);
 pointer-events: none;
 }
-.flashcard-front { background: linear-gradient(145deg, #667EEA 0%, #764BA2 100%); color: white; }
-.flashcard-back { background: linear-gradient(145deg, #F093FB 0%, #F5576C 100%); color: white; transform: rotateY(180deg); }
+/* Flashcard black glass style */
+.dual-card-french,
+.dual-card-arabic {
+background: rgba(24, 24, 27, 0.75);
+backdrop-filter: blur(20px) saturate(180%);
+-webkit-backdrop-filter: blur(20px) saturate(180%);
+color: #FAFAFA;
+border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.dual-card-french {
+background: rgba(24, 24, 27, 0.75);
+color: #FAFAFA;
+}
+.dual-card-arabic {
+background: rgba(24, 24, 27, 0.75);
+color: #FAFAFA;
+animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-theme="dark"] .dual-card-french,
+[data-theme="dark"] .dual-card-arabic {
+background: rgba(24, 24, 27, 0.85);
+border: 1px solid rgba(139,92,246,0.4);
+}
+.single-card-mode {
+width: 100%;
+max-width: 420px;
+justify-content: center;
+gap: 0;
+}
+.single-card-mode .dual-card {
+max-width: 100%;
+width: 100%;
+min-height: 360px;
+animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dual-card:active {
+transform: scale(0.97);
+}
 .card-word, .card-translation {
 font-size: clamp(32px, 8vw, 52px);
 font-weight: 900; text-align: center; word-break: break-word;
-z-index: 2; text-shadow: 0 4px 16px rgba(0,0,0,0.25);
+z-index: 2; text-shadow: 0 4px 16px rgba(0,0,0,0.15);
 line-height: 1.2; padding: 0 12px;
+color: #FFFFFF;
 }
+.dual-card-arabic .card-word, .dual-card-arabic .card-translation { text-shadow: 0 4px 16px rgba(0,0,0,0.35); }
 .card-lang-label {
 font-size: 13px; opacity: 0.92; margin-bottom: 16px; font-weight: 700;
-padding: 6px 16px; background: rgba(255,255,255,0.15);
+padding: 6px 16px; background: rgba(139,92,246,0.25);
 backdrop-filter: blur(10px); border-radius: 20px;
 letter-spacing: 0.05em; z-index: 2;
+color: white;
 }
+.dual-card-arabic .card-lang-label { background: rgba(255,255,255,0.2); color: white; }
 .card-hint {
 font-size: 12px; opacity: 0.75; margin-top: 24px; font-weight: 600;
 letter-spacing: 0.08em; text-transform: uppercase; z-index: 2;
 animation: pulse 2s ease-in-out infinite;
+color: white;
 }
 @keyframes pulse {
 0%, 100% { opacity: 0.75; transform: translateY(0); }
@@ -360,33 +415,35 @@ pointer-events: none;
 }
 .card-top-actions > * { pointer-events: auto; }
 .card-chip {
-background: rgba(0,0,0,0.3); color: white; border-radius: 999px;
+background: rgba(139,92,246,0.35); color: white; border-radius: 999px;
 padding: 6px 16px; font-size: 12px; font-weight: 800;
 backdrop-filter: blur(10px);
 }
+.dual-card-arabic .card-chip { background: rgba(255,255,255,0.2); color: white; }
 .card-round-btn {
 width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
-background: rgba(255,255,255,0.25); color: white; font-size: 18px;
+background: rgba(139,92,246,0.3); color: white; font-size: 18px;
 display: flex; align-items: center; justify-content: center;
 transition: all 0.25s; touch-action: manipulation;
 backdrop-filter: blur(10px);
 position: relative;
 z-index: 15;
 }
-.card-round-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+.dual-card-arabic .card-round-btn { background: rgba(255,255,255,0.15); color: white; }
+.card-round-btn:hover { background: rgba(139,92,246,0.5); transform: scale(1.1); }
 .card-round-btn:active { transform: scale(0.95); }
-.card-round-btn.saved { background: rgba(252,211,77,0.4); color: #FCD34D; }
+.card-round-btn.saved { background: rgba(139,92,246,0.6); color: white; }
 .card-dots {
 display: flex; justify-content: center; gap: 6px;
 margin: 20px auto; max-width: 90%; flex-wrap: wrap;
 }
 .card-dot {
 width: 8px; height: 8px; border-radius: 50%;
-background: rgba(102,126,234,0.2); transition: all 0.3s;
+background: rgba(139,92,246,0.25); transition: all 0.3s;
 }
 .card-dot.current {
 background: var(--primary); transform: scale(1.4);
-box-shadow: 0 0 10px rgba(102,126,234,0.6);
+box-shadow: 0 0 10px rgba(139,92,246,0.6);
 }
 .card-dot.correct { background: var(--success); }
 .card-dot.wrong { background: var(--danger); }
@@ -404,7 +461,7 @@ transform: scale(0.96) translateY(2px);
 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; }
-.progress-bar { height: 10px; background: rgba(102,126,234,0.15); border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
+.progress-bar { height: 10px; background: rgba(139,92,246,0.15); border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary)); transition: width 0.4s ease; border-radius: 999px; }
 .mcq-word-box { padding: 28px 20px; text-align: center; font-size: clamp(26px, 7vw, 34px); font-weight: 900; margin-bottom: 18px; position: relative; }
 .mcq-options { display: grid; gap: 12px; }
@@ -416,16 +473,125 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 .spelling-input { width: 100%; padding: 17px; border-radius: var(--radius); border: 2px solid var(--input-border); text-align: center; font-size: clamp(18px, 5vw, 23px); font-weight: 800; background: var(--input-bg); margin-bottom: 14px; color: var(--text); }
 .spelling-input.correct { border-color: var(--success); background: var(--success-light); }
 .spelling-input.wrong { border-color: var(--danger); background: var(--danger-light); }
-.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.match-btn { min-height: 64px; border-radius: var(--radius); border: 2px solid var(--input-border); background: var(--glass-bg-strong); font-weight: 800; cursor: pointer; padding: 14px; font-size: 15px; transition: all 0.25s; color: var(--text); touch-action: manipulation; }
-.match-btn.selected { border-color: var(--primary); background: rgba(102,126,234,0.15); }
-.match-btn.matched { background: var(--success-light); border-color: var(--success); opacity: 0.75; cursor: default; }
+.sentence-box { padding: 28px 20px; text-align: center; margin-bottom: 18px; position: relative; }
+.sentence-text { font-size: clamp(18px, 5vw, 24px); font-weight: 800; line-height: 1.5; }
+.sentence-prompt { margin-top: 16px; font-size: 15px; color: var(--text-light); font-weight: 700; }
+/* ============================================= */
+/* IMPROVED MATCHING GAME STYLES                 */
+/* ============================================= */
+.match-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: clamp(14px, 4vw, 24px);
+margin-top: 10px;
+}
+.match-column {
+display: flex;
+flex-direction: column;
+gap: clamp(12px, 3vw, 18px);
+}
+.match-btn {
+min-height: 45px !important;
+border-radius: 14px !important;
+border: 2px solid var(--input-border);
+background: var(--glass-bg-strong);
+font-weight: 800;
+cursor: pointer;
+padding: 9px 7px !important;
+font-size: clamp(11px, 2.1vw, 13px) !important;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+color: var(--text);
+touch-action: manipulation;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 3px !important;
+position: relative;
+box-shadow: 0 4px 14px rgba(139,92,246,0.08);
+text-align: center;
+line-height: 1.3;
+}
+.match-btn:hover:not(.matched) {
+transform: translateY(-3px);
+box-shadow: 0 10px 24px rgba(139,92,246,0.18);
+border-color: var(--primary);
+}
+.match-btn.selected {
+border-color: var(--primary);
+background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(109,40,217,0.12));
+box-shadow: 0 0 0 3px rgba(139,92,246,0.25), 0 10px 24px rgba(139,92,246,0.2);
+transform: scale(1.03);
+}
+.match-btn.matched {
+background: linear-gradient(135deg, var(--success-light), rgba(16, 185, 129, 0.08));
+border-color: var(--success);
+opacity: 0.55;
+cursor: default;
+pointer-events: none;
+transform: scale(0.94);
+box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+.match-btn.wrong {
+background: rgba(239, 68, 68, 0.85) !important;
+border-color: #EF4444 !important;
+color: white !important;
+transform: scale(0.95);
+animation: shake 0.3s ease;
+}
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+25% { transform: translateX(-5px); }
+75% { transform: translateX(5px); }
+}
+.match-lang-flag {
+font-size: 14px !important;
+line-height: 1;
+margin-bottom: 2px;
+}
+.match-text {
+word-break: break-word;
+text-align: center;
+line-height: 1.35;
+font-weight: 800;
+padding: 0 4px;
+font-size: inherit;
+}
+.match-actions {
+position: absolute;
+top: 5px;
+right: 5px;
+display: flex;
+gap: 3px;
+z-index: 5;
+pointer-events: auto;
+}
+.match-actions .icon-btn {
+width: 26px;
+height: 26px;
+min-width: 26px;
+min-height: 26px;
+padding: 0;
+font-size: 11px;
+background: rgba(255, 255, 255, 0.85);
+border: 1px solid rgba(0, 0, 0, 0.05);
+border-radius: 50%;
+}
+[data-theme="dark"] .match-actions .icon-btn {
+background: rgba(39, 39, 42, 0.9);
+border-color: rgba(255, 255, 255, 0.1);
+}
+.match-actions .icon-btn:hover {
+background: var(--primary);
+color: white;
+border-color: var(--primary);
+}
 .results-box { text-align: center; padding: 30px 24px; }
 .results-emoji { font-size: clamp(48px, 12vw, 64px); margin-bottom: 10px; }
 .score-circle { width: clamp(100px, 25vw, 130px); height: clamp(100px, 25vw, 130px); border-radius: 50%; margin: 20px auto; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: clamp(28px, 7vw, 36px); font-weight: 900; }
-.results-message { padding: 16px 22px; border-radius: var(--radius); background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(240,147,251,0.12)); font-weight: 700; color: var(--primary); margin: 18px 0; border: 1px solid rgba(102,126,234,0.2); }
+.results-message { padding: 16px 22px; border-radius: var(--radius); background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(196,181,253,0.12)); font-weight: 700; color: var(--primary); margin: 18px 0; border: 1px solid rgba(139,92,246,0.2); }
 .wrong-words-section { text-align: start; margin: 22px 0; }
-.wrong-words-title { font-size: 15px; font-weight: 800; margin-bottom: 12px; }
+.wrong-words-title { font-size: 15px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 .activity-view { padding-bottom: 20px; }
 .stats-header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; margin-bottom: 20px; flex-wrap: wrap; }
 .stats-header-row h2 { font-size: clamp(20px, 5vw, 24px); font-weight: 900; color: var(--text); display: flex; align-items: center; gap: 10px; }
@@ -437,13 +603,13 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 .day-num-label { font-size: 9px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
 .day-num-value { font-size: clamp(11px, 3vw, 14px); font-weight: 800; padding: 6px 2px; border-radius: 8px; transition: all 0.2s; }
 .day-num-value:hover { transform: scale(1.1); }
-.intensity-0 { color: var(--text-muted); background: rgba(156,163,175,0.1); }
-.intensity-1 { color: #667EEA; background: rgba(102,126,234,0.15); }
-.intensity-2 { color: white; background: rgba(102,126,234,0.5); }
-.intensity-3 { color: white; background: linear-gradient(135deg, #667EEA, #764BA2); box-shadow: 0 2px 8px rgba(102,126,234,0.4); }
+.intensity-0 { color: var(--text-muted); background: rgba(113,113,122,0.1); }
+.intensity-1 { color: #8B5CF6; background: rgba(139,92,246,0.15); }
+.intensity-2 { color: white; background: rgba(139,92,246,0.5); }
+.intensity-3 { color: white; background: linear-gradient(135deg, #8B5CF6, #18181B); box-shadow: 0 2px 8px rgba(139,92,246,0.4); }
 .stats-totals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 .total-card { background: var(--glass-bg-strong); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: clamp(16px, 4vw, 20px); text-align: center; position: relative; overflow: hidden; }
-.total-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #667EEA, #F093FB); }
+.total-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #8B5CF6, #C4B5FD); }
 .total-icon { font-size: 28px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; height: 36px; }
 .total-icon svg { width: 32px; height: 32px; }
 .total-value { font-size: clamp(20px, 5vw, 28px); font-weight: 900; color: var(--text); }
@@ -473,7 +639,7 @@ font-size: 14px; font-weight: 600;
 .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .sheet-title { font-size: clamp(18px, 5vw, 22px); font-weight: 900; color: var(--text); }
 .sheet-close { width: 40px; height: 40px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--card-border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--text); }
-.year-summary-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; margin-bottom: 24px; padding: 16px; background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08)); border-radius: var(--radius); }
+.year-summary-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; margin-bottom: 24px; padding: 16px; background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(196,181,253,0.08)); border-radius: var(--radius); }
 .summary-stat { text-align: center; }
 .summary-stat-icon { font-size: clamp(20px, 5vw, 24px); margin-bottom: 4px; display: flex; align-items: center; justify-content: center; height: 28px; }
 .summary-stat-icon svg { width: 24px; height: 24px; }
@@ -481,20 +647,20 @@ font-size: 14px; font-weight: 600;
 .summary-stat-label { font-size: clamp(9px, 2.5vw, 11px); color: var(--text-light); font-weight: 600; margin-top: 2px; }
 .year-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
 .month-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(12px, 3vw, 16px); cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
-.month-card:hover:not(.inactive) { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(102,126,234,0.2); border-color: var(--primary); }
-.month-card.current { border-color: #667EEA; box-shadow: 0 0 0 2px rgba(102,126,234,0.25), 0 8px 20px rgba(102,126,234,0.25); background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(240,147,251,0.04)); }
+.month-card:hover:not(.inactive) { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(139,92,246,0.2); border-color: var(--primary); }
+.month-card.current { border-color: #8B5CF6; box-shadow: 0 0 0 2px rgba(139,92,246,0.25), 0 8px 20px rgba(139,92,246,0.25); background: linear-gradient(135deg, rgba(139,92,246,0.06), rgba(196,181,253,0.04)); }
 .month-card.inactive { opacity: 0.45; cursor: default; }
 .month-name { font-size: clamp(11px, 3vw, 13px); font-weight: 800; color: var(--text); margin-bottom: 10px; }
 .month-sparkline { display: flex; gap: 2px; height: 24px; align-items: flex-end; margin-bottom: 10px; }
-.spark-bar { flex: 1; background: linear-gradient(180deg, #667EEA, #764BA2); border-radius: 2px; min-height: 2px; }
-.spark-bar.empty { background: rgba(156,163,175,0.2); }
+.spark-bar { flex: 1; background: linear-gradient(180deg, #8B5CF6, #18181B); border-radius: 2px; min-height: 2px; }
+.spark-bar.empty { background: rgba(113,113,122,0.2); }
 .month-count { font-size: clamp(10px, 2.8vw, 11px); color: var(--text-light); font-weight: 600; }
 .back-btn { background: none; border: none; color: var(--primary); font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 8px 0; margin-bottom: 12px; min-height: 44px; }
 .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-top: 16px; }
 .calendar-day-header { display: flex; align-items: center; justify-content: center; font-size: clamp(8px, 2.2vw, 10px); font-weight: 700; color: var(--text-muted); padding: 4px 0; }
 .calendar-day { display: flex; align-items: center; justify-content: center; font-size: clamp(10px, 2.8vw, 12px); font-weight: 700; cursor: pointer; transition: all 0.15s; border-radius: 6px; padding: 6px 2px; min-height: 32px; }
 .calendar-day:hover:not(.empty) { transform: scale(1.08); }
-.calendar-day.has-activity { background: linear-gradient(135deg, #667EEA, #764BA2); color: white; box-shadow: 0 2px 6px rgba(102,126,234,0.35); }
+.calendar-day.has-activity { background: linear-gradient(135deg, #8B5CF6, #18181B); color: white; box-shadow: 0 2px 6px rgba(139,92,246,0.35); }
 .calendar-day.empty { color: var(--text-muted); cursor: default; }
 .day-detail-popover { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(16px, 4vw, 24px); margin-top: 20px; box-shadow: 0 12px 32px rgba(0,0,0,0.15); animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -508,18 +674,18 @@ font-size: 14px; font-weight: 600;
 position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
 width: calc(100% - 32px); max-width: 420px;
 height: 72px;
-background: rgba(255, 255, 255, 0.85);
+background: rgba(255, 255, 255, 0.75);
 backdrop-filter: blur(24px) saturate(180%);
 -webkit-backdrop-filter: blur(24px) saturate(180%);
 border: 1px solid rgba(255, 255, 255, 0.6);
 border-radius: 36px;
 display: flex; justify-content: space-around; align-items: center;
 z-index: 1000;
-box-shadow: 0 15px 50px rgba(102, 126, 234, 0.15), 0 5px 15px rgba(0,0,0,0.05);
+box-shadow: 0 15px 50px rgba(139,92,246,0.15), 0 5px 15px rgba(0,0,0,0.05);
 padding: 0 20px;
 }
 [data-theme="dark"] .bottom-nav-premium {
-background: rgba(31, 41, 55, 0.85);
+background: rgba(24, 24, 27, 0.75);
 border: 1px solid rgba(255, 255, 255, 0.12);
 box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0,0,0,0.2);
 }
@@ -535,8 +701,12 @@ border-radius: 26px;
 }
 .nav-tab.active {
 color: white;
-background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+background: linear-gradient(135deg, #8B5CF6 0%, #18181B 100%);
+box-shadow: 0 6px 20px rgba(139,92,246,0.4);
+}
+[data-theme="dark"] .nav-tab.active {
+background: linear-gradient(135deg, #8B5CF6 0%, #C4B5FD 100%);
+color: #18181B;
 }
 .nav-tab.active .nav-icon svg { transform: scale(1.15); }
 .nav-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
@@ -553,12 +723,12 @@ box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 .field { margin-bottom: 16px; }
 .field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 7px; color: var(--text); }
 .field input, .field select { width: 100%; padding: 13px 15px; border: 2px solid var(--input-border); border-radius: var(--radius-sm); font-size: clamp(14px, 3.8vw, 15px); background: var(--input-bg); color: var(--text); min-height: 44px; }
-.field input:focus, .field select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(102,126,234,0.12); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(139,92,246,0.12); }
 .page-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
 .page-header h2 { font-size: clamp(20px, 5vw, 24px); font-weight: 900; color: var(--text); }
 .editor-box { padding: clamp(16px, 4vw, 22px); margin-bottom: 18px; }
 .word-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 16px; margin-bottom: 10px; background: rgba(255,255,255,0.75); border-radius: var(--radius-sm); border: 1px solid var(--glass-border); min-height: 44px; }
-[data-theme="dark"] .word-row { background: rgba(55,65,81,0.75); }
+[data-theme="dark"] .word-row { background: rgba(39,39,42,0.75); }
 .word-row-main { flex: 1; min-width: 0; }
 .word-row-text { font-weight: 700; font-size: clamp(14px, 4vw, 16px); color: var(--text); }
 .word-row-translation { font-size: clamp(11px, 3.2vw, 13px); color: var(--text-light); margin-top: 3px; }
@@ -570,12 +740,12 @@ box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 .toast.success { border-left: 4px solid var(--success); }
 .toast.error { border-left: 4px solid var(--danger); }
 .toast.info { border-left: 4px solid var(--primary); }
-.file-upload-wrap { position: relative; display: inline-block; padding: 12px 18px; background: rgba(102,126,234,0.1); border: 2px dashed var(--primary); border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; color: var(--primary); text-align: center; width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.file-upload-wrap { position: relative; display: inline-block; padding: 12px 18px; background: rgba(139,92,246,0.1); border: 2px dashed var(--primary); border-radius: var(--radius-sm); cursor: pointer; font-weight: 700; color: var(--primary); text-align: center; width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .file-upload-wrap input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 .error-fallback { padding: 40px 20px; text-align: center; background: var(--glass-bg-strong); border-radius: var(--radius-lg); margin: 20px 0; border: 2px solid var(--danger); }
 .error-fallback h2 { color: var(--danger); margin-bottom: 10px; }
 .slider-wrap { display: flex; align-items: center; gap: 12px; }
-.slider-wrap input[type="range"] { flex: 1; height: 6px; -webkit-appearance: none; background: rgba(102,126,234,0.2); border-radius: 999px; outline: none; }
+.slider-wrap input[type="range"] { flex: 1; height: 6px; -webkit-appearance: none; background: rgba(139,92,246,0.2); border-radius: 999px; outline: none; }
 .slider-wrap input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; cursor: pointer; }
 .slider-value { min-width: 40px; font-weight: 700; color: var(--primary); font-size: 14px; text-align: center; }
 .settings-section { margin-top: 16px; }
@@ -584,22 +754,23 @@ box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 .theme-toggle-row:hover { border-color: var(--primary); }
 .theme-toggle-row:active { transform: scale(0.98); }
 .theme-toggle-label { font-weight: 700; font-size: 15px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-.theme-toggle-switch { width: 48px; height: 28px; border-radius: 14px; background: rgba(156,163,175,0.3); position: relative; transition: background 0.3s; }
+.theme-toggle-switch { width: 48px; height: 28px; border-radius: 14px; background: rgba(113,113,122,0.3); position: relative; transition: background 0.3s; }
 .theme-toggle-switch.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
 .theme-toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; border-radius: 50%; background: white; transition: transform 0.3s; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 .theme-toggle-switch.active::after { transform: translateX(20px); }
 .btn-annual-details {
 display: flex; align-items: center; justify-content: center; gap: 10px;
 width: 100%; padding: 16px 24px;
-background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+background: linear-gradient(135deg, #8B5CF6 0%, #18181B 100%);
 border: none; border-radius: 20px;
 color: white; font-size: 15px; font-weight: 800;
 cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 margin-top: 24px; min-height: 56px;
-box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+box-shadow: 0 10px 30px rgba(139,92,246,0.4);
 letter-spacing: 0.03em;
 position: relative; overflow: hidden;
 }
+[data-theme="dark"] .btn-annual-details { background: linear-gradient(135deg, #C4B5FD 0%, #8B5CF6 100%); color: #18181B; }
 .btn-annual-details::before {
 content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
 background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
@@ -608,7 +779,7 @@ transition: left 0.5s;
 .btn-annual-details:hover::before { left: 100%; }
 .btn-annual-details:hover {
 transform: translateY(-3px);
-box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+box-shadow: 0 15px 40px rgba(139,92,246,0.5);
 }
 .btn-annual-details:active {
 transform: translateY(0) scale(0.98);
@@ -620,7 +791,7 @@ transform: translateY(0) scale(0.98);
 .app { padding: 16px; padding-bottom: calc(110px + var(--safe-bottom)); }
 .profile-card { padding: 22px; }
 .games-grid { gap: 12px; }
-.flashcard-container { width: 95%; min-height: 320px; }
+.dual-card-container { width: 95%; min-height: 320px; }
 .answer-buttons .btn { padding: 16px 18px; font-size: 15px; }
 }
 @media (max-width: 430px) {
@@ -630,9 +801,8 @@ transform: translateY(0) scale(0.98);
 .avatar { width: 70px; height: 70px; font-size: 28px; }
 .games-grid { gap: 10px; }
 .game-card { padding: 14px 8px; }
-.flashcard-container { width: 98%; min-height: 300px; }
-.flashcard { min-height: 300px; }
-.flashcard-face { padding: 20px 16px; }
+.dual-card-container { width: 98%; min-height: 300px; }
+.dual-card { min-height: 300px; padding: 20px 16px; }
 .card-word, .card-translation { font-size: clamp(28px, 8vw, 40px); }
 .card-round-btn { width: 42px; height: 42px; }
 .answer-buttons { gap: 10px; }
@@ -645,8 +815,8 @@ transform: translateY(0) scale(0.98);
 @media (max-width: 390px) {
 .app { padding: 12px; }
 .profile-card { padding: 16px; }
-.flashcard-container { min-height: 280px; }
-.flashcard { min-height: 280px; }
+.dual-card-container { min-height: 280px; }
+.dual-card { min-height: 280px; }
 .card-word, .card-translation { font-size: clamp(26px, 7.5vw, 38px); }
 .card-lang-label { font-size: 11px; padding: 4px 12px; }
 .card-hint { font-size: 10px; margin-top: 16px; }
@@ -657,8 +827,8 @@ transform: translateY(0) scale(0.98);
 .games-grid { gap: 8px; }
 .game-name { font-size: 11px; }
 .game-icon-wrap { width: 42px; height: 42px; }
-.flashcard-container { min-height: 270px; }
-.flashcard { min-height: 270px; }
+.dual-card-container { min-height: 270px; }
+.dual-card { min-height: 270px; }
 .card-top-actions { top: 12px; left: 12px; right: 12px; }
 .answer-buttons { gap: 8px; }
 .answer-buttons .btn { padding: 12px 12px; font-size: 13px; min-height: 50px; }
@@ -669,10 +839,10 @@ transform: translateY(0) scale(0.98);
 .profile-card { padding: 14px; }
 .profile-greeting { font-size: 16px; }
 .avatar { width: 60px; height: 60px; font-size: 24px; }
-.flashcard-container { min-height: 250px; width: 100%; }
-.flashcard { min-height: 250px; }
+.dual-card-container { min-height: 250px; width: 100%; }
+.dual-card { min-height: 250px; }
 .card-word, .card-translation { font-size: clamp(22px, 7vw, 32px); }
-.flashcard-face { padding: 16px 12px; }
+.dual-card { padding: 16px 12px; }
 .card-round-btn { width: 38px; height: 38px; font-size: 15px; }
 .answer-buttons .btn { padding: 10px 10px; font-size: 12px; min-height: 48px; gap: 4px; }
 .games-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -686,12 +856,92 @@ transform: translateY(0) scale(0.98);
 }
 @media (min-width: 768px) {
 .games-grid { grid-template-columns: repeat(4, 1fr); }
-.flashcard-container { width: 70%; max-width: 520px; }
+.dual-card-container { width: 70%; max-width: 600px; }
 }
 @media (min-width: 1024px) {
 .app { padding: 32px; }
-.flashcard-container { max-width: 560px; }
+.dual-card-container { max-width: 650px; }
 }
+/* ============================================= */
+/* ENHANCED MOBILE FIXES & BUG RESOLUTIONS       */
+/* ============================================= */
+@media (max-width: 768px) {
+.field input, .field select, .dropdown-search, .spelling-input { font-size: 16px !important; }
+.bottom-nav-premium { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); width: calc(100% - 24px); max-width: 400px; }
+.app { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+.dual-card-container { min-height: 280px; }
+.dual-card { min-height: 280px; }
+.answer-buttons { flex-direction: row; gap: 12px; }
+.answer-buttons .btn { padding: 14px 10px; font-size: 15px; min-height: 52px; }
+.dropdown-menu { max-height: 60vh; bottom: auto; top: 100%; }
+.match-grid { gap: 12px; }
+.match-btn { min-height: 80px; padding: 14px 10px; }
+.match-lang-flag { font-size: 18px; }
+.match-text { font-size: clamp(13px, 3.5vw, 15px); }
+}
+@media (max-width: 400px) {
+.match-grid {
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+.match-column {
+gap: 10px;
+}
+.match-btn {
+min-height: 75px;
+font-size: 14px;
+padding: 12px 8px;
+}
+.match-lang-flag { font-size: 17px; }
+.match-actions .icon-btn {
+width: 26px;
+height: 26px;
+min-width: 26px;
+min-height: 26px;
+font-size: 11px;
+}
+.match-actions {
+top: 5px;
+right: 5px;
+gap: 3px;
+}
+}
+@media (max-width: 380px) {
+.answer-buttons { flex-direction: column; gap: 10px; }
+.answer-buttons .btn { width: 100%; }
+.game-title { font-size: 14px; }
+.game-subtitle { font-size: 11px; }
+.match-grid {
+grid-template-columns: 1fr;
+gap: 10px;
+}
+.match-column {
+gap: 10px;
+}
+.match-btn {
+min-height: 65px;
+flex-direction: row;
+gap: 10px;
+padding: 12px 16px;
+}
+.match-lang-flag { font-size: 20px; margin-bottom: 0; }
+.match-actions {
+position: static;
+margin-left: auto;
+}
+}
+/* ============================================= */
+/* MATCHING BOXES REDUCED BY 50%                 */
+/* ============================================= */
+.match-btn {
+min-height: 45px !important;
+padding: 9px 7px !important;
+font-size: clamp(11px, 2.1vw, 13px) !important;
+border-radius: 14px !important;
+gap: 3px !important;
+}
+.match-lang-flag { font-size: 14px !important; }
+.match-text { font-size: inherit; }
 </style>
 </head>
 <body>
@@ -722,9 +972,9 @@ const LANGS = [
 ];
 const getLang = (code) => LANGS.find(l => l.code === code) || LANGS[1];
 const LOCALES = {
-ar: { appName: "VOCAflow Pro", tagline: "تعلم الكلمات بطريقة ممتعة ✨", selectSet: "اختر مجموعة", createSet: "إنشاء مجموعة جديدة", search: "ابحث...", edit: "تعديل", delete: "حذف", cancel: "إلغاء", save: "حفظ", setName: "اسم المجموعة", firstLang: "اللغة الأولى", secondLang: "اللغة الثانية", games: "الألعاب", gamesDesc: "اختر لعبتك وابدأ اللعب! 🚀", flashcards: "البطاقات", mcq: "اختيار من متعدد", spelling: "الإملاء", matching: "المطابقة", sanctuary: "ملجأك الآمن", sanctuarySubtitle: "كلمات ثمينة بأمان", preciousWords: "كلمات ثمينة", preciousWordSingular: "كلمة ثمينة", playSanctuary: "العب بالملجأ", guest: "ضيف", guestNote: "البيانات تُحفظ محلياً فقط.", welcomeBack: "أهلاً بعودتك", welcomeGuest: "أهلاً بك", level: "المستوى", today: "اليوم", saved: "محفوظة", settings: "الإعدادات", logout: "تسجيل الخروج", login: "تسجيل الدخول", name: "الاسم", email: "البريد", close: "إغلاق", correct: "صحيح", wrong: "خطأ", results: "النتائج", retry: "إعادة الكل", retryWrong: "إعادة الخاطئ فقط", home: "الرئيسية", noSet: "لا توجد مجموعات", noWords: "لا توجد كلمات", needSelectSet: "اختر مجموعة أولاً", created: "تم إنشاء المجموعة 🎉", deleted: "تم الحذف", savedMsg: "تم الحفظ ✓", addWord: "إضافة كلمة", word: "الكلمة", translation: "الترجمة", add: "إضافة", noSaved: "لا توجد كلمات محفوظة", tapToFlip: "اضغط للتقليب", check: "تحقق", typeWord: "اكتب الكلمة...", listenWrite: "استمع واكتب الكلمة", matchPairs: "طابق الكلمات", time: "الوقت", score: "النقاط", correctAnswers: "الإجابات الصحيحة", wrongWords: "الكلمات الخاطئة", excellent: "ممتاز! 🌟", good: "جيد جداً! 👏", fair: "جيد! 👍", tryAgain: "حاول مجدداً 💪", msgExcellent: "أنت نجم! ✨", msgGood: "عمل رائع! 🎯", msgFair: "مجهود جيد 📚", msgTryAgain: "لا تستسلم! 💪", of: "من", card: "بطاقة", question: "سؤال", words: "كلمات", confirmDeleteSet: "حذف هذه المجموعة؟", confirmDeleteWord: "حذف هذه الكلمة؟", back: "رجوع", editor: "المحرر", translating: "جاري الترجمة...", darkMode: "الوضع الليلي", lightMode: "الوضع النهاري", theme: "المظهر", voiceSettings: "إعدادات الصوت", speechRate: "سرعة النطق", pitch: "النبرة", language: "اللغة", exportData: "تصدير البيانات", importData: "استيراد البيانات", resetAll: "حذف جميع البيانات", confirmReset: "سيتم حذف جميع البيانات!", dataExported: "تم التصدير ✓", dataImported: "تم الاستيراد ✓", invalidFile: "ملف غير صالح", stats: "الإحصائيات", annualDetails: "التفاصيل السنوية", weeklySummary: "📚 {words} كلمة هذا الأسبوع · ⏱ {time}", wordsThisYear: "كلمة هذا العام", timeThisYear: "الوقت هذا العام", daysStreak: "يوم متتالي", reviewedWords: "كلمات مراجعة", newWords: "كلمات جديدة", masteredWords: "كلمات مُتقنة", timeSpent: "الوقت المستغرق", minutes: "دقيقة", totalWords: "إجمالي الكلمات", totalTime: "إجمالي الوقت", changePic: "تغيير الصورة", errorOccurred: "حدث خطأ", wordsAdded: "كلمات مضافة", gamesPlayed: "ألعاب لُعبت", accuracy: "الدقة", streak: "أيام متتالية", noActivity: "لا يوجد نشاط بعد", noActivityDesc: "ابدأ بمراجعة البطاقات لرؤية إحصائياتك الحقيقية!", reviewedToday: "تمت مراجعته اليوم", translate: "ترجمة تلقائية", translatedSuccess: "تمت الترجمة ✓", translationFailed: "فشل الترجمة" },
-en: { appName: "VOCAflow Pro", tagline: "Learn words the fun way ✨", selectSet: "Select Set", createSet: "Create New Set", search: "Search...", edit: "Edit", delete: "Delete", cancel: "Cancel", save: "Save", setName: "Set name", firstLang: "First language", secondLang: "Second language", games: "Games", gamesDesc: "Choose your game and start playing! 🚀", flashcards: "Flashcards", mcq: "Multiple Choice", spelling: "Spelling", matching: "Matching", sanctuary: "Your Sanctuary", sanctuarySubtitle: "Precious words in safety", preciousWords: "precious words", preciousWordSingular: "precious word", playSanctuary: "Play Sanctuary", guest: "Guest", guestNote: "Data saved locally only.", welcomeBack: "Welcome back", welcomeGuest: "Welcome", level: "Level", today: "Today", saved: "Saved", settings: "Settings", logout: "Logout", login: "Login", name: "Name", email: "Email", close: "Close", correct: "Correct", wrong: "Wrong", results: "Results", retry: "Retry All", retryWrong: "Retry Wrong Only", home: "Home", noSet: "No sets", noWords: "No words", needSelectSet: "Please select a set first", created: "Set created 🎉", deleted: "Deleted", savedMsg: "Saved ✓", addWord: "Add word", word: "Word", translation: "Translation", add: "Add", noSaved: "No saved words", tapToFlip: "Tap to flip", check: "Check", typeWord: "Type the word...", listenWrite: "Listen and write", matchPairs: "Match the pairs", time: "Time", score: "Score", correctAnswers: "Correct answers", wrongWords: "Wrong words", excellent: "Excellent! 🌟", good: "Very good! 👏", fair: "Good! 👍", tryAgain: "Try again 💪", msgExcellent: "You're a star! ✨", msgGood: "Great job! 🎯", msgFair: "Good effort 📚", msgTryAgain: "Don't give up! 💪", of: "of", card: "Card", question: "Question", words: "words", confirmDeleteSet: "Delete this set?", confirmDeleteWord: "Delete this word?", back: "Back", editor: "Editor", translating: "Translating...", darkMode: "Dark Mode", lightMode: "Light Mode", theme: "Theme", voiceSettings: "Voice Settings", speechRate: "Speech Rate", pitch: "Pitch", language: "Language", exportData: "Export Data", importData: "Import Data", resetAll: "Reset All Data", confirmReset: "Delete ALL data?", dataExported: "Data exported ✓", dataImported: "Data imported ✓", invalidFile: "Invalid file", stats: "Stats", annualDetails: "Annual Details", weeklySummary: "📚 {words} words this week · ⏱ {time}", wordsThisYear: "words this year", timeThisYear: "time this year", daysStreak: "days", reviewedWords: "Reviewed words", newWords: "New words", masteredWords: "Mastered words", timeSpent: "Time spent", minutes: "min", totalWords: "Total Words", totalTime: "Total Time", changePic: "Change Picture", errorOccurred: "An error occurred", wordsAdded: "Words Added", gamesPlayed: "Games Played", accuracy: "Accuracy", streak: "Day Streak", noActivity: "No activity yet", noActivityDesc: "Start reviewing cards to see your real stats here!", reviewedToday: "Reviewed today", translate: "Auto Translate", translatedSuccess: "Translated ✓", translationFailed: "Translation failed" },
-fr: { appName: "VOCAflow Pro", tagline: "Apprenez les mots ✨", selectSet: "Choisir", createSet: "Créer", search: "Rechercher...", edit: "Modifier", delete: "Supprimer", cancel: "Annuler", save: "Enregistrer", setName: "Nom", firstLang: "Première langue", secondLang: "Deuxième langue", games: "Jeux", gamesDesc: "Choisissez votre jeu ! 🚀", flashcards: "Cartes", mcq: "QCM", spelling: "Orthographe", matching: "Associer", sanctuary: "Sanctuaire", sanctuarySubtitle: "Mots précieux", preciousWords: "mots précieux", preciousWordSingular: "mot précieux", playSanctuary: "Jouer", guest: "Invité", guestNote: "Données locales.", welcomeBack: "Bon retour", welcomeGuest: "Bienvenue", level: "Niveau", today: "Aujourd'hui", saved: "Sauvegardé", settings: "Paramètres", logout: "Déconnexion", login: "Connexion", name: "Nom", email: "Email", close: "Fermer", correct: "Correct", wrong: "Faux", results: "Résultats", retry: "Recommencer", retryWrong: "Incorrects", home: "Accueil", noSet: "Aucun ensemble", noWords: "Aucun mot", needSelectSet: "Sélectionnez un ensemble", created: "Créé 🎉", deleted: "Supprimé", savedMsg: "Enregistré ✓", addWord: "Ajouter", word: "Mot", translation: "Traduction", add: "Ajouter", noSaved: "Aucun mot", tapToFlip: "Retourner", check: "Vérifier", typeWord: "Écrivez...", listenWrite: "Écoutez et écrivez", matchPairs: "Associez", time: "Temps", score: "Score", correctAnswers: "Bonnes réponses", wrongWords: "Incorrects", excellent: "Excellent ! 🌟", good: "Très bien ! 👏", fair: "Bien ! 👍", tryAgain: "Réessayez 💪", msgExcellent: "Vous êtes une star !", msgGood: "Bon travail !", msgFair: "Bon effort", msgTryAgain: "N'abandonnez pas !", of: "de", card: "Carte", question: "Question", words: "mots", confirmDeleteSet: "Supprimer ?", confirmDeleteWord: "Supprimer ?", back: "Retour", editor: "Éditeur", translating: "Traduction...", darkMode: "Nuit", lightMode: "Jour", theme: "Thème", voiceSettings: "Voix", speechRate: "Vitesse", pitch: "Tonalité", language: "Langue", exportData: "Exporter", importData: "Importer", resetAll: "Tout effacer", confirmReset: "Tout effacer ?", dataExported: "Exporté ✓", dataImported: "Importé ✓", invalidFile: "Invalide", stats: "Stats", annualDetails: "Détails annuels", weeklySummary: "📚 {words} mots cette semaine · ⏱ {time}", wordsThisYear: "mots cette année", timeThisYear: "temps cette année", daysStreak: "jours", reviewedWords: "Mots révisés", newWords: "Nouveaux mots", masteredWords: "Mots maîtrisés", timeSpent: "Temps passé", minutes: "min", totalWords: "Total", totalTime: "Temps Total", changePic: "Changer", errorOccurred: "Erreur", wordsAdded: "Mots ajoutés", gamesPlayed: "Parties jouées", accuracy: "Précision", streak: "Jours consécutifs", noActivity: "Aucune activité", noActivityDesc: "Commencez à réviser pour voir vos vraies stats !", reviewedToday: "Révisés aujourd'hui", translate: "Traduire", translatedSuccess: "Traduit ✓", translationFailed: "Échec de la traduction" }
+ar: { appName: "VOCAflow Pro", tagline: "تعلم الكلمات بطريقة ممتعة ✨", selectSet: "اختر مجموعة", createSet: "إنشاء مجموعة جديدة", search: "ابحث...", edit: "تعديل", delete: "حذف", cancel: "إلغاء", save: "حفظ", setName: "اسم المجموعة", firstLang: "اللغة الأولى", secondLang: "اللغة الثانية", games: "الألعاب", gamesDesc: "اختر لعبتك وابدأ اللعب!", flashcards: "البطاقات", mcq: "اختيار من متعدد", spelling: "الإملاء", matching: "المطابقة", sentenceGame: "جمل تلقائية", sanctuary: "ملجأك الآمن", sanctuarySubtitle: "كلمات محفوظة ثمينة بأمان", preciousWords: "كلمات محفوظة ثمينة", preciousWordSingular: "كلمة محفوظة ثمينة", playSanctuary: "العب بالملجأ", guest: "ضيف", guestNote: "البيانات تُحفظ محلياً فقط.", welcomeBack: "أهلاً بعودتك", welcomeGuest: "أهلاً بك", level: "المستوى", today: "اليوم", saved: "محفوظة", settings: "الإعدادات", logout: "تسجيل الخروج", login: "تسجيل الدخول", name: "الاسم", email: "البريد", close: "إغلاق", correct: "صحيح", wrong: "خطأ", results: "النتائج", retry: "إعادة الكل", retryWrong: "إعادة الخاطئ فقط", home: "الرئيسية", noSet: "لا توجد مجموعات", noWords: "لا توجد كلمات", needSelectSet: "اختر مجموعة أولاً", created: "تم إنشاء المجموعة 🎉", deleted: "تم الحذف", savedMsg: "تم الحفظ ✓", addWord: "إضافة كلمة", word: "الكلمة", translation: "الترجمة", add: "إضافة", noSaved: "لا توجد كلمات محفوظة", tapToFlip: "اضغط للتقليب", check: "تحقق", typeWord: "اكتب الكلمة...", listenWrite: "استمع واكتب الكلمة", matchPairs: "طابق الكلمات", time: "الوقت", score: "النقاط", correctAnswers: "الإجابات الصحيحة", wrongWords: "الكلمات الخاطئة", excellent: "ممتاز! 🌟", good: "جيد جداً! 👏", fair: "جيد! 👍", tryAgain: "حاول مجدداً 💪", msgExcellent: "أنت نجم! ✨", msgGood: "عمل رائع! 🎯", msgFair: "مجهود جيد 📚", msgTryAgain: "لا تستسلم! 💪", of: "من", card: "بطاقة", question: "سؤال", words: "كلمات", confirmDeleteSet: "حذف هذه المجموعة؟", confirmDeleteWord: "حذف هذه الكلمة؟", back: "رجوع", editor: "المحرر", translating: "جاري الترجمة...", darkMode: "الوضع الليلي", lightMode: "الوضع النهاري", theme: "المظهر", voiceSettings: "إعدادات الصوت", speechRate: "سرعة النطق", pitch: "النبرة", language: "اللغة", exportData: "تصدير البيانات", importData: "استيراد البيانات", resetAll: "حذف جميع البيانات", confirmReset: "سيتم حذف جميع البيانات!", dataExported: "تم التصدير ✓", dataImported: "تم الاستيراد ✓", invalidFile: "ملف غير صالح", stats: "الإحصائيات", annualDetails: "التفاصيل السنوية", weeklySummary: "{words} كلمة هذا الأسبوع · ⏱ {time}", wordsThisYear: "كلمة هذا العام", timeThisYear: "الوقت هذا العام", daysStreak: "يوم متتالي", reviewedWords: "كلمات مراجعة", newWords: "كلمات جديدة", masteredWords: "كلمات مُتقنة", timeSpent: "الوقت المستغرق", minutes: "دقيقة", totalWords: "إجمالي الكلمات", totalTime: "إجمالي الوقت", changePic: "تغيير الصورة", errorOccurred: "حدث خطأ", wordsAdded: "كلمات مضافة", gamesPlayed: "ألعاب لُعبت", accuracy: "الدقة", streak: "أيام متتالية", noActivity: "لا يوجد نشاط بعد", noActivityDesc: "ابدأ بمراجعة البطاقات لرؤية إحصائياتك الحقيقية!", reviewedToday: "تمت مراجعته اليوم", translate: "ترجمة تلقائية", translatedSuccess: "تمت الترجمة ✓", translationFailed: "فشل الترجمة", whatsMeaning: "ما معنى الكلمة داخل الجملة؟" },
+en: { appName: "VOCAflow Pro", tagline: "Learn words the fun way ✨", selectSet: "Select Set", createSet: "Create New Set", search: "Search...", edit: "Edit", delete: "Delete", cancel: "Cancel", save: "Save", setName: "Set name", firstLang: "First language", secondLang: "Second language", games: "Games", gamesDesc: "Choose your game and start playing!", flashcards: "Flashcards", mcq: "Multiple Choice", spelling: "Spelling", matching: "Matching", sentenceGame: "Sentence Game", sanctuary: "Your Sanctuary", sanctuarySubtitle: "Saved precious words in safety", preciousWords: "saved precious words", preciousWordSingular: "saved precious word", playSanctuary: "Play Sanctuary", guest: "Guest", guestNote: "Data saved locally only.", welcomeBack: "Welcome back", welcomeGuest: "Welcome", level: "Level", today: "Today", saved: "Saved", settings: "Settings", logout: "Logout", login: "Login", name: "Name", email: "Email", close: "Close", correct: "Correct", wrong: "Wrong", results: "Results", retry: "Retry All", retryWrong: "Retry Wrong Only", home: "Home", noSet: "No sets", noWords: "No words", needSelectSet: "Please select a set first", created: "Set created 🎉", deleted: "Deleted", savedMsg: "Saved ✓", addWord: "Add word", word: "Word", translation: "Translation", add: "Add", noSaved: "No saved words", tapToFlip: "Tap to flip", check: "Check", typeWord: "Type the word...", listenWrite: "Listen and write", matchPairs: "Match the pairs", time: "Time", score: "Score", correctAnswers: "Correct answers", wrongWords: "Wrong words", excellent: "Excellent! 🌟", good: "Very good! 👏", fair: "Good! 👍", tryAgain: "Try again 💪", msgExcellent: "You're a star! ✨", msgGood: "Great job! 🎯", msgFair: "Good effort 📚", msgTryAgain: "Don't give up! 💪", of: "of", card: "Card", question: "Question", words: "words", confirmDeleteSet: "Delete this set?", confirmDeleteWord: "Delete this word?", back: "Back", editor: "Editor", translating: "Translating...", darkMode: "Dark Mode", lightMode: "Light Mode", theme: "Theme", voiceSettings: "Voice Settings", speechRate: "Speech Rate", pitch: "Pitch", language: "Language", exportData: "Export Data", importData: "Import Data", resetAll: "Reset All Data", confirmReset: "Delete ALL data?", dataExported: "Data exported ✓", dataImported: "Data imported ✓", invalidFile: "Invalid file", stats: "Stats", annualDetails: "Annual Details", weeklySummary: "{words} words this week · ⏱ {time}", wordsThisYear: "words this year", timeThisYear: "time this year", daysStreak: "days", reviewedWords: "Reviewed words", newWords: "New words", masteredWords: "Mastered words", timeSpent: "Time spent", minutes: "min", totalWords: "Total Words", totalTime: "Total Time", changePic: "Change Picture", errorOccurred: "An error occurred", wordsAdded: "Words Added", gamesPlayed: "Games Played", accuracy: "Accuracy", streak: "Day Streak", noActivity: "No activity yet", noActivityDesc: "Start reviewing cards to see your real stats here!", reviewedToday: "Reviewed today", translate: "Auto Translate", translatedSuccess: "Translated ✓", translationFailed: "Translation failed", whatsMeaning: "What does the word in the sentence mean?" },
+fr: { appName: "VOCAflow Pro", tagline: "Apprenez les mots ✨", selectSet: "Choisir", createSet: "Créer", search: "Rechercher...", edit: "Modifier", delete: "Supprimer", cancel: "Annuler", save: "Enregistrer", setName: "Nom", firstLang: "Première langue", secondLang: "Deuxième langue", games: "Jeux", gamesDesc: "Choisissez votre jeu !", flashcards: "Cartes", mcq: "QCM", spelling: "Orthographe", matching: "Associer", sentenceGame: "Phrases", sanctuary: "Sanctuaire", sanctuarySubtitle: "Mots précieux sauvegardés en sécurité", preciousWords: "mots précieux sauvegardés", preciousWordSingular: "mot précieux sauvegardé", playSanctuary: "Jouer", guest: "Invité", guestNote: "Données locales.", welcomeBack: "Bon retour", welcomeGuest: "Bienvenue", level: "Niveau", today: "Aujourd'hui", saved: "Sauvegardé", settings: "Paramètres", logout: "Déconnexion", login: "Connexion", name: "Nom", email: "Email", close: "Fermer", correct: "Correct", wrong: "Faux", results: "Résultats", retry: "Recommencer", retryWrong: "Incorrects", home: "Accueil", noSet: "Aucun ensemble", noWords: "Aucun mot", needSelectSet: "Sélectionnez un ensemble", created: "Créé 🎉", deleted: "Supprimé", savedMsg: "Enregistré ✓", addWord: "Ajouter", word: "Mot", translation: "Traduction", add: "Ajouter", noSaved: "Aucun mot", tapToFlip: "Retourner", check: "Vérifier", typeWord: "Écrivez...", listenWrite: "Écoutez et écrivez", matchPairs: "Associez", time: "Temps", score: "Score", correctAnswers: "Bonnes réponses", wrongWords: "Incorrects", excellent: "Excellent ! 🌟", good: "Très bien ! 👏", fair: "Bien ! 👍", tryAgain: "Réessayez 💪", msgExcellent: "Vous êtes une star !", msgGood: "Bon travail !", msgFair: "Bon effort", msgTryAgain: "N'abandonnez pas !", of: "de", card: "Carte", question: "Question", words: "mots", confirmDeleteSet: "Supprimer ?", confirmDeleteWord: "Supprimer ?", back: "Retour", editor: "Éditeur", translating: "Traduction...", darkMode: "Nuit", lightMode: "Jour", theme: "Thème", voiceSettings: "Voix", speechRate: "Vitesse", pitch: "Tonalité", language: "Langue", exportData: "Exporter", importData: "Importer", resetAll: "Tout effacer", confirmReset: "Tout effacer ?", dataExported: "Exporté ✓", dataImported: "Importé ✓", invalidFile: "Invalide", stats: "Stats", annualDetails: "Détails annuels", weeklySummary: "{words} mots cette semaine · ⏱ {time}", wordsThisYear: "mots cette année", timeThisYear: "temps cette année", daysStreak: "jours", reviewedWords: "Mots révisés", newWords: "Nouveaux mots", masteredWords: "Mots maîtrisés", timeSpent: "Temps passé", minutes: "min", totalWords: "Total", totalTime: "Temps Total", changePic: "Changer", errorOccurred: "Erreur", wordsAdded: "Mots ajoutés", gamesPlayed: "Parties jouées", accuracy: "Précision", streak: "Jours consécutifs", noActivity: "Aucune activité", noActivityDesc: "Commencez à réviser pour voir vos vraies stats !", reviewedToday: "Révisés aujourd'hui", translate: "Traduire", translatedSuccess: "Traduit ✓", translationFailed: "Échec de la traduction", whatsMeaning: "Que signifie le mot dans la phrase ?" }
 };
 const I18nContext = createContext();
 function I18nProvider({ children }) {
@@ -740,7 +990,7 @@ const ToastContext = createContext();
 function ToastProvider({ children }) {
 const [toasts, setToasts] = useState([]);
 const showToast = useCallback((message, type = "info") => { const id = uid(); setToasts(prev => [...prev, { id, message, type }]); setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3000); }, []);
-return (<ToastContext.Provider value={showToast}>{children}<div className="toast-container">{toasts.map(t => (<div key={t.id} className={"toast " + t.type}><span>{t.type === "success" ? "✅" : t.type === "error" ? "❌" : "ℹ️"}</span><span>{t.message}</span></div>))}</div></ToastContext.Provider>);
+return (<ToastContext.Provider value={showToast}>{children}<div className="toast-container">{toasts.map(t => (<div key={t.id} className={"toast " + t.type}><span>{t.type === "success" ? <CheckIcon size={16} color="#10B981" /> : t.type === "error" ? <CrossIcon size={16} color="#EF4444" /> : "ℹ️"}</span><span>{t.message}</span></div>))}</div></ToastContext.Provider>);
 }
 const useToast = () => useContext(ToastContext);
 const ThemeContext = createContext();
@@ -759,68 +1009,91 @@ return [value, setValue];
 function useSpeech(defaultRate = 0.9, defaultPitch = 1.0) {
 const [speaking, setSpeaking] = useState(false);
 const voicesRef = useRef([]);
+const audioRef = useRef(null);
 useEffect(() => {
 if (!window.speechSynthesis) return;
-const loadVoices = () => {
-try { voicesRef.current = window.speechSynthesis.getVoices() || []; } catch(e) { voicesRef.current = []; }
-};
+const loadVoices = () => { try { voicesRef.current = window.speechSynthesis.getVoices() || []; } catch(e) { voicesRef.current = []; } };
 loadVoices();
 window.speechSynthesis.onvoiceschanged = loadVoices;
 return () => {
 if (window.speechSynthesis) {
 window.speechSynthesis.onvoiceschanged = null;
+window.speechSynthesis.cancel();
 }
+if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
 };
 }, []);
-const speakText = useCallback((text, lang, options = {}) => {
-if (!window.speechSynthesis || !text) return;
-window.speechSynthesis.cancel();
+const speakWithSpeechSynthesis = useCallback((text, langCode, options, onError) => {
 try {
-const utterance = new SpeechSynthesisUtterance(text.trim());
-const mappedLang = lang === "ar" ? "ar-SA" : lang === "en" ? "en-US" : lang === "fr" ? "fr-FR" : lang === "es" ? "es-ES" : lang === "de" ? "de-DE" : lang === "pt" ? "pt-PT" : lang === "ja" ? "ja-JP" : lang;
+if (!window.speechSynthesis) { setSpeaking(false); onError && onError(); return; }
+const voices = voicesRef.current || [];
+let selectedVoice = null;
+const langPrefix = langCode ? langCode.split('-')[0].toLowerCase() : '';
+if (langPrefix) {
+selectedVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(langPrefix));
+if (!selectedVoice && langPrefix === 'ar') {
+selectedVoice = voices.find(v => v.lang && (v.lang.toLowerCase().includes('ar') || v.name.toLowerCase().includes('arabic')));
+}
+}
+const utterance = new SpeechSynthesisUtterance(text);
+if (selectedVoice) {
+utterance.voice = selectedVoice;
+utterance.lang = selectedVoice.lang;
+} else {
+utterance.lang = langCode || "en-US";
+}
 utterance.rate = options.rate !== undefined ? options.rate : defaultRate;
 utterance.pitch = options.pitch !== undefined ? options.pitch : defaultPitch;
 utterance.volume = 1;
-if (voicesRef.current && voicesRef.current.length === 0) {
-try { voicesRef.current = window.speechSynthesis.getVoices() || []; } catch(e) {}
-}
-const voices = voicesRef.current;
-if (voices && voices.length > 0) {
-let voice = null;
-if (lang === "ar") {
-voice = voices.find(v => v.lang && (v.lang.startsWith("ar") || v.name.toLowerCase().includes("arabic")));
-} else if (lang === "en") {
-voice = voices.find(v => v.lang && v.lang.startsWith("en"));
-} else if (lang === "fr") {
-voice = voices.find(v => v.lang && v.lang.startsWith("fr"));
-} else if (lang === "es") {
-voice = voices.find(v => v.lang && v.lang.startsWith("es"));
-} else if (lang === "de") {
-voice = voices.find(v => v.lang && v.lang.startsWith("de"));
-} else if (lang === "pt") {
-voice = voices.find(v => v.lang && v.lang.startsWith("pt"));
-} else if (lang === "ja") {
-voice = voices.find(v => v.lang && v.lang.startsWith("ja"));
-} else {
-voice = voices.find(v => v.lang && v.lang.startsWith(lang));
-}
-if (!voice && lang === "ar") voice = voices.find(v => v.lang === "ar-SA");
-if (!voice) voice = voices.find(v => v.lang && v.lang.toLowerCase().includes(lang));
-if (voice) {
-utterance.voice = voice;
-utterance.lang = voice.lang;
-} else {
-utterance.lang = mappedLang || "en-US";
-}
-} else {
-utterance.lang = mappedLang || "en-US";
-}
 utterance.onstart = () => setSpeaking(true);
 utterance.onend = () => setSpeaking(false);
-utterance.onerror = () => setSpeaking(false);
+utterance.onerror = (e) => {
+setSpeaking(false);
+if (onError && e.error === 'language-unavailable') {
+onError();
+}
+};
 window.speechSynthesis.speak(utterance);
-} catch(e) { setSpeaking(false); }
+} catch(e) {
+setSpeaking(false);
+if (onError) onError();
+}
 }, [defaultRate, defaultPitch]);
+const speakText = useCallback((text, lang, options = {}) => {
+if (!text) return;
+if (window.speechSynthesis) window.speechSynthesis.cancel();
+if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+const cleanText = text.trim();
+const mappedLang = lang === "ar" ? "ar-SA" : lang === "en" ? "en-US" : lang === "fr" ? "fr-FR" : lang === "es" ? "es-ES" : lang === "de" ? "de-DE" : lang === "pt" ? "pt-PT" : lang === "ja" ? "ja-JP" : lang;
+if (lang === "ar") {
+const googleTTS = () => {
+let fellBack = false;
+const fallback = () => {
+if (!fellBack) {
+fellBack = true;
+audioRef.current = null;
+setSpeaking(false);
+speakWithSpeechSynthesis(cleanText, "ar-SA", options, () => {
+console.warn("Arabic TTS failed");
+});
+}
+};
+const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=ar&client=tw-ob&q=${encodeURIComponent(cleanText)}`);
+audioRef.current = audio;
+audio.playbackRate = options.rate !== undefined ? options.rate : defaultRate;
+audio.onplay = () => setSpeaking(true);
+audio.onended = () => {
+audioRef.current = null;
+setSpeaking(false);
+};
+audio.onerror = fallback;
+audio.play().catch(fallback);
+};
+googleTTS();
+return;
+}
+speakWithSpeechSynthesis(cleanText, mappedLang, options);
+}, [defaultRate, defaultPitch, speakWithSpeechSynthesis]);
 return { speakText, speaking };
 }
 function useUsage() {
@@ -894,43 +1167,110 @@ setStats(prev => ({ ...prev, gamesPlayed: (prev.gamesPlayed || 0) + 1 }));
 }, []);
 return { stats, trackWordAdded, trackReview, trackGame };
 }
+// New icon components
+function WaveIcon({ size = 24, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Wave">
+<path d="M3 12c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0 2.5 1.5 4 0 2.5-1.5 4 0" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+<path d="M3 17c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0 2.5 1.5 4 0 2.5-1.5 4 0" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
+<path d="M3 7c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0 2.5 1.5 4 0 2.5-1.5 4 0" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.4"/>
+</svg>
+);
+}
+function RocketIcon({ size = 24, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Rocket">
+<path d="M12 15c-1.5-2-2-4-2-7l2-5 2 5c0 3-.5 5-2 7z" fill={color} opacity="0.8"/>
+<path d="M12 15c-2-1-3.5-2.5-4.5-4.5L9 8l3 7z" fill={color} opacity="0.6"/>
+<path d="M12 15c2-1 3.5-2.5 4.5-4.5L15 8l-3 7z" fill={color} opacity="0.6"/>
+<circle cx="12" cy="15" r="2" fill="white"/>
+<path d="M8 19c1 2 3 3 4 3s3-1 4-3" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+</svg>
+);
+}
+function CheckIcon({ size = 20, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Check">
+<circle cx="12" cy="12" r="10" fill="none" stroke={color} strokeWidth="2"/>
+<path d="M8 12.5l2.5 2.5L16 9.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
+}
+function CrossIcon({ size = 20, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Cross">
+<circle cx="12" cy="12" r="10" fill="none" stroke={color} strokeWidth="2"/>
+<path d="M15 9l-6 6M9 9l6 6" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+</svg>
+);
+}
+function GamepadIcon({ size = 24, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Gamepad">
+<path d="M6 9h12a4 4 0 014 4v1a4 4 0 01-4 4h-1.5l-1.5-2h-6l-1.5 2H6a4 4 0 01-4-4v-1a4 4 0 014-4z" fill={color} opacity="0.8"/>
+<path d="M8 12v3M6.5 13.5h3" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+<circle cx="16" cy="12.5" r="1.5" fill="white"/>
+<circle cx="18.5" cy="14.5" r="1.5" fill="white"/>
+</svg>
+);
+}
+function BookIcon({ size = 24, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Book">
+<path d="M4 4h6v16H4V4z" fill={color} opacity="0.7"/>
+<path d="M10 4h6v16h-6V4z" fill={color} opacity="0.85"/>
+<path d="M16 4h4v16h-4V4z" fill={color}/>
+<path d="M4 4h16" stroke="white" strokeWidth="1"/>
+<path d="M6 8h2M6 11h2M12 8h2M12 11h2M12 14h2M18 8h1M18 11h1" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+</svg>
+);
+}
+function GemIcon({ size = 24, color = "currentColor" }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Gem">
+<path d="M6 3h12l3 6-9 12L3 9l3-6z" fill={color} stroke="white" strokeWidth="0.5" strokeLinejoin="round"/>
+<path d="M3 9h18M9 3l3 6 3-6M12 9l0 12" stroke="white" strokeWidth="1" strokeLinejoin="round"/>
+<path d="M6 3l3 6M18 3l-3 6" stroke="white" strokeWidth="0.8"/>
+</svg>
+);
+}
 function GamesIcon({ active }) {
 return (
 <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Games">
-<defs><linearGradient id="gamesGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#667EEA" /><stop offset="100%" stopColor="#764BA2" /></linearGradient></defs>
-<path d="M6 9h12a4 4 0 014 4v1a4 4 0 01-4 4h-1.5l-1.5-2h-6l-1.5 2H6a4 4 0 01-4-4v-1a4 4 0 014-4z" fill={active ? "url(#gamesGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.8" strokeLinejoin="round"/>
-<path d="M8 12v3M6.5 13.5h3" stroke={active ? "#fff" : "#F093FB"} strokeWidth="1.8" strokeLinecap="round"/>
-<circle cx="16" cy="12.5" r="1.2" fill={active ? "#fff" : "#F093FB"}/>
-<circle cx="18.5" cy="14.5" r="1.2" fill={active ? "#fff" : "#F093FB"}/>
+<defs><linearGradient id="gamesGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#8B5CF6" /><stop offset="100%" stopColor="#18181B" /></linearGradient></defs>
+<path d="M6 9h12a4 4 0 014 4v1a4 4 0 01-4 4h-1.5l-1.5-2h-6l-1.5 2H6a4 4 0 01-4-4v-1a4 4 0 014-4z" fill={active ? "url(#gamesGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.8" strokeLinejoin="round"/>
+<path d="M8 12v3M6.5 13.5h3" stroke={active ? "#fff" : "#8B5CF6"} strokeWidth="1.8" strokeLinecap="round"/>
+<circle cx="16" cy="12.5" r="1.2" fill={active ? "#fff" : "#8B5CF6"}/>
+<circle cx="18.5" cy="14.5" r="1.2" fill={active ? "#fff" : "#8B5CF6"}/>
 </svg>
 );
 }
 function CardsIcon({ active }) {
 return (
 <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Flashcards">
-<defs><linearGradient id="cardsGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#667EEA" /><stop offset="100%" stopColor="#764BA2" /></linearGradient></defs>
-<rect x="4" y="6" width="13" height="16" rx="2" fill={active ? "url(#cardsGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.5" opacity="0.6"/>
-<rect x="7" y="3" width="13" height="16" rx="2" fill={active ? "url(#cardsGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.5"/>
-<path d="M18 1l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" fill="#F093FB"/>
+<defs><linearGradient id="cardsGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#8B5CF6" /><stop offset="100%" stopColor="#18181B" /></linearGradient></defs>
+<rect x="4" y="6" width="13" height="16" rx="2" fill={active ? "url(#cardsGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.5" opacity="0.6"/>
+<rect x="7" y="3" width="13" height="16" rx="2" fill={active ? "url(#cardsGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.5"/>
+<path d="M18 1l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" fill="#C4B5FD"/>
 </svg>
 );
 }
 function StatsIcon({ active }) {
 return (
 <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Stats">
-<defs><linearGradient id="statsGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#667EEA" /><stop offset="100%" stopColor="#F093FB" /></linearGradient></defs>
-<rect x="4" y="14" width="4" height="7" rx="1" fill={active ? "url(#statsGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.5"/>
-<rect x="10" y="10" width="4" height="11" rx="1" fill={active ? "url(#statsGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.5"/>
-<rect x="16" y="5" width="4" height="16" rx="1" fill={active ? "url(#statsGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.5"/>
+<defs><linearGradient id="statsGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#8B5CF6" /><stop offset="100%" stopColor="#C4B5FD" /></linearGradient></defs>
+<rect x="4" y="14" width="4" height="7" rx="1" fill={active ? "url(#statsGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.5"/>
+<rect x="10" y="10" width="4" height="11" rx="1" fill={active ? "url(#statsGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.5"/>
+<rect x="16" y="5" width="4" height="16" rx="1" fill={active ? "url(#statsGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.5"/>
 </svg>
 );
 }
 function SettingsIcon({ active }) {
 return (
 <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Settings">
-<defs><linearGradient id="gearGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#667EEA" /><stop offset="100%" stopColor="#764BA2" /></linearGradient></defs>
-<path d="M12 15a3 3 0 100-6 3 3 0 000 6z" fill={active ? "url(#gearGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.8"/>
-<path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" fill={active ? "url(#gearGrad)" : "none"} stroke={active ? "#764BA2" : "currentColor"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<defs><linearGradient id="gearGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#8B5CF6" /><stop offset="100%" stopColor="#18181B" /></linearGradient></defs>
+<path d="M12 15a3 3 0 100-6 3 3 0 000 6z" fill={active ? "url(#gearGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.8"/>
+<path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" fill={active ? "url(#gearGrad)" : "none"} stroke={active ? "#8B5CF6" : "currentColor"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 );
 }
@@ -939,9 +1279,9 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Saved">
 <defs>
 <linearGradient id="diamondGrad" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0%" stopColor="#667EEA" />
-<stop offset="50%" stopColor="#764BA2" />
-<stop offset="100%" stopColor="#F093FB" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="50%" stopColor="#18181B" />
+<stop offset="100%" stopColor="#C4B5FD" />
 </linearGradient>
 </defs>
 <path d="M6 3h12l3 6-9 12L3 9l3-6z" fill="url(#diamondGrad)" stroke="url(#diamondGrad)" strokeWidth="0.5" strokeLinejoin="round"/>
@@ -955,8 +1295,8 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Time">
 <defs>
 <linearGradient id="clockGrad" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0%" stopColor="#667EEA" />
-<stop offset="100%" stopColor="#764BA2" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
 </linearGradient>
 </defs>
 <circle cx="12" cy="12" r="10" fill="url(#clockGrad)" stroke="url(#clockGrad)" strokeWidth="0.5"/>
@@ -975,8 +1315,8 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Folder">
 <defs>
 <linearGradient id="folderGrad" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0%" stopColor="#667EEA" />
-<stop offset="100%" stopColor="#764BA2" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
 </linearGradient>
 </defs>
 <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="url(#folderGrad)"/>
@@ -998,11 +1338,11 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Save">
 <defs>
 <linearGradient id="bookmarkGrad" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0%" stopColor="#FCD34D" />
-<stop offset="100%" stopColor="#F59E0B" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
 </linearGradient>
 </defs>
-<path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z" fill={filled ? "url(#bookmarkGrad)" : "none"} stroke={filled ? "#F59E0B" : "currentColor"} strokeWidth="1.8" strokeLinejoin="round"/>
+<path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z" fill={filled ? "url(#bookmarkGrad)" : "none"} stroke={filled ? "#8B5CF6" : "currentColor"} strokeWidth="1.8" strokeLinejoin="round"/>
 </svg>
 );
 }
@@ -1040,8 +1380,8 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Accuracy">
 <defs>
 <linearGradient id="targetGrad" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0%" stopColor="#10B981" />
-<stop offset="100%" stopColor="#059669" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
 </linearGradient>
 </defs>
 <circle cx="12" cy="12" r="10" fill="url(#targetGrad)"/>
@@ -1056,8 +1396,8 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Streak">
 <defs>
 <linearGradient id="flameSmallGrad" x1="0" y1="1" x2="0" y2="0">
-<stop offset="0%" stopColor="#F59E0B" />
-<stop offset="100%" stopColor="#EF4444" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#C4B5FD" />
 </linearGradient>
 </defs>
 <path d="M12 2C15 6 19 9 18 14c-1 4-3 6-6 6s-5-2-6-6c-1-5 3-8 6-12z" fill="url(#flameSmallGrad)"/>
@@ -1070,8 +1410,8 @@ return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Words">
 <defs>
 <linearGradient id="booksGrad" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0%" stopColor="#667EEA" />
-<stop offset="100%" stopColor="#764BA2" />
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
 </linearGradient>
 </defs>
 <path d="M4 4h6v16H4V4z" fill="url(#booksGrad)" opacity="0.7"/>
@@ -1079,6 +1419,22 @@ return (
 <path d="M16 4h4v16h-4V4z" fill="url(#booksGrad)"/>
 <path d="M4 4h16" stroke="rgba(255,255,255,0.3)" strokeWidth="1"/>
 <path d="M6 8h2M6 11h2M12 8h2M12 11h2M12 14h2M18 8h1M18 11h1" stroke="rgba(255,255,255,0.5)" strokeWidth="1" strokeLinecap="round"/>
+</svg>
+);
+}
+function SentenceIcon({ size = 24 }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Sentence Game">
+<defs>
+<linearGradient id="sentenceGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
+</linearGradient>
+</defs>
+<rect x="4" y="4" width="16" height="16" rx="3" fill="url(#sentenceGrad)"/>
+<path d="M8 9h8M8 12h8M8 15h5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" strokeLinecap="round"/>
+<circle cx="16.5" cy="15.5" r="2" fill="white"/>
+<path d="M16 15.5l1 1 2-2" stroke="#8B5CF6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 );
 }
@@ -1103,10 +1459,10 @@ return (
 function FlameIconEnhanced({ level = 0 }) {
 const [rainbowPhase, setRainbowPhase] = useState(0);
 useEffect(() => { if (level >= 50) { const interval = setInterval(() => setRainbowPhase(p => (p + 1) % 3), 3000); return () => clearInterval(interval); } }, [level]);
-let colorClass = 'flame-red'; let gradientId = 'flameGradRed'; let colors = ['#FFE5D4', '#FF8A65', '#FF3D3D'];
-if (level >= 50) { colorClass = 'flame-rainbow'; if (rainbowPhase === 0) { gradientId = 'flameGradRed'; colors = ['#FFE5D4', '#FF8A65', '#FF3D3D']; } else if (rainbowPhase === 1) { gradientId = 'flameGradBlue'; colors = ['#E3F2FD', '#64B5F6', '#1E88E5']; } else { gradientId = 'flameGradPurple'; colors = ['#F3E5F5', '#BA68C8', '#8E24AA']; } }
-else if (level >= 35) { colorClass = 'flame-purple'; gradientId = 'flameGradPurple'; colors = ['#F3E5F5', '#BA68C8', '#8E24AA']; }
-else if (level >= 10) { colorClass = 'flame-blue'; gradientId = 'flameGradBlue'; colors = ['#E3F2FD', '#64B5F6', '#1E88E5']; }
+let colorClass = 'flame-red'; let gradientId = 'flameGradRed'; let colors = ['#F5F3FF', '#C4B5FD', '#8B5CF6'];
+if (level >= 50) { colorClass = 'flame-rainbow'; if (rainbowPhase === 0) { gradientId = 'flameGradRed'; colors = ['#F5F3FF', '#C4B5FD', '#8B5CF6']; } else if (rainbowPhase === 1) { gradientId = 'flameGradBlue'; colors = ['#FFFFFF', '#C4B5FD', '#8B5CF6']; } else { gradientId = 'flameGradPurple'; colors = ['#C4B5FD', '#8B5CF6', '#18181B']; } }
+else if (level >= 35) { colorClass = 'flame-purple'; gradientId = 'flameGradPurple'; colors = ['#C4B5FD', '#8B5CF6', '#18181B']; }
+else if (level >= 10) { colorClass = 'flame-blue'; gradientId = 'flameGradBlue'; colors = ['#FFFFFF', '#C4B5FD', '#8B5CF6']; }
 return (
 <div className={`flame-container ${colorClass}`}>
 <svg viewBox="0 0 100 120" className="flame-svg" role="img" aria-label={`Level ${level}`}>
@@ -1137,7 +1493,7 @@ return (
 <div className="profile-header">
 <div className="avatar" onClick={onAvatarClick} title={t("changePic")}>{user?.avatar ? <img src={user.avatar} alt="profile" /> : initial}</div>
 <div className="profile-info">
-<div className="profile-greeting">{greeting} <span className="wave">👋</span></div>
+<div className="profile-greeting">{greeting} <span className="wave"><WaveIcon size={22} color="#8B5CF6" /></span></div>
 <div className="profile-note">{t("guestNote")}</div>
 </div>
 </div>
@@ -1156,7 +1512,7 @@ return (
 </span>
 </div>
 <div className="stat-item">
-<DiamondIcon size={24} />
+<GemIcon size={24} color="#8B5CF6" />
 <span>
 <span className="value">{savedCount}</span>
 <div className="stat-label">{t("saved")}</div>
@@ -1220,7 +1576,7 @@ return (
 <div>
 <div className="sanctuary-title">{t("sanctuary")}</div>
 <div className="sanctuary-subtitle">{t("sanctuarySubtitle")}</div>
-<span className="sanctuary-count"><DiamondIcon size={14} /> {countText}</span>
+<span className="sanctuary-count"><GemIcon size={14} color="#8B5CF6" /> {countText}</span>
 </div>
 </div>
 <button type="button" className="btn btn-gold" onClick={onPlay} disabled={count === 0}>
@@ -1237,9 +1593,8 @@ const initialCards = useMemo(() => shuffle(set.words), [set.id, set.words.length
 const isSanctuary = set.id === "saved";
 const cards = useMemo(() => isSanctuary ? initialCards : initialCards.filter(w => !savedIds.includes(w.id)), [initialCards, savedIds, isSanctuary]);
 const [idx, setIdx] = useState(0);
-const [flipped, setFlipped] = useState(false);
+const [showTranslation, setShowTranslation] = useState(false);
 const [results, setResults] = useState([]);
-const [isFlipping, setIsFlipping] = useState(false);
 const [isAnswering, setIsAnswering] = useState(false);
 const card = cards[idx];
 useEffect(() => {
@@ -1252,25 +1607,33 @@ setIdx(cards.length - 1);
 }
 }
 }, [cards.length, idx]);
-useEffect(() => { setFlipped(false); setIsFlipping(false); setIsAnswering(false); }, [idx]);
+useEffect(() => { setShowTranslation(false); setIsAnswering(false); }, [idx]);
+const cardLang1 = card?.lang1 || set.lang1;
+const cardLang2 = card?.lang2 || set.lang2;
+const speakFront = useCallback(() => {
+if (card) speakText(card.word, cardLang1);
+}, [card, cardLang1, speakText]);
+const speakBack = useCallback(() => {
+if (card) speakText(card.translation, cardLang2);
+}, [card, cardLang2, speakText]);
+const handleCardClick = () => {
+if (isAnswering) return;
+setShowTranslation(prev => !prev);
+};
+const speakCurrent = () => {
+if (showTranslation) speakBack();
+else speakFront();
+};
 if (!card) return (
 <div className="glass results-box">
 <p>{t("noWords")}</p>
 <button type="button" className="btn btn-primary" onClick={onExit}>{t("home")}</button>
 </div>
 );
-const cardLang1 = card.lang1 || set.lang1;
-const cardLang2 = card.lang2 || set.lang2;
 const l1 = getLang(cardLang1);
 const l2 = getLang(cardLang2);
-const handleFlip = () => {
-if (isFlipping || isAnswering) return;
-setIsFlipping(true);
-setFlipped(f => !f);
-setTimeout(() => setIsFlipping(false), 700);
-};
 const answer = (ok) => {
-if (isAnswering || isFlipping) return;
+if (isAnswering) return;
 setIsAnswering(true);
 if (onReview) onReview(ok);
 const newResults = [...results, { id: card.id, correct: ok, word: card.word, translation: card.translation }];
@@ -1298,35 +1661,22 @@ return (
 <button type="button" className="icon-btn" onClick={() => answer(false)} aria-label="Skip"><SkipIcon /></button>
 </div>
 <div className="progress-bar"><div className="progress-fill" style={{ width: progress + "%" }} /></div>
-<div className="flashcard-container" onClick={handleFlip}>
-<div className={`flashcard ${flipped ? 'flipped' : ''}`}>
-<div className="flashcard-face flashcard-front">
+<div className="dual-card-container single-card-mode">
+<div className={`dual-card ${showTranslation ? 'dual-card-arabic' : 'dual-card-french'}`} onClick={handleCardClick}>
 <div className="card-top-actions">
 <button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>
 <BookmarkIcon filled={isSaved} />
 </button>
 <span className="card-chip">{idx + 1}/{cards.length}</span>
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakText(card.word, cardLang1); }}>
+<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakCurrent(); }} style={{ backgroundColor: speaking ? 'rgba(139,92,246,0.5)' : '' }}>
 <SpeakerIcon active={speaking} />
 </button>
 </div>
-<div className="card-lang-label">{l1.flag} {l1.name}</div>
-<div className="card-word">{card.word}</div>
+<div className="card-lang-label">{showTranslation ? `${l2.flag} ${l2.name}` : `${l1.flag} ${l1.name}`}</div>
+<div className={showTranslation ? "card-translation" : "card-word"} dir={showTranslation ? l2.dir : l1.dir}>
+{showTranslation ? card.translation : card.word}
+</div>
 <div className="card-hint">✨ {t("tapToFlip")}</div>
-</div>
-<div className="flashcard-face flashcard-back">
-<div className="card-top-actions">
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakText(card.translation, cardLang2); }}>
-<SpeakerIcon active={speaking} />
-</button>
-<span className="card-chip">{idx + 1}/{cards.length}</span>
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>
-<BookmarkIcon filled={isSaved} />
-</button>
-</div>
-<div className="card-lang-label">{l2.flag} {l2.name}</div>
-<div className="card-translation" dir={l2.dir}>{card.translation}</div>
-</div>
 </div>
 </div>
 <div className="card-dots">
@@ -1336,10 +1686,10 @@ return (
 </div>
 <div className="answer-buttons">
 <button type="button" className="btn btn-danger btn-lg" onClick={() => answer(false)} disabled={isAnswering}>
-✗ {t("wrong")}
+<CrossIcon size={16} color="white" /> {t("wrong")}
 </button>
 <button type="button" className="btn btn-success btn-lg" onClick={() => answer(true)} disabled={isAnswering}>
-✓ {t("correct")}
+<CheckIcon size={16} color="white" /> {t("correct")}
 </button>
 </div>
 </div>
@@ -1401,7 +1751,7 @@ return (
 <div className="game-header">
 <button type="button" className="icon-btn" onClick={onExit} aria-label={t("back")}><CloseIcon /></button>
 <div style={{ textAlign: "center", flex: 1 }}>
-<div className="game-title">🎯 {set.name}</div>
+<div className="game-title"><GamepadIcon size={20} color="#8B5CF6" /> {set.name}</div>
 <div className="game-subtitle">{t("question")} {idx + 1} {t("of")} {cards.length}</div>
 </div>
 </div>
@@ -1455,7 +1805,6 @@ setIdx(cards.length - 1);
 }, [cards.length, idx]);
 useEffect(() => {
 setVal(""); setMsg(null);
-if (card) setTimeout(() => speakText(card.translation, set.lang2), 300);
 }, [idx, card?.id]);
 if (!card) return (
 <div className="glass results-box">
@@ -1487,7 +1836,7 @@ return (
 <div className="game-header">
 <button type="button" className="icon-btn" onClick={onExit} aria-label={t("back")}><CloseIcon /></button>
 <div style={{ textAlign: "center", flex: 1 }}>
-<div className="game-title">✍️ {set.name}</div>
+<div className="game-title"><BookIcon size={20} color="#8B5CF6" /> {set.name}</div>
 <div className="game-subtitle">{t("question")} {idx + 1} {t("of")} {cards.length}</div>
 </div>
 </div>
@@ -1505,8 +1854,8 @@ return (
 <div className="spelling-translation" dir={l2.dir}>{card.translation}</div>
 </div>
 <input className={`spelling-input ${msg || ""}`} value={val} onChange={e => setVal(e.target.value)} onKeyDown={e => { if (e.key === "Enter") submit(); }} placeholder={t("typeWord")} disabled={!!msg} autoFocus />
-{msg === "wrong" && (<div style={{ textAlign: "center", color: "var(--danger)", fontWeight: 700, marginBottom: 14 }}>❌ {card.word}</div>)}
-{msg === "correct" && (<div style={{ textAlign: "center", color: "var(--success)", fontWeight: 700, marginBottom: 14 }}>✅</div>)}
+{msg === "wrong" && (<div style={{ textAlign: "center", color: "var(--danger)", fontWeight: 700, marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}><CrossIcon size={16} color="#EF4444" /> {card.word}</div>)}
+{msg === "correct" && (<div style={{ textAlign: "center", color: "var(--success)", fontWeight: 700, marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}><CheckIcon size={16} color="#10B981" /></div>)}
 <button type="button" className="btn btn-primary btn-block btn-lg" onClick={submit} disabled={!val.trim() || !!msg}>{t("check")}</button>
 </div>
 );
@@ -1522,6 +1871,7 @@ const [right] = useState(() => shuffle(initialPairs));
 const [selL, setSelL] = useState(null);
 const [selR, setSelR] = useState(null);
 const [matched, setMatched] = useState([]);
+const [wrongIds, setWrongIds] = useState([]);
 const [results, setResults] = useState([]);
 useEffect(() => {
 if (!selL || !selR) return;
@@ -1529,14 +1879,19 @@ const ok = selL.id === selR.id;
 if (onReview) onReview(ok);
 const res = [...results, { id: selL.id, correct: ok, word: selL.word, translation: selL.translation }];
 setResults(res);
-if (ok) setMatched(m => [...m, selL.id]);
+if (ok) {
+setMatched(m => [...m, selL.id]);
+} else {
+setWrongIds([selL.id, selR.id]);
+setTimeout(() => setWrongIds([]), 500);
+}
 setTimeout(() => {
 setSelL(null); setSelR(null);
 if (ok && matched.length + 1 >= pairs.length) {
 if (onGameComplete) onGameComplete();
 onFinish(res, initialPairs);
 }
-}, 500);
+}, ok ? 500 : 500);
 }, [selL, selR, pairs.length]);
 if (pairs.length < 2) return (
 <div className="glass results-box">
@@ -1544,39 +1899,225 @@ if (pairs.length < 2) return (
 <button type="button" className="btn btn-primary" onClick={onExit}>{t("home")}</button>
 </div>
 );
+const l1 = getLang(set.lang1);
+const l2 = getLang(set.lang2);
 return (
 <div>
 <div className="game-header">
 <button type="button" className="icon-btn" onClick={onExit} aria-label={t("back")}><CloseIcon /></button>
 <div style={{ textAlign: "center", flex: 1 }}>
-<div className="game-title">🔗 {set.name}</div>
+<div className="game-title"><CrossIcon size={20} color="#8B5CF6" /> {set.name}</div>
 <div className="game-subtitle">{matched.length}/{pairs.length} {t("matchPairs")}</div>
 </div>
 </div>
 <div className="match-grid">
-<div>
-{left.filter(i => !matched.includes(i.id) && !savedIds.includes(i.id)).map(item => (
-<button type="button" key={item.id} className={`match-btn ${selL?.id === item.id ? "selected" : ""}`} onClick={() => { if (!selL || !selR) setSelL(item); }} style={{position: 'relative', padding: '14px 10px'}}>
-<span>{item.word}</span>
-<div style={{position: 'absolute', top: 6, left: 6, right: 6, display: 'flex', justifyContent: 'space-between', pointerEvents: 'none'}}>
-<button type="button" style={{pointerEvents: 'auto', width: 28, height: 28, minWidth: 28, minHeight: 28, fontSize: 12}} className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }}><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
-<button type="button" style={{pointerEvents: 'auto', width: 28, height: 28, minWidth: 28, minHeight: 28, fontSize: 12}} className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.word, set.lang1); }}><SpeakerIcon size={14} /></button>
+<div className="match-column">
+{left.filter(i => !matched.includes(i.id) && !savedIds.includes(i.id)).map(item => {
+const isMatched = matched.includes(item.id);
+const isWrong = wrongIds.includes(item.id);
+return (
+<button type="button" key={item.id} className={`match-btn ${selL?.id === item.id ? "selected" : ""} ${isMatched ? "matched" : ""} ${isWrong ? "wrong" : ""}`} onClick={() => { if (!selL || !selR) setSelL(item); }}>
+<div className="match-actions" onClick={(e) => e.stopPropagation()}>
+<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }} aria-label="Save"><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
+<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.word, set.lang1); }} aria-label="Speak"><SpeakerIcon size={14} /></button>
 </div>
+<span className="match-lang-flag">{l1.flag}</span>
+<span className="match-text" dir={l1.dir}>{item.word}</span>
 </button>
-))}
+);
+})}
 </div>
-<div>
-{right.filter(i => !matched.includes(i.id) && !savedIds.includes(i.id)).map(item => (
-<button type="button" key={item.id} className={`match-btn ${selR?.id === item.id ? "selected" : ""}`} onClick={() => { if (!selL || !selR) setSelR(item); }} style={{position: 'relative', padding: '14px 10px'}}>
-<span>{item.translation}</span>
-<div style={{position: 'absolute', top: 6, left: 6, right: 6, display: 'flex', justifyContent: 'space-between', pointerEvents: 'none'}}>
-<button type="button" style={{pointerEvents: 'auto', width: 28, height: 28, minWidth: 28, minHeight: 28, fontSize: 12}} className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }}><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
-<button type="button" style={{pointerEvents: 'auto', width: 28, height: 28, minWidth: 28, minHeight: 28, fontSize: 12}} className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.translation, set.lang2); }}><SpeakerIcon size={14} /></button>
+<div className="match-column">
+{right.filter(i => !matched.includes(i.id) && !savedIds.includes(i.id)).map(item => {
+const isMatched = matched.includes(item.id);
+const isWrong = wrongIds.includes(item.id);
+return (
+<button type="button" key={item.id} className={`match-btn ${selR?.id === item.id ? "selected" : ""} ${isMatched ? "matched" : ""} ${isWrong ? "wrong" : ""}`} onClick={() => { if (!selL || !selR) setSelR(item); }}>
+<div className="match-actions" onClick={(e) => e.stopPropagation()}>
+<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }} aria-label="Save"><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
+<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.translation, set.lang2); }} aria-label="Speak"><SpeakerIcon size={14} /></button>
 </div>
+<span className="match-lang-flag">{l2.flag}</span>
+<span className="match-text" dir={l2.dir}>{item.translation}</span>
 </button>
-))}
+);
+})}
 </div>
 </div>
+</div>
+);
+}
+function SentenceGame({ set, savedIds, onToggleSaved, onFinish, onExit, voiceSettings, onReview, onGameComplete }) {
+const { t } = useI18n();
+const { speakText } = useSpeech(voiceSettings.rate, voiceSettings.pitch);
+const [selectedWord, setSelectedWord] = useState(null);
+const [sentence, setSentence] = useState("");
+const [loading, setLoading] = useState(false);
+const [pickerOpen, setPickerOpen] = useState(false);
+const [generatedOnce, setGeneratedOnce] = useState(false);
+const words = set.words;
+const generateSentence = useCallback((word) => {
+const lang = set.lang1;
+const templates = {
+ar: [
+`أستخدم كلمة "${word}" في جملة مفيدة.`,
+`تعلمت اليوم كلمة "${word}" وأحب أن أكررها.`,
+`في الدرس، وجدنا كلمة "${word}" سهلة النطق.`,
+`أكتب جملة تحتوي على "${word}" لأتذكرها.`,
+`المعلمة شرحت معنى "${word}" بوضوح.`,
+`أحب أن أستعمل "${word}" في محادثاتي اليومية.`,
+`كلمة "${word}" من الكلمات المهمة في اللغة.`
+],
+en: [
+`I use the word "${word}" in a useful sentence.`,
+`Today I learned the word "${word}" and I like to repeat it.`,
+`In class, we found the word "${word}" easy to pronounce.`,
+`I write a sentence containing "${word}" to remember it.`,
+`The teacher explained the meaning of "${word}" clearly.`,
+`I like to use "${word}" in my daily conversations.`,
+`The word "${word}" is one of the important words in the language.`
+],
+fr: [
+`J'utilise le mot « ${word} » dans une phrase utile.`,
+`Aujourd'hui, j'ai appris le mot « ${word} » et j'aime le répéter.`,
+`En classe, nous avons trouvé le mot « ${word} » facile à prononcer.`,
+`J'écris une phrase contenant « ${word} » pour m'en souvenir.`,
+`Le professeur a expliqué clairement le sens de « ${word} ».`,
+`J'aime utiliser « ${word} » dans mes conversations quotidiennes.`,
+`Le mot « ${word} » est l'un des mots importants de la langue.`
+],
+es: [
+`Uso la palabra "${word}" en una oración útil.`,
+`Hoy aprendí la palabra "${word}" y me gusta repetirla.`,
+`En clase, encontramos la palabra "${word}" fácil de pronunciar.`,
+`Escribo una oración que contiene "${word}" para recordarla.`,
+`El profesor explicó claramente el significado de "${word}".`,
+`Me gusta usar "${word}" en mis conversaciones diarias.`,
+`La palabra "${word}" es una de las palabras importantes del idioma.`
+],
+de: [
+`Ich benutze das Wort "${word}" in einem nützlichen Satz.`,
+`Heute habe ich das Wort "${word}" gelernt und ich wiederhole es gerne.`,
+`Im Unterricht fanden wir das Wort "${word}" leicht auszusprechen.`,
+`Ich schreibe einen Satz mit "${word}", um es mir zu merken.`,
+`Der Lehrer erklärte die Bedeutung von "${word}" klar.`,
+`Ich verwende "${word}" gerne in meinen täglichen Gesprächen.`,
+`Das Wort "${word}" ist eines der wichtigen Wörter der Sprache.`
+],
+pt: [
+`Eu uso a palavra "${word}" em uma frase útil.`,
+`Hoje aprendi a palavra "${word}" e gosto de repeti-la.`,
+`Na aula, achamos a palavra "${word}" fácil de pronunciar.`,
+`Escrevo uma frase contendo "${word}" para lembrá-la.`,
+`O professor explicou claramente o significado de "${word}".`,
+`Gosto de usar "${word}" nas minhas conversas diárias.`,
+`A palavra "${word}" é uma das palavras importantes do idioma.`
+],
+ja: [
+`私は「${word}」を便利な文で使います。`,
+`今日は「${word}」という言葉を学び、繰り返すのが好きです。`,
+`授業では「${word}」が発音しやすいと感じました。`,
+`「${word}」を含む文を書いて覚えます。`,
+`先生は「${word}」の意味を明確に説明しました。`,
+`日常会話で「${word}」を使うのが好きです。`,
+`「${word}」は言語の重要な言葉の一つです。`
+]
+};
+const langTemplates = templates[lang] || templates.en;
+const randomIndex = Math.floor(Math.random() * langTemplates.length);
+return langTemplates[randomIndex];
+}, [set.lang1]);
+const handleSelectWord = (word) => {
+setSelectedWord(word);
+setPickerOpen(false);
+setLoading(true);
+setGeneratedOnce(true);
+if (onGameComplete) onGameComplete();
+setTimeout(() => {
+const sent = generateSentence(word.word);
+setSentence(sent);
+setLoading(false);
+}, 600);
+};
+const handleRegenerate = () => {
+if (!selectedWord) return;
+setLoading(true);
+setTimeout(() => {
+const sent = generateSentence(selectedWord.word);
+setSentence(sent);
+setLoading(false);
+}, 400);
+};
+return (
+<div>
+<div className="game-header">
+<button type="button" className="icon-btn" onClick={onExit} aria-label={t("back")}><CloseIcon /></button>
+<div style={{ textAlign: "center", flex: 1 }}>
+<div className="game-title"><SentenceIcon size={20} /> {set.name}</div>
+<div className="game-subtitle">{t("sentenceGame")}</div>
+</div>
+</div>
+{selectedWord ? (
+<div className="glass results-box">
+<div style={{ marginBottom: 20 }}>
+<span className="card-chip" style={{ background: 'rgba(139,92,246,0.15)', color: 'var(--text)' }}>
+{selectedWord.word} → {selectedWord.translation}
+</span>
+</div>
+{loading ? (
+<div className="muted" style={{ margin: '20px 0' }}>⏳ {t("translating")}</div>
+) : (
+<>
+<div className="sentence-text" style={{ fontSize: 22, fontWeight: 800, marginBottom: 16 }}>{sentence}</div>
+<div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+<button type="button" className="btn btn-primary" onClick={() => speakText(sentence, set.lang1)}>
+<SpeakerIcon /> {t("check")}
+</button>
+<button type="button" className="btn btn-secondary" onClick={handleRegenerate}>
+🔄 {t("retry")}
+</button>
+<button type="button" className="btn btn-secondary" onClick={() => setPickerOpen(true)}>
+<BookIcon size={16} /> {t("word")}
+</button>
+</div>
+</>
+)}
+</div>
+) : (
+<div className="glass results-box" style={{ textAlign: 'center' }}>
+<p style={{ marginBottom: 20, fontWeight: 700, fontSize: 18 }}>✨ {t("sentenceGame")}</p>
+<button type="button" className="btn btn-primary btn-lg" onClick={() => setPickerOpen(true)}>
+<BookIcon size={18} /> {t("word")}
+</button>
+</div>
+)}
+{pickerOpen && (
+<div className="modal-overlay" onClick={() => setPickerOpen(false)}>
+<div className="modal" onClick={e => e.stopPropagation()}>
+<h3>{t("word")}</h3>
+<div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+{words.length === 0 ? (
+<div className="empty-state">
+<div className="empty-icon"><BookIcon size={48} color="#8B5CF6" /></div>
+<div className="empty-text">{t("noWords")}</div>
+</div>
+) : (
+words.map(w => (
+<div key={w.id} className="word-row" style={{ cursor: 'pointer' }} onClick={() => handleSelectWord(w)}>
+<div className="word-row-main">
+<div className="word-row-text">{w.word}</div>
+<div className="word-row-translation">→ {w.translation}</div>
+</div>
+</div>
+))
+)}
+</div>
+<div className="modal-actions">
+<button type="button" className="btn btn-secondary" onClick={() => setPickerOpen(false)}>{t("cancel")}</button>
+</div>
+</div>
+</div>
+)}
 </div>
 );
 }
@@ -1600,7 +2141,7 @@ return (
 <div className="results-message">{msg}</div>
 {wrong.length > 0 && (
 <div className="wrong-words-section">
-<div className="wrong-words-title">❌ {t("wrongWords")}</div>
+<div className="wrong-words-title"><CrossIcon size={16} color="#EF4444" /> {t("wrongWords")}</div>
 {wrong.map((w, i) => (
 <div key={i} className="word-row">
 <div>
@@ -1760,23 +2301,23 @@ return (
 <button className="sheet-close" onClick={() => setSelectedDayData(null)} aria-label="Close"><CloseIcon /></button>
 </div>
 <div className="popover-stat">
-<span className="popover-stat-label">📖 {t("reviewedWords")}</span>
+<span className="popover-stat-label"><BookIcon size={14} color="#8B5CF6" /> {t("reviewedWords")}</span>
 <span className="popover-stat-value">{selectedDayData.data.reviewed || 0}</span>
 </div>
 <div className="popover-stat">
-<span className="popover-stat-label">➕ {t("wordsAdded")}</span>
+<span className="popover-stat-label"><PlusIcon size={14} /> {t("wordsAdded")}</span>
 <span className="popover-stat-value">{selectedDayData.data.added || 0}</span>
 </div>
 <div className="popover-stat">
-<span className="popover-stat-label">✅ {t("correctAnswers")}</span>
+<span className="popover-stat-label"><CheckIcon size={14} color="#10B981" /> {t("correctAnswers")}</span>
 <span className="popover-stat-value">{selectedDayData.data.correct || 0}</span>
 </div>
 <div className="popover-stat">
-<span className="popover-stat-label">❌ {t("wrong")}</span>
+<span className="popover-stat-label"><CrossIcon size={14} color="#EF4444" /> {t("wrong")}</span>
 <span className="popover-stat-value">{selectedDayData.data.wrong || 0}</span>
 </div>
 <div className="popover-stat">
-<span className="popover-stat-label">⏱ {t("time")}</span>
+<span className="popover-stat-label"><ClockIcon size={14} /> {t("time")}</span>
 <span className="popover-stat-value">{usage.fmt(usage.daily?.[selectedDayData.key] || 0)}</span>
 </div>
 </div>
@@ -1792,7 +2333,7 @@ return (
 </div>
 {!hasActivity ? (
 <div className="stats-empty-state">
-<div className="stats-empty-icon">📊</div>
+<div className="stats-empty-icon"><StatsIcon active={false} /></div>
 <div className="stats-empty-title">{t("noActivity")}</div>
 <div className="stats-empty-desc">{t("noActivityDesc")}</div>
 </div>
@@ -1841,23 +2382,23 @@ return (
 </div>
 <div className="stats-week-strip" style={{ marginTop: 16 }}>
 <div className="stat-row">
-<span className="stat-row-label">📚 {t("totalWords")}</span>
+<span className="stat-row-label"><BookIcon size={16} color="#8B5CF6" /> {t("totalWords")}</span>
 <span className="stat-row-value">{totalWords}</span>
 </div>
 <div className="stat-row">
-<span className="stat-row-label">💎 {t("wordsAdded")}</span>
+<span className="stat-row-label"><GemIcon size={16} color="#8B5CF6" /> {t("wordsAdded")}</span>
 <span className="stat-row-value">{stats.wordsAdded || 0}</span>
 </div>
 <div className="stat-row">
-<span className="stat-row-label">🎮 {t("gamesPlayed")}</span>
+<span className="stat-row-label"><GamepadIcon size={16} color="#8B5CF6" /> {t("gamesPlayed")}</span>
 <span className="stat-row-value">{stats.gamesPlayed || 0}</span>
 </div>
 <div className="stat-row">
-<span className="stat-row-label">✅ {t("correctAnswers")}</span>
+<span className="stat-row-label"><CheckIcon size={16} color="#10B981" /> {t("correctAnswers")}</span>
 <span className="stat-row-value">{stats.correctAnswers || 0}</span>
 </div>
 <div className="stat-row">
-<span className="stat-row-label">❌ {t("wrong")}</span>
+<span className="stat-row-label"><CrossIcon size={16} color="#EF4444" /> {t("wrong")}</span>
 <span className="stat-row-value">{stats.wrongAnswers || 0}</span>
 </div>
 </div>
@@ -1911,21 +2452,25 @@ const [newWord, setNewWord] = useState({ word: "", translation: "" });
 const [isTranslating, setIsTranslating] = useState(false);
 const userEditedRef = useRef(false);
 const translateTimerRef = useRef(null);
+const abortRef = useRef(null);
 useEffect(() => { setName(set.name); setLang1(set.lang1); setLang2(set.lang2); }, [set.id]);
-const performTranslation = useCallback(async (text, force = false) => {
+const performTranslation = useCallback(async (text) => {
 if (!text.trim()) { setNewWord(prev => ({ ...prev, translation: '' })); return; }
 setIsTranslating(true);
+if (abortRef.current) abortRef.current.abort();
+const controller = new AbortController();
+abortRef.current = controller;
 try {
-const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.trim())}&langpair=${lang1}|${lang2}`);
+const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.trim())}&langpair=${lang1}|${lang2}`, { signal: controller.signal });
 const data = await res.json();
 const translated = data?.responseData?.translatedText;
 if (translated && !translated.includes("MYMEMORY WARNING")) {
-if (force || !userEditedRef.current) {
+if (!userEditedRef.current) {
 setNewWord(prev => ({ ...prev, translation: translated }));
-userEditedRef.current = false;
 }
 }
 } catch (err) {
+if (err.name === 'AbortError') return;
 // silently fail; user can edit manually
 } finally {
 setIsTranslating(false);
@@ -1938,9 +2483,16 @@ return;
 }
 userEditedRef.current = false;
 clearTimeout(translateTimerRef.current);
-translateTimerRef.current = setTimeout(() => performTranslation(newWord.word), 700);
+translateTimerRef.current = setTimeout(() => performTranslation(newWord.word), 300);
 return () => clearTimeout(translateTimerRef.current);
 }, [newWord.word, performTranslation]);
+useEffect(() => {
+if (newWord.word.trim().length >= 2) {
+userEditedRef.current = false;
+clearTimeout(translateTimerRef.current);
+translateTimerRef.current = setTimeout(() => performTranslation(newWord.word), 300);
+}
+}, [lang1, lang2]);
 const saveSetInfo = () => { onUpdate({ ...set, name, lang1, lang2 }); toast(t("savedMsg"), "success"); };
 const addWord = () => {
 if (!newWord.word.trim() || !newWord.translation.trim()) {
@@ -1954,14 +2506,13 @@ if (onWordAdded) onWordAdded();
 setNewWord({ word: "", translation: "" });
 toast(t("savedMsg"), "success");
 };
-const translateWord = () => { performTranslation(newWord.word, true); toast(t("translating"), "info"); };
 const l1 = getLang(lang1);
 const l2 = getLang(lang2);
 return (
 <div>
 <div className="page-header">
 <button type="button" className="btn btn-secondary" onClick={onBack}>← {t("back")}</button>
-<h2>✏️ {t("editor")}</h2>
+<h2><EditIcon size={20} /> {t("editor")}</h2>
 </div>
 <div className="editor-box glass">
 <div className="field">
@@ -1982,18 +2533,15 @@ return (
 </select>
 </div>
 </div>
-<button type="button" className="btn btn-primary" onClick={saveSetInfo}>💾 {t("save")}</button>
+<button type="button" className="btn btn-primary" onClick={saveSetInfo}><CheckIcon size={16} color="white" /> {t("save")}</button>
 </div>
 <div className="editor-box glass">
-<h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}>➕ {t("addWord")}</h3>
+<h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}><PlusIcon size={16} /> {t("addWord")}</h3>
 <div className="field">
 <label>{t("word")} ({l1.name})</label>
 <input value={newWord.word} onChange={e => setNewWord({ ...newWord, word: e.target.value })} placeholder={`${t("word")} (${l1.name})`} />
 {isTranslating && <div className="muted" style={{ marginTop: 8 }}>⏳ {t("translating")}</div>}
 </div>
-<button type="button" className="btn btn-secondary btn-block" onClick={translateWord} disabled={!newWord.word.trim() || isTranslating} style={{marginBottom: '16px'}}>
-🌐 {t("translate")}
-</button>
 <div className="field">
 <label>{t("translation")} ({l2.name})</label>
 <input value={newWord.translation} onChange={e => { userEditedRef.current = true; setNewWord({ ...newWord, translation: e.target.value }); }} placeholder={`${t("translation")} (${l2.name})`} />
@@ -2003,10 +2551,10 @@ return (
 </button>
 </div>
 <div className="editor-box glass">
-<h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}>📝 {t("words")} ({set.words.length})</h3>
+<h3 style={{ marginBottom: 14, fontSize: 17, fontWeight: 800 }}><BookIcon size={16} color="#8B5CF6" /> {t("words")} ({set.words.length})</h3>
 {set.words.length === 0 && (
 <div className="empty-state">
-<div className="empty-icon">📚</div>
+<div className="empty-icon"><BookIcon size={48} color="#8B5CF6" /></div>
 <div className="empty-text">{t("noWords")}</div>
 </div>
 )}
@@ -2139,10 +2687,11 @@ if (!confirm(t("confirmReset"))) return;
 try { localStorage.clear(); window.location.reload(); } catch {}
 };
 const games = [
-{ type: "flashcards", name: t("flashcards"), color: "#667EEA", icon: <CardsIcon active={true} /> },
-{ type: "mcq", name: t("mcq"), color: "#10B981", icon: <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="40" height="10" rx="4" fill="white" stroke="#10B981" strokeWidth="2"/><rect x="4" y="19" width="40" height="10" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" opacity="0.6"/><rect x="4" y="32" width="40" height="10" rx="4" fill="white" stroke="#667EEA" strokeWidth="2" opacity="0.4"/><circle cx="12" cy="11" r="3" fill="#10B981"/><path d="M10 11l2 2 3-3" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg> },
-{ type: "spelling", name: t("spelling"), color: "#F59E0B", icon: <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="8" width="36" height="32" rx="4" fill="white" stroke="#667EEA" strokeWidth="2"/><path d="M12 30l6-12 6 12" stroke="#667EEA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/><path d="M28 30h8" stroke="#10B981" strokeWidth="3" strokeLinecap="round"/><circle cx="38" cy="14" r="3" fill="#F59E0B"/></svg> },
-{ type: "matching", name: t("matching"), color: "#EF4444", icon: <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="16" height="16" rx="3" fill="white" stroke="#667EEA" strokeWidth="2"/><rect x="28" y="26" width="16" height="16" rx="3" fill="white" stroke="#10B981" strokeWidth="2"/><path d="M20 14h4a4 4 0 0 1 4 4v10" stroke="#F59E0B" strokeWidth="2.5" fill="none" strokeLinecap="round"/><circle cx="12" cy="14" r="2" fill="#667EEA"/><circle cx="36" cy="34" r="2" fill="#10B981"/></svg> }
+{ type: "flashcards", name: t("flashcards"), color: "#8B5CF6", icon: <CardsIcon active={true} /> },
+{ type: "mcq", name: t("mcq"), color: "#10B981", icon: <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="40" height="10" rx="4" fill="white" stroke="#8B5CF6" strokeWidth="2"/><rect x="4" y="19" width="40" height="10" rx="4" fill="white" stroke="#8B5CF6" strokeWidth="2" opacity="0.6"/><rect x="4" y="32" width="40" height="10" rx="4" fill="white" stroke="#8B5CF6" strokeWidth="2" opacity="0.4"/><circle cx="12" cy="11" r="3" fill="#8B5CF6"/><path d="M10 11l2 2 3-3" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg> },
+{ type: "spelling", name: t("spelling"), color: "#F59E0B", icon: <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="8" width="36" height="32" rx="4" fill="white" stroke="#8B5CF6" strokeWidth="2"/><path d="M12 30l6-12 6 12" stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/><path d="M28 30h8" stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round"/><circle cx="38" cy="14" r="3" fill="#8B5CF6"/></svg> },
+{ type: "matching", name: t("matching"), color: "#EF4444", icon: <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="6" width="16" height="16" rx="3" fill="white" stroke="#8B5CF6" strokeWidth="2"/><rect x="28" y="26" width="16" height="16" rx="3" fill="white" stroke="#8B5CF6" strokeWidth="2"/><path d="M20 14h4a4 4 0 0 1 4 4v10" stroke="#8B5CF6" strokeWidth="2.5" fill="none" strokeLinecap="round"/><circle cx="12" cy="14" r="2" fill="#8B5CF6"/><circle cx="36" cy="34" r="2" fill="#8B5CF6"/></svg> },
+{ type: "sentence", name: t("sentenceGame"), color: "#8B5CF6", icon: <SentenceIcon size={48} /> }
 ];
 const hideNav = view === 'game' || view === 'editor' || view === 'results' || modal !== null;
 return (
@@ -2153,7 +2702,7 @@ return (
 <div className="tab-content">
 <div className="topbar">
 <div className="site-logo" onClick={() => setView("home")}>
-<h1>📚 {t("appName")}</h1>
+<h1><BookIcon size={24} color="#8B5CF6" /> {t("appName")}</h1>
 <div className="tagline">{t("tagline")}</div>
 </div>
 </div>
@@ -2163,8 +2712,8 @@ return (
 <SelectSetDropdown sets={sets} currentSetId={currentSetId} onSelect={id => setCurrentSetId(id)} onEdit={id => { setCurrentSetId(id); setView("editor"); }} onDelete={deleteSet} onCreate={() => setModal("createSet")} />
 <Sanctuary count={savedWords.length} onPlay={() => startGame("saved")} />
 <div className="games-header-wrap">
-<div className="games-header-title"><span className="header-emoji">🎮</span> {t("games")}</div>
-<div className="games-header-desc">{t("gamesDesc")}</div>
+<div className="games-header-title"><span className="header-emoji"><GamepadIcon size={28} color="#8B5CF6" /></span> {t("games")}</div>
+<div className="games-header-desc"><RocketIcon size={14} color="#8B5CF6" /> {t("gamesDesc")}</div>
 </div>
 <div className="games-grid">
 {games.map(g => (
@@ -2182,7 +2731,7 @@ return (
 <div className="tab-content">
 <div className="topbar">
 <div className="site-logo">
-<h1>⚙️ {t("settings")}</h1>
+<h1><SettingsIcon active={false} /> {t("settings")}</h1>
 </div>
 </div>
 <ProfileCard user={user} usage={usage} savedCount={savedWords.length} onAvatarClick={() => document.getElementById("avatar-upload2").click()} />
@@ -2228,6 +2777,9 @@ return (
 {gameType === "matching" && (
 <MatchingGame key={gameKey} set={gameSet} savedIds={savedIds} onToggleSaved={toggleSaved} onFinish={finishGame} onExit={() => setView("home")} onReview={trackReview} onGameComplete={trackGame} />
 )}
+{gameType === "sentence" && (
+<SentenceGame key={gameKey} set={gameSet} savedIds={savedIds} onToggleSaved={toggleSaved} onFinish={finishGame} onExit={() => setView("home")} voiceSettings={voiceSettings} onReview={trackReview} onGameComplete={trackGame} />
+)}
 </div>
 )}
 {view === "results" && gameResults && (
@@ -2236,7 +2788,7 @@ return (
 {modal === "createSet" && (
 <div className="modal-overlay" onClick={() => setModal(null)}>
 <div className="modal" onClick={e => e.stopPropagation()}>
-<h3>➕ {t("createSet")}</h3>
+<h3><PlusIcon size={20} /> {t("createSet")}</h3>
 <div className="field">
 <label>{t("setName")}</label>
 <input value={newSet.name} onChange={e => setNewSet({ ...newSet, name: e.target.value })} autoFocus />
@@ -2265,11 +2817,11 @@ return (
 {modal === "settings" && (
 <div className="modal-overlay" onClick={() => setModal(null)}>
 <div className="modal" onClick={e => e.stopPropagation()}>
-<h3>⚙️ {t("settings")}</h3>
+<h3><SettingsIcon active={false} /> {t("settings")}</h3>
 <div className="tabs">
 <div className={`tab ${settingsTab === "general" ? "active" : ""}`} onClick={() => setSettingsTab("general")}>🌍 {t("language")}</div>
-<div className={`tab ${settingsTab === "voice" ? "active" : ""}`} onClick={() => setSettingsTab("voice")}>🔊 {t("voiceSettings")}</div>
-<div className={`tab ${settingsTab === "data" ? "active" : ""}`} onClick={() => setSettingsTab("data")}>💾 Backup</div>
+<div className={`tab ${settingsTab === "voice" ? "active" : ""}`} onClick={() => setSettingsTab("voice")}><SpeakerIcon size={14} /> {t("voiceSettings")}</div>
+<div className={`tab ${settingsTab === "data" ? "active" : ""}`} onClick={() => setSettingsTab("data")}><BookIcon size={14} color="#8B5CF6" /> Backup</div>
 </div>
 {settingsTab === "general" && (
 <div>
@@ -2306,11 +2858,11 @@ return (
 {settingsTab === "data" && (
 <div>
 <div className="field">
-<label>📤 {t("exportData")}</label>
+<label><BookIcon size={14} color="#8B5CF6" /> {t("exportData")}</label>
 <button type="button" className="btn btn-primary btn-block" onClick={handleExport}>📥 Download Backup</button>
 </div>
 <div className="field">
-<label>📥 {t("importData")}</label>
+<label><BookIcon size={14} color="#8B5CF6" /> {t("importData")}</label>
 <div className="file-upload-wrap">
 <FolderIcon size={18} /> Choose backup file
 <input type="file" accept=".json" onChange={e => handleImport(e.target.files[0])} />
