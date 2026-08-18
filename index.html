@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
 <meta name="theme-color" content="#8B5CF6" />
-<title>VOCAflow Pro - Learn words the fun way ✨</title>
+<title>VOCAflow  - Learn words the fun way ✨</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -213,14 +212,16 @@ font-weight: 900; font-size: clamp(13px, 3.5vw, 16px);
 color: white; text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 z-index: 5; pointer-events: none;
 }
-.flame-red .flame-svg { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.7)); }
-.flame-blue .flame-svg { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.7)); }
+.flame-red .flame-svg { filter: drop-shadow(0 3px 12px rgba(239,68,68,0.7)); }
+.flame-white .flame-svg { filter: drop-shadow(0 3px 12px rgba(255,255,255,0.7)); }
+.flame-blue .flame-svg { filter: drop-shadow(0 3px 12px rgba(59,130,246,0.7)); }
 .flame-purple .flame-svg { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.7)); }
-.flame-rainbow .flame-svg { animation: flameFlicker 2.2s ease-in-out infinite, purpleGlow 9s linear infinite; }
-@keyframes purpleGlow {
-0%, 100% { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.8)); }
-33% { filter: drop-shadow(0 3px 12px rgba(255,255,255,0.8)); }
-66% { filter: drop-shadow(0 3px 12px rgba(24,24,27,0.8)); }
+.flame-rainbow .flame-svg { animation: flameFlicker 2.2s ease-in-out infinite, rainbowGlow 12s linear infinite; }
+@keyframes rainbowGlow {
+0%, 100% { filter: drop-shadow(0 3px 12px rgba(239,68,68,0.8)); }
+25% { filter: drop-shadow(0 3px 12px rgba(255,255,255,0.8)); }
+50% { filter: drop-shadow(0 3px 12px rgba(59,130,246,0.8)); }
+75% { filter: drop-shadow(0 3px 12px rgba(139,92,246,0.8)); }
 }
 .dropdown-wrapper { position: relative; margin-bottom: 18px; }
 .dropdown-trigger {
@@ -343,7 +344,6 @@ background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transp
 radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 40%);
 pointer-events: none;
 }
-/* Flashcard black glass style */
 .dual-card-french,
 .dual-card-arabic {
 background: rgba(24, 24, 27, 0.75);
@@ -479,16 +479,33 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 /* ============================================= */
 /* IMPROVED MATCHING GAME STYLES                 */
 /* ============================================= */
-.match-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: clamp(14px, 4vw, 24px);
+.match-game-layout {
+display: flex;
+flex-direction: row;
+gap: 16px;
 margin-top: 10px;
 }
-.match-column {
+.match-column-section {
+flex: 1;
 display: flex;
 flex-direction: column;
-gap: clamp(12px, 3vw, 18px);
+}
+.match-column-header {
+text-align: center;
+font-weight: 800;
+font-size: clamp(12px, 3vw, 14px);
+color: var(--text);
+padding: 8px;
+background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(196,181,253,0.1));
+border-radius: 12px;
+margin-bottom: 10px;
+border: 1px solid rgba(139,92,246,0.2);
+}
+.match-column {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 8px;
+align-items: stretch;
 }
 .match-btn {
 min-height: 45px !important;
@@ -503,7 +520,7 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 color: var(--text);
 touch-action: manipulation;
 display: flex;
-flex-direction: column;
+flex-direction: column !important;
 align-items: center;
 justify-content: center;
 gap: 3px !important;
@@ -512,7 +529,7 @@ box-shadow: 0 4px 14px rgba(139,92,246,0.08);
 text-align: center;
 line-height: 1.3;
 }
-.match-btn:hover:not(.matched) {
+.match-btn:hover:not(.matched):not(.green-flash):not(.wrong-flash) {
 transform: translateY(-3px);
 box-shadow: 0 10px 24px rgba(139,92,246,0.18);
 border-color: var(--primary);
@@ -523,6 +540,19 @@ background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(109,40,217,0.12)
 box-shadow: 0 0 0 3px rgba(139,92,246,0.25), 0 10px 24px rgba(139,92,246,0.2);
 transform: scale(1.03);
 }
+.match-btn.green-flash {
+background: linear-gradient(135deg, var(--success-light), rgba(16, 185, 129, 0.25));
+border-color: var(--success);
+color: white;
+animation: popIn 0.3s ease;
+}
+.match-btn.wrong-flash {
+background: rgba(239, 68, 68, 0.85) !important;
+border-color: #EF4444 !important;
+color: white !important;
+transform: scale(0.95);
+animation: shake 0.3s ease;
+}
 .match-btn.matched {
 background: linear-gradient(135deg, var(--success-light), rgba(16, 185, 129, 0.08));
 border-color: var(--success);
@@ -532,12 +562,8 @@ pointer-events: none;
 transform: scale(0.94);
 box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 }
-.match-btn.wrong {
-background: rgba(239, 68, 68, 0.85) !important;
-border-color: #EF4444 !important;
-color: white !important;
-transform: scale(0.95);
-animation: shake 0.3s ease;
+.match-btn.hidden {
+display: none;
 }
 @keyframes shake {
 0%, 100% { transform: translateX(0); }
@@ -560,8 +586,10 @@ font-size: inherit;
 .match-actions {
 position: absolute;
 top: 5px;
+left: 5px;
 right: 5px;
 display: flex;
+justify-content: space-between;
 gap: 3px;
 z-index: 5;
 pointer-events: auto;
@@ -710,6 +738,7 @@ color: #18181B;
 }
 .nav-tab.active .nav-icon svg { transform: scale(1.15); }
 .nav-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
+.nav-icon svg { width: 100%; height: 100%; display: block; }
 .nav-label { font-size: 10px; font-weight: 800; margin-top: 2px; letter-spacing: 0.05em; }
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; animation: fadeIn 0.25s; }
 .modal { background: var(--card-bg); padding: 26px; border-radius: var(--radius-lg); width: min(560px, 100%); max-height: 88vh; overflow-y: auto; animation: slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -902,6 +931,7 @@ font-size: 11px;
 }
 .match-actions {
 top: 5px;
+left: 5px;
 right: 5px;
 gap: 3px;
 }
@@ -972,9 +1002,9 @@ const LANGS = [
 ];
 const getLang = (code) => LANGS.find(l => l.code === code) || LANGS[1];
 const LOCALES = {
-ar: { appName: "VOCAflow Pro", tagline: "تعلم الكلمات بطريقة ممتعة ✨", selectSet: "اختر مجموعة", createSet: "إنشاء مجموعة جديدة", search: "ابحث...", edit: "تعديل", delete: "حذف", cancel: "إلغاء", save: "حفظ", setName: "اسم المجموعة", firstLang: "اللغة الأولى", secondLang: "اللغة الثانية", games: "الألعاب", gamesDesc: "اختر لعبتك وابدأ اللعب!", flashcards: "البطاقات", mcq: "اختيار من متعدد", spelling: "الإملاء", matching: "المطابقة", sentenceGame: "جمل تلقائية", sanctuary: "ملجأك الآمن", sanctuarySubtitle: "كلمات محفوظة ثمينة بأمان", preciousWords: "كلمات محفوظة ثمينة", preciousWordSingular: "كلمة محفوظة ثمينة", playSanctuary: "العب بالملجأ", guest: "ضيف", guestNote: "البيانات تُحفظ محلياً فقط.", welcomeBack: "أهلاً بعودتك", welcomeGuest: "أهلاً بك", level: "المستوى", today: "اليوم", saved: "محفوظة", settings: "الإعدادات", logout: "تسجيل الخروج", login: "تسجيل الدخول", name: "الاسم", email: "البريد", close: "إغلاق", correct: "صحيح", wrong: "خطأ", results: "النتائج", retry: "إعادة الكل", retryWrong: "إعادة الخاطئ فقط", home: "الرئيسية", noSet: "لا توجد مجموعات", noWords: "لا توجد كلمات", needSelectSet: "اختر مجموعة أولاً", created: "تم إنشاء المجموعة 🎉", deleted: "تم الحذف", savedMsg: "تم الحفظ ✓", addWord: "إضافة كلمة", word: "الكلمة", translation: "الترجمة", add: "إضافة", noSaved: "لا توجد كلمات محفوظة", tapToFlip: "اضغط للتقليب", check: "تحقق", typeWord: "اكتب الكلمة...", listenWrite: "استمع واكتب الكلمة", matchPairs: "طابق الكلمات", time: "الوقت", score: "النقاط", correctAnswers: "الإجابات الصحيحة", wrongWords: "الكلمات الخاطئة", excellent: "ممتاز! 🌟", good: "جيد جداً! 👏", fair: "جيد! 👍", tryAgain: "حاول مجدداً 💪", msgExcellent: "أنت نجم! ✨", msgGood: "عمل رائع! 🎯", msgFair: "مجهود جيد 📚", msgTryAgain: "لا تستسلم! 💪", of: "من", card: "بطاقة", question: "سؤال", words: "كلمات", confirmDeleteSet: "حذف هذه المجموعة؟", confirmDeleteWord: "حذف هذه الكلمة؟", back: "رجوع", editor: "المحرر", translating: "جاري الترجمة...", darkMode: "الوضع الليلي", lightMode: "الوضع النهاري", theme: "المظهر", voiceSettings: "إعدادات الصوت", speechRate: "سرعة النطق", pitch: "النبرة", language: "اللغة", exportData: "تصدير البيانات", importData: "استيراد البيانات", resetAll: "حذف جميع البيانات", confirmReset: "سيتم حذف جميع البيانات!", dataExported: "تم التصدير ✓", dataImported: "تم الاستيراد ✓", invalidFile: "ملف غير صالح", stats: "الإحصائيات", annualDetails: "التفاصيل السنوية", weeklySummary: "{words} كلمة هذا الأسبوع · ⏱ {time}", wordsThisYear: "كلمة هذا العام", timeThisYear: "الوقت هذا العام", daysStreak: "يوم متتالي", reviewedWords: "كلمات مراجعة", newWords: "كلمات جديدة", masteredWords: "كلمات مُتقنة", timeSpent: "الوقت المستغرق", minutes: "دقيقة", totalWords: "إجمالي الكلمات", totalTime: "إجمالي الوقت", changePic: "تغيير الصورة", errorOccurred: "حدث خطأ", wordsAdded: "كلمات مضافة", gamesPlayed: "ألعاب لُعبت", accuracy: "الدقة", streak: "أيام متتالية", noActivity: "لا يوجد نشاط بعد", noActivityDesc: "ابدأ بمراجعة البطاقات لرؤية إحصائياتك الحقيقية!", reviewedToday: "تمت مراجعته اليوم", translate: "ترجمة تلقائية", translatedSuccess: "تمت الترجمة ✓", translationFailed: "فشل الترجمة", whatsMeaning: "ما معنى الكلمة داخل الجملة؟" },
-en: { appName: "VOCAflow Pro", tagline: "Learn words the fun way ✨", selectSet: "Select Set", createSet: "Create New Set", search: "Search...", edit: "Edit", delete: "Delete", cancel: "Cancel", save: "Save", setName: "Set name", firstLang: "First language", secondLang: "Second language", games: "Games", gamesDesc: "Choose your game and start playing!", flashcards: "Flashcards", mcq: "Multiple Choice", spelling: "Spelling", matching: "Matching", sentenceGame: "Sentence Game", sanctuary: "Your Sanctuary", sanctuarySubtitle: "Saved precious words in safety", preciousWords: "saved precious words", preciousWordSingular: "saved precious word", playSanctuary: "Play Sanctuary", guest: "Guest", guestNote: "Data saved locally only.", welcomeBack: "Welcome back", welcomeGuest: "Welcome", level: "Level", today: "Today", saved: "Saved", settings: "Settings", logout: "Logout", login: "Login", name: "Name", email: "Email", close: "Close", correct: "Correct", wrong: "Wrong", results: "Results", retry: "Retry All", retryWrong: "Retry Wrong Only", home: "Home", noSet: "No sets", noWords: "No words", needSelectSet: "Please select a set first", created: "Set created 🎉", deleted: "Deleted", savedMsg: "Saved ✓", addWord: "Add word", word: "Word", translation: "Translation", add: "Add", noSaved: "No saved words", tapToFlip: "Tap to flip", check: "Check", typeWord: "Type the word...", listenWrite: "Listen and write", matchPairs: "Match the pairs", time: "Time", score: "Score", correctAnswers: "Correct answers", wrongWords: "Wrong words", excellent: "Excellent! 🌟", good: "Very good! 👏", fair: "Good! 👍", tryAgain: "Try again 💪", msgExcellent: "You're a star! ✨", msgGood: "Great job! 🎯", msgFair: "Good effort 📚", msgTryAgain: "Don't give up! 💪", of: "of", card: "Card", question: "Question", words: "words", confirmDeleteSet: "Delete this set?", confirmDeleteWord: "Delete this word?", back: "Back", editor: "Editor", translating: "Translating...", darkMode: "Dark Mode", lightMode: "Light Mode", theme: "Theme", voiceSettings: "Voice Settings", speechRate: "Speech Rate", pitch: "Pitch", language: "Language", exportData: "Export Data", importData: "Import Data", resetAll: "Reset All Data", confirmReset: "Delete ALL data?", dataExported: "Data exported ✓", dataImported: "Data imported ✓", invalidFile: "Invalid file", stats: "Stats", annualDetails: "Annual Details", weeklySummary: "{words} words this week · ⏱ {time}", wordsThisYear: "words this year", timeThisYear: "time this year", daysStreak: "days", reviewedWords: "Reviewed words", newWords: "New words", masteredWords: "Mastered words", timeSpent: "Time spent", minutes: "min", totalWords: "Total Words", totalTime: "Total Time", changePic: "Change Picture", errorOccurred: "An error occurred", wordsAdded: "Words Added", gamesPlayed: "Games Played", accuracy: "Accuracy", streak: "Day Streak", noActivity: "No activity yet", noActivityDesc: "Start reviewing cards to see your real stats here!", reviewedToday: "Reviewed today", translate: "Auto Translate", translatedSuccess: "Translated ✓", translationFailed: "Translation failed", whatsMeaning: "What does the word in the sentence mean?" },
-fr: { appName: "VOCAflow Pro", tagline: "Apprenez les mots ✨", selectSet: "Choisir", createSet: "Créer", search: "Rechercher...", edit: "Modifier", delete: "Supprimer", cancel: "Annuler", save: "Enregistrer", setName: "Nom", firstLang: "Première langue", secondLang: "Deuxième langue", games: "Jeux", gamesDesc: "Choisissez votre jeu !", flashcards: "Cartes", mcq: "QCM", spelling: "Orthographe", matching: "Associer", sentenceGame: "Phrases", sanctuary: "Sanctuaire", sanctuarySubtitle: "Mots précieux sauvegardés en sécurité", preciousWords: "mots précieux sauvegardés", preciousWordSingular: "mot précieux sauvegardé", playSanctuary: "Jouer", guest: "Invité", guestNote: "Données locales.", welcomeBack: "Bon retour", welcomeGuest: "Bienvenue", level: "Niveau", today: "Aujourd'hui", saved: "Sauvegardé", settings: "Paramètres", logout: "Déconnexion", login: "Connexion", name: "Nom", email: "Email", close: "Fermer", correct: "Correct", wrong: "Faux", results: "Résultats", retry: "Recommencer", retryWrong: "Incorrects", home: "Accueil", noSet: "Aucun ensemble", noWords: "Aucun mot", needSelectSet: "Sélectionnez un ensemble", created: "Créé 🎉", deleted: "Supprimé", savedMsg: "Enregistré ✓", addWord: "Ajouter", word: "Mot", translation: "Traduction", add: "Ajouter", noSaved: "Aucun mot", tapToFlip: "Retourner", check: "Vérifier", typeWord: "Écrivez...", listenWrite: "Écoutez et écrivez", matchPairs: "Associez", time: "Temps", score: "Score", correctAnswers: "Bonnes réponses", wrongWords: "Incorrects", excellent: "Excellent ! 🌟", good: "Très bien ! 👏", fair: "Bien ! 👍", tryAgain: "Réessayez 💪", msgExcellent: "Vous êtes une star !", msgGood: "Bon travail !", msgFair: "Bon effort", msgTryAgain: "N'abandonnez pas !", of: "de", card: "Carte", question: "Question", words: "mots", confirmDeleteSet: "Supprimer ?", confirmDeleteWord: "Supprimer ?", back: "Retour", editor: "Éditeur", translating: "Traduction...", darkMode: "Nuit", lightMode: "Jour", theme: "Thème", voiceSettings: "Voix", speechRate: "Vitesse", pitch: "Tonalité", language: "Langue", exportData: "Exporter", importData: "Importer", resetAll: "Tout effacer", confirmReset: "Tout effacer ?", dataExported: "Exporté ✓", dataImported: "Importé ✓", invalidFile: "Invalide", stats: "Stats", annualDetails: "Détails annuels", weeklySummary: "{words} mots cette semaine · ⏱ {time}", wordsThisYear: "mots cette année", timeThisYear: "temps cette année", daysStreak: "jours", reviewedWords: "Mots révisés", newWords: "Nouveaux mots", masteredWords: "Mots maîtrisés", timeSpent: "Temps passé", minutes: "min", totalWords: "Total", totalTime: "Temps Total", changePic: "Changer", errorOccurred: "Erreur", wordsAdded: "Mots ajoutés", gamesPlayed: "Parties jouées", accuracy: "Précision", streak: "Jours consécutifs", noActivity: "Aucune activité", noActivityDesc: "Commencez à réviser pour voir vos vraies stats !", reviewedToday: "Révisés aujourd'hui", translate: "Traduire", translatedSuccess: "Traduit ✓", translationFailed: "Échec de la traduction", whatsMeaning: "Que signifie le mot dans la phrase ?" }
+ar: { appName: "VOCAflow", tagline: "تعلم الكلمات بطريقة ممتعة ✨", selectSet: "اختر مجموعة", createSet: "إنشاء مجموعة جديدة", search: "ابحث...", edit: "تعديل", delete: "حذف", cancel: "إلغاء", save: "حفظ", setName: "اسم المجموعة", firstLang: "اللغة الأولى", secondLang: "اللغة الثانية", games: "الألعاب", gamesDesc: "اختر لعبتك وابدأ اللعب!", flashcards: "البطاقات", mcq: "اختيار من متعدد", spelling: "الإملاء", matching: "المطابقة", sentenceGame: "جمل تلقائية", sanctuary: "ملجأك الآمن", sanctuarySubtitle: "كلمات محفوظة ثمينة بأمان", preciousWords: "كلمات محفوظة ثمينة", preciousWordSingular: "كلمة محفوظة ثمينة", playSanctuary: "العب بالملجأ", guest: "ضيف", guestNote: "البيانات تُحفظ محلياً فقط.", welcomeBack: "أهلاً بعودتك", welcomeGuest: "أهلاً بك", level: "المستوى", today: "اليوم", saved: "محفوظة", settings: "الإعدادات", logout: "تسجيل الخروج", login: "تسجيل الدخول", name: "الاسم", email: "البريد", close: "إغلاق", correct: "صحيح", wrong: "خطأ", results: "النتائج", retry: "إعادة الكل", retryWrong: "إعادة الخاطئ فقط", home: "الرئيسية", noSet: "لا توجد مجموعات", noWords: "لا توجد كلمات", needSelectSet: "اختر مجموعة أولاً", created: "تم إنشاء المجموعة 🎉", deleted: "تم الحذف", savedMsg: "تم الحفظ ✓", addWord: "إضافة كلمة", word: "الكلمة", translation: "الترجمة", add: "إضافة", noSaved: "لا توجد كلمات محفوظة", tapToFlip: "اضغط للتقليب", check: "تحقق", typeWord: "اكتب الكلمة...", listenWrite: "استمع واكتب الكلمة", matchPairs: "طابق الكلمات", time: "الوقت", score: "النقاط", correctAnswers: "الإجابات الصحيحة", wrongWords: "الكلمات الخاطئة", excellent: "ممتاز! 🌟", good: "جيد جداً! 👏", fair: "جيد! 👍", tryAgain: "حاول مجدداً 💪", msgExcellent: "أنت نجم! ✨", msgGood: "عمل رائع! 🎯", msgFair: "مجهود جيد 📚", msgTryAgain: "لا تستسلم! 💪", of: "من", card: "بطاقة", question: "سؤال", words: "كلمات", confirmDeleteSet: "حذف هذه المجموعة؟", confirmDeleteWord: "حذف هذه الكلمة؟", back: "رجوع", editor: "المحرر", translating: "جاري الترجمة...", darkMode: "الوضع الليلي", lightMode: "الوضع النهاري", theme: "المظهر", voiceSettings: "إعدادات الصوت", speechRate: "سرعة النطق", pitch: "النبرة", language: "اللغة", exportData: "تصدير البيانات", importData: "استيراد البيانات", resetAll: "حذف جميع البيانات", confirmReset: "سيتم حذف جميع البيانات!", dataExported: "تم التصدير ✓", dataImported: "تم الاستيراد ✓", invalidFile: "ملف غير صالح", stats: "الإحصائيات", annualDetails: "التفاصيل السنوية", weeklySummary: "{words} كلمة هذا الأسبوع · ⏱ {time}", wordsThisYear: "كلمة هذا العام", timeThisYear: "الوقت هذا العام", daysStreak: "يوم متتالي", reviewedWords: "كلمات مراجعة", newWords: "كلمات جديدة", masteredWords: "كلمات مُتقنة", timeSpent: "الوقت المستغرق", minutes: "دقيقة", totalWords: "إجمالي الكلمات", totalTime: "إجمالي الوقت", changePic: "تغيير الصورة", errorOccurred: "حدث خطأ", wordsAdded: "كلمات مضافة", gamesPlayed: "ألعاب لُعبت", accuracy: "الدقة", streak: "أيام متتالية", noActivity: "لا يوجد نشاط بعد", noActivityDesc: "ابدأ بمراجعة البطاقات لرؤية إحصائياتك الحقيقية!", reviewedToday: "تمت مراجعته اليوم", translate: "ترجمة تلقائية", translatedSuccess: "تمت الترجمة ✓", translationFailed: "فشل الترجمة", whatsMeaning: "ما معنى الكلمة داخل الجملة؟" },
+en: { appName: "VOCAflow", tagline: "Learn words the fun way ✨", selectSet: "Select Set", createSet: "Create New Set", search: "Search...", edit: "Edit", delete: "Delete", cancel: "Cancel", save: "Save", setName: "Set name", firstLang: "First language", secondLang: "Second language", games: "Games", gamesDesc: "Choose your game and start playing!", flashcards: "Flashcards", mcq: "Multiple Choice", spelling: "Spelling", matching: "Matching", sentenceGame: "Sentence Game", sanctuary: "Your Sanctuary", sanctuarySubtitle: "Saved precious words in safety", preciousWords: "saved precious words", preciousWordSingular: "saved precious word", playSanctuary: "Play Sanctuary", guest: "Guest", guestNote: "Data saved locally only.", welcomeBack: "Welcome back", welcomeGuest: "Welcome", level: "Level", today: "Today", saved: "Saved", settings: "Settings", logout: "Logout", login: "Login", name: "Name", email: "Email", close: "Close", correct: "Correct", wrong: "Wrong", results: "Results", retry: "Retry All", retryWrong: "Retry Wrong Only", home: "Home", noSet: "No sets", noWords: "No words", needSelectSet: "Please select a set first", created: "Set created 🎉", deleted: "Deleted", savedMsg: "Saved ✓", addWord: "Add word", word: "Word", translation: "Translation", add: "Add", noSaved: "No saved words", tapToFlip: "Tap to flip", check: "Check", typeWord: "Type the word...", listenWrite: "Listen and write", matchPairs: "Match the pairs", time: "Time", score: "Score", correctAnswers: "Correct answers", wrongWords: "Wrong words", excellent: "Excellent! 🌟", good: "Very good! 👏", fair: "Good! 👍", tryAgain: "Try again 💪", msgExcellent: "You're a star! ✨", msgGood: "Great job! 🎯", msgFair: "Good effort 📚", msgTryAgain: "Don't give up! 💪", of: "of", card: "Card", question: "Question", words: "words", confirmDeleteSet: "Delete this set?", confirmDeleteWord: "Delete this word?", back: "Back", editor: "Editor", translating: "Translating...", darkMode: "Dark Mode", lightMode: "Light Mode", theme: "Theme", voiceSettings: "Voice Settings", speechRate: "Speech Rate", pitch: "Pitch", language: "Language", exportData: "Export Data", importData: "Import Data", resetAll: "Reset All Data", confirmReset: "Delete ALL data?", dataExported: "Data exported ✓", dataImported: "Data imported ✓", invalidFile: "Invalid file", stats: "Stats", annualDetails: "Annual Details", weeklySummary: "{words} words this week · ⏱ {time}", wordsThisYear: "words this year", timeThisYear: "time this year", daysStreak: "days", reviewedWords: "Reviewed words", newWords: "New words", masteredWords: "Mastered words", timeSpent: "Time spent", minutes: "min", totalWords: "Total Words", totalTime: "Total Time", changePic: "Change Picture", errorOccurred: "An error occurred", wordsAdded: "Words Added", gamesPlayed: "Games Played", accuracy: "Accuracy", streak: "Day Streak", noActivity: "No activity yet", noActivityDesc: "Start reviewing cards to see your real stats here!", reviewedToday: "Reviewed today", translate: "Auto Translate", translatedSuccess: "Translated ✓", translationFailed: "Translation failed", whatsMeaning: "What does the word in the sentence mean?" },
+fr: { appName: "VOCAflow", tagline: "Apprenez les mots ✨", selectSet: "Choisir", createSet: "Créer", search: "Rechercher...", edit: "Modifier", delete: "Supprimer", cancel: "Annuler", save: "Enregistrer", setName: "Nom", firstLang: "Première langue", secondLang: "Deuxième langue", games: "Jeux", gamesDesc: "Choisissez votre jeu !", flashcards: "Cartes", mcq: "QCM", spelling: "Orthographe", matching: "Associer", sentenceGame: "Phrases", sanctuary: "Sanctuaire", sanctuarySubtitle: "Mots précieux sauvegardés en sécurité", preciousWords: "mots précieux sauvegardés", preciousWordSingular: "mot précieux sauvegardé", playSanctuary: "Jouer", guest: "Invité", guestNote: "Données locales.", welcomeBack: "Bon retour", welcomeGuest: "Bienvenue", level: "Niveau", today: "Aujourd'hui", saved: "Sauvegardé", settings: "Paramètres", logout: "Déconnexion", login: "Connexion", name: "Nom", email: "Email", close: "Fermer", correct: "Correct", wrong: "Faux", results: "Résultats", retry: "Recommencer", retryWrong: "Incorrects", home: "Accueil", noSet: "Aucun ensemble", noWords: "Aucun mot", needSelectSet: "Sélectionnez un ensemble", created: "Créé 🎉", deleted: "Supprimé", savedMsg: "Enregistré ✓", addWord: "Ajouter", word: "Mot", translation: "Traduction", add: "Ajouter", noSaved: "Aucun mot", tapToFlip: "Retourner", check: "Vérifier", typeWord: "Écrivez...", listenWrite: "Écoutez et écrivez", matchPairs: "Associez", time: "Temps", score: "Score", correctAnswers: "Bonnes réponses", wrongWords: "Incorrects", excellent: "Excellent ! 🌟", good: "Très bien ! 👏", fair: "Bien ! 👍", tryAgain: "Réessayez 💪", msgExcellent: "Vous êtes une star !", msgGood: "Bon travail !", msgFair: "Bon effort", msgTryAgain: "N'abandonnez pas !", of: "de", card: "Carte", question: "Question", words: "mots", confirmDeleteSet: "Supprimer ?", confirmDeleteWord: "Supprimer ?", back: "Retour", editor: "Éditeur", translating: "Traduction...", darkMode: "Nuit", lightMode: "Jour", theme: "Thème", voiceSettings: "Voix", speechRate: "Vitesse", pitch: "Tonalité", language: "Langue", exportData: "Exporter", importData: "Importer", resetAll: "Tout effacer", confirmReset: "Tout effacer ?", dataExported: "Exporté ✓", dataImported: "Importé ✓", invalidFile: "Invalide", stats: "Stats", annualDetails: "Détails annuels", weeklySummary: "{words} mots cette semaine · ⏱ {time}", wordsThisYear: "mots cette année", timeThisYear: "temps cette année", daysStreak: "jours", reviewedWords: "Mots révisés", newWords: "Nouveaux mots", masteredWords: "Mots maîtrisés", timeSpent: "Temps passé", minutes: "min", totalWords: "Total", totalTime: "Temps Total", changePic: "Changer", errorOccurred: "Erreur", wordsAdded: "Mots ajoutés", gamesPlayed: "Parties jouées", accuracy: "Précision", streak: "Jours consécutifs", noActivity: "Aucune activité", noActivityDesc: "Commencez à réviser pour voir vos vraies stats !", reviewedToday: "Révisés aujourd'hui", translate: "Traduire", translatedSuccess: "Traduit ✓", translationFailed: "Échec de la traduction", whatsMeaning: "Que signifie le mot dans la phrase ?" }
 };
 const I18nContext = createContext();
 function I18nProvider({ children }) {
@@ -1167,13 +1197,46 @@ setStats(prev => ({ ...prev, gamesPlayed: (prev.gamesPlayed || 0) + 1 }));
 }, []);
 return { stats, trackWordAdded, trackReview, trackGame };
 }
-// New icon components
+// Icon components
 function WaveIcon({ size = 24, color = "currentColor" }) {
 return (
 <svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Wave">
-<path d="M3 12c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0 2.5 1.5 4 0 2.5-1.5 4 0" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-<path d="M3 17c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0 2.5 1.5 4 0 2.5-1.5 4 0" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
-<path d="M3 7c1.5-1.5 2.5-1.5 4 0s2.5 1.5 4 0 2.5-1.5 4 0 2.5 1.5 4 0 2.5-1.5 4 0" stroke={color} strokeWidth="2" strokeLinecap="round" opacity="0.4"/>
+<defs>
+<linearGradient id="waveHandGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
+</linearGradient>
+</defs>
+<path d="M7.5 11.5V5.75a1.25 1.25 0 0 1 2.5 0v5.25m0-4.5a1.25 1.25 0 0 1 2.5 0v4.5m0-3a1.25 1.25 0 0 1 2.5 0V14c0 4.75-3 8-8.5 8C3 22 .5 19 .5 15.5v-4a1.25 1.25 0 0 1 2.5 0v2.25h1c.69 0 1.25.56 1.25 1.25V14a1.25 1.25 0 0 1 2.5 0" stroke="url(#waveHandGrad)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+<path d="M18.5 6.5c.75-.75 1.5-1.3 2.4-1.55.4-.11.8-.08 1.15.08.5.23.86.7.97 1.25.12.55-.04 1.12-.45 1.5-1.1 1-3.2 2.5-5.3 3.5" stroke="#C4B5FD" strokeWidth="1.4" strokeLinecap="round" fill="none" opacity="0.8"/>
+<path d="M20 4.5c.3-.4.75-.7 1.2-.8" stroke="#8B5CF6" strokeWidth="1.2" strokeLinecap="round" opacity="0.6"/>
+</svg>
+);
+}
+function SunIcon({ size = 24 }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Sun">
+<defs>
+<linearGradient id="sunThemeGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stopColor="#F59E0B" />
+<stop offset="100%" stopColor="#FBBF24" />
+</linearGradient>
+</defs>
+<circle cx="12" cy="12" r="4" fill="url(#sunThemeGrad)" stroke="url(#sunThemeGrad)" strokeWidth="1"/>
+<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="#F59E0B" strokeWidth="1.8" strokeLinecap="round"/>
+</svg>
+);
+}
+function MoonIcon({ size = 24 }) {
+return (
+<svg viewBox="0 0 24 24" fill="none" width={size} height={size} role="img" aria-label="Moon">
+<defs>
+<linearGradient id="moonThemeGrad" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stopColor="#8B5CF6" />
+<stop offset="100%" stopColor="#18181B" />
+</linearGradient>
+</defs>
+<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="url(#moonThemeGrad)" stroke="url(#moonThemeGrad)" strokeWidth="1.5"/>
 </svg>
 );
 }
@@ -1458,17 +1521,54 @@ return (
 }
 function FlameIconEnhanced({ level = 0 }) {
 const [rainbowPhase, setRainbowPhase] = useState(0);
-useEffect(() => { if (level >= 50) { const interval = setInterval(() => setRainbowPhase(p => (p + 1) % 3), 3000); return () => clearInterval(interval); } }, [level]);
-let colorClass = 'flame-red'; let gradientId = 'flameGradRed'; let colors = ['#F5F3FF', '#C4B5FD', '#8B5CF6'];
-if (level >= 50) { colorClass = 'flame-rainbow'; if (rainbowPhase === 0) { gradientId = 'flameGradRed'; colors = ['#F5F3FF', '#C4B5FD', '#8B5CF6']; } else if (rainbowPhase === 1) { gradientId = 'flameGradBlue'; colors = ['#FFFFFF', '#C4B5FD', '#8B5CF6']; } else { gradientId = 'flameGradPurple'; colors = ['#C4B5FD', '#8B5CF6', '#18181B']; } }
-else if (level >= 35) { colorClass = 'flame-purple'; gradientId = 'flameGradPurple'; colors = ['#C4B5FD', '#8B5CF6', '#18181B']; }
-else if (level >= 10) { colorClass = 'flame-blue'; gradientId = 'flameGradBlue'; colors = ['#FFFFFF', '#C4B5FD', '#8B5CF6']; }
+useEffect(() => {
+if (level >= 60) {
+const interval = setInterval(() => setRainbowPhase(p => (p + 1) % 4), 3000);
+return () => clearInterval(interval);
+}
+}, [level]);
+let colorClass = 'flame-red';
+let gradientId = 'flameGradRed';
+let colors = ['#FEE2E2', '#F87171', '#EF4444'];
+if (level >= 60) {
+colorClass = 'flame-rainbow';
+gradientId = 'flameGradRainbow';
+const phases = [
+['#FEE2E2', '#F87171', '#EF4444'],
+['#FFFFFF', '#E5E7EB', '#9CA3AF'],
+['#DBEAFE', '#3B82F6', '#1D4ED8'],
+['#EDE9FE', '#8B5CF6', '#6D28D9']
+];
+colors = phases[rainbowPhase];
+} else if (level >= 45) {
+colorClass = 'flame-purple';
+gradientId = 'flameGradPurple';
+colors = ['#EDE9FE', '#8B5CF6', '#6D28D9'];
+} else if (level >= 30) {
+colorClass = 'flame-blue';
+gradientId = 'flameGradBlue';
+colors = ['#DBEAFE', '#3B82F6', '#1D4ED8'];
+} else if (level >= 15) {
+colorClass = 'flame-white';
+gradientId = 'flameGradWhite';
+colors = ['#FFFFFF', '#E5E7EB', '#9CA3AF'];
+} else {
+colorClass = 'flame-red';
+gradientId = 'flameGradRed';
+colors = ['#FEE2E2', '#F87171', '#EF4444'];
+}
 return (
 <div className={`flame-container ${colorClass}`}>
 <svg viewBox="0 0 100 120" className="flame-svg" role="img" aria-label={`Level ${level}`}>
-<defs><radialGradient id={gradientId} cx="50%" cy="35%" r="65%"><stop offset="0%" stopColor={colors[0]} /><stop offset="45%" stopColor={colors[1]} /><stop offset="100%" stopColor={colors[2]} /></radialGradient></defs>
+<defs>
+<radialGradient id={gradientId} cx="50%" cy="35%" r="65%">
+<stop offset="0%" style={{ stopColor: colors[0], transition: 'stop-color 3s ease-in-out' }} />
+<stop offset="45%" style={{ stopColor: colors[1], transition: 'stop-color 3s ease-in-out' }} />
+<stop offset="100%" style={{ stopColor: colors[2], transition: 'stop-color 3s ease-in-out' }} />
+</radialGradient>
+</defs>
 <path d="M50 4 C66 22 88 40 82 72 C78 100 60 114 50 114 C40 114 22 100 18 72 C12 40 34 22 50 4 Z" fill={`url(#${gradientId})`} opacity="0.96"/>
-<path d="M50 24 C60 38 74 50 68 72 C64 90 55 100 50 100 C45 100 36 90 32 72 C26 50 40 38 50 24 Z" fill={colors[0]} opacity="0.5"/>
+<path d="M50 24 C60 38 74 50 68 72 C64 90 55 100 50 100 C45 100 36 90 32 72 C26 50 40 38 50 24 Z" style={{ fill: colors[0], transition: 'fill 3s ease-in-out', opacity: 0.5 }} />
 </svg>
 <span className="flame-level">{level}</span>
 </div>
@@ -1866,33 +1966,40 @@ const { speakText } = useSpeech(0.9, 1.0);
 const isSanctuary = set.id === "saved";
 const initialPairs = useMemo(() => shuffle(set.words).slice(0, 6), [set.id, set.words.length]);
 const pairs = useMemo(() => isSanctuary ? initialPairs : initialPairs.filter(w => !savedIds.includes(w.id)), [initialPairs, savedIds, isSanctuary]);
-const [left] = useState(() => shuffle(initialPairs));
-const [right] = useState(() => shuffle(initialPairs));
-const [selL, setSelL] = useState(null);
-const [selR, setSelR] = useState(null);
-const [matched, setMatched] = useState([]);
-const [wrongIds, setWrongIds] = useState([]);
+const [leftWords, setLeftWords] = useState(() => shuffle(initialPairs));
+const [rightTrans, setRightTrans] = useState(() => shuffle(initialPairs));
+const [selA, setSelA] = useState(null);
+const [selB, setSelB] = useState(null);
+const [permanentMatchedIds, setPermanentMatchedIds] = useState([]);
+const [greenFlashIds, setGreenFlashIds] = useState([]);
+const [wrongFlashIds, setWrongFlashIds] = useState([]);
 const [results, setResults] = useState([]);
 useEffect(() => {
-if (!selL || !selR) return;
-const ok = selL.id === selR.id;
+if (!selA || !selB) return;
+const ok = selA.id === selB.id;
 if (onReview) onReview(ok);
-const res = [...results, { id: selL.id, correct: ok, word: selL.word, translation: selL.translation }];
+const res = [...results, { id: selA.id, correct: ok, word: selA.word, translation: selA.translation }];
 setResults(res);
 if (ok) {
-setMatched(m => [...m, selL.id]);
-} else {
-setWrongIds([selL.id, selR.id]);
-setTimeout(() => setWrongIds([]), 500);
-}
+setGreenFlashIds([selA.id]);
+const newPermanent = [...permanentMatchedIds, selA.id];
 setTimeout(() => {
-setSelL(null); setSelR(null);
-if (ok && matched.length + 1 >= pairs.length) {
+setPermanentMatchedIds(newPermanent);
+setGreenFlashIds([]);
+setSelA(null); setSelB(null);
+if (newPermanent.length >= pairs.length) {
 if (onGameComplete) onGameComplete();
 onFinish(res, initialPairs);
 }
-}, ok ? 500 : 500);
-}, [selL, selR, pairs.length]);
+}, 1000);
+} else {
+setWrongFlashIds([selA.id, selB.id]);
+setTimeout(() => {
+setWrongFlashIds([]);
+setSelA(null); setSelB(null);
+}, 1000);
+}
+}, [selA, selB, pairs.length, permanentMatchedIds, results, initialPairs, onReview, onFinish, onGameComplete]);
 if (pairs.length < 2) return (
 <div className="glass results-box">
 <p>{t("noWords")}</p>
@@ -1901,153 +2008,227 @@ if (pairs.length < 2) return (
 );
 const l1 = getLang(set.lang1);
 const l2 = getLang(set.lang2);
+const leftFiltered = leftWords.filter(i => !permanentMatchedIds.includes(i.id) && !savedIds.includes(i.id));
+const rightFiltered = rightTrans.filter(i => !permanentMatchedIds.includes(i.id) && !savedIds.includes(i.id));
 return (
 <div>
 <div className="game-header">
 <button type="button" className="icon-btn" onClick={onExit} aria-label={t("back")}><CloseIcon /></button>
 <div style={{ textAlign: "center", flex: 1 }}>
 <div className="game-title"><CrossIcon size={20} color="#8B5CF6" /> {set.name}</div>
-<div className="game-subtitle">{matched.length}/{pairs.length} {t("matchPairs")}</div>
+<div className="game-subtitle">{permanentMatchedIds.length}/{pairs.length} {t("matchPairs")}</div>
 </div>
 </div>
-<div className="match-grid">
+<div className="match-game-layout" dir="ltr">
+<div className="match-column-section">
+<div className="match-column-header">{l2.name}</div>
 <div className="match-column">
-{left.filter(i => !matched.includes(i.id) && !savedIds.includes(i.id)).map(item => {
-const isMatched = matched.includes(item.id);
-const isWrong = wrongIds.includes(item.id);
+{rightFiltered.map(item => {
+const isSelected = selB?.id === item.id;
+const isGreen = greenFlashIds.includes(item.id);
+const isWrong = wrongFlashIds.includes(item.id);
 return (
-<button type="button" key={item.id} className={`match-btn ${selL?.id === item.id ? "selected" : ""} ${isMatched ? "matched" : ""} ${isWrong ? "wrong" : ""}`} onClick={() => { if (!selL || !selR) setSelL(item); }}>
-<div className="match-actions" onClick={(e) => e.stopPropagation()}>
-<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }} aria-label="Save"><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
-<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.word, set.lang1); }} aria-label="Speak"><SpeakerIcon size={14} /></button>
-</div>
-<span className="match-lang-flag">{l1.flag}</span>
-<span className="match-text" dir={l1.dir}>{item.word}</span>
-</button>
-);
-})}
-</div>
-<div className="match-column">
-{right.filter(i => !matched.includes(i.id) && !savedIds.includes(i.id)).map(item => {
-const isMatched = matched.includes(item.id);
-const isWrong = wrongIds.includes(item.id);
-return (
-<button type="button" key={item.id} className={`match-btn ${selR?.id === item.id ? "selected" : ""} ${isMatched ? "matched" : ""} ${isWrong ? "wrong" : ""}`} onClick={() => { if (!selL || !selR) setSelR(item); }}>
+<button type="button" key={item.id} className={`match-btn ${isSelected ? "selected" : ""} ${isGreen ? "green-flash" : ""} ${isWrong ? "wrong-flash" : ""}`} onClick={() => { if (!selA || !selB) setSelB(item); }}>
 <div className="match-actions" onClick={(e) => e.stopPropagation()}>
 <button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }} aria-label="Save"><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
 <button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.translation, set.lang2); }} aria-label="Speak"><SpeakerIcon size={14} /></button>
 </div>
-<span className="match-lang-flag">{l2.flag}</span>
 <span className="match-text" dir={l2.dir}>{item.translation}</span>
 </button>
 );
 })}
 </div>
 </div>
+<div className="match-column-section">
+<div className="match-column-header">{l1.name}</div>
+<div className="match-column">
+{leftFiltered.map(item => {
+const isSelected = selA?.id === item.id;
+const isGreen = greenFlashIds.includes(item.id);
+const isWrong = wrongFlashIds.includes(item.id);
+return (
+<button type="button" key={item.id} className={`match-btn ${isSelected ? "selected" : ""} ${isGreen ? "green-flash" : ""} ${isWrong ? "wrong-flash" : ""}`} onClick={() => { if (!selA || !selB) setSelA(item); }}>
+<div className="match-actions" onClick={(e) => e.stopPropagation()}>
+<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(item.id); }} aria-label="Save"><BookmarkIcon filled={savedIds.includes(item.id)} size={14} /></button>
+<button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); speakText(item.word, set.lang1); }} aria-label="Speak"><SpeakerIcon size={14} /></button>
+</div>
+<span className="match-text" dir={l1.dir}>{item.word}</span>
+</button>
+);
+})}
+</div>
+</div>
+</div>
 </div>
 );
 }
 function SentenceGame({ set, savedIds, onToggleSaved, onFinish, onExit, voiceSettings, onReview, onGameComplete }) {
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { speakText } = useSpeech(voiceSettings.rate, voiceSettings.pitch);
 const [selectedWord, setSelectedWord] = useState(null);
 const [sentence, setSentence] = useState("");
+const [explanation, setExplanation] = useState("");
 const [loading, setLoading] = useState(false);
 const [pickerOpen, setPickerOpen] = useState(false);
-const [generatedOnce, setGeneratedOnce] = useState(false);
 const words = set.words;
-const generateSentence = useCallback((word) => {
-const lang = set.lang1;
+
+const generateSentenceLocal = useCallback((word, lang) => {
 const templates = {
 ar: [
-`أستخدم كلمة "${word}" في جملة مفيدة.`,
-`تعلمت اليوم كلمة "${word}" وأحب أن أكررها.`,
-`في الدرس، وجدنا كلمة "${word}" سهلة النطق.`,
-`أكتب جملة تحتوي على "${word}" لأتذكرها.`,
-`المعلمة شرحت معنى "${word}" بوضوح.`,
-`أحب أن أستعمل "${word}" في محادثاتي اليومية.`,
-`كلمة "${word}" من الكلمات المهمة في اللغة.`
+`اليوم قلت "${word}" لصديقتي لأنها ساعدتني كثيراً.`,
+`في المدرسة، تعلمنا كلمة "${word}" واستخدمناها في جملة.`,
+`أحب أن أقول "${word}" عندما أكون ممتناً لشخص ما.`,
+`كتبت في دفتر الملاحظات: "${word}" هي كلمة مهمة جداً.`,
+`قال المعلم: "من فضلك استخدم "${word}" في جملة مفيدة."`,
+`عندما أسمع "${word}" أشعر بالسعادة والامتنان.`,
+`كلمة "${word}" تستخدم في المواقف اليومية وتعبّر عن مشاعر لطيفة.`
 ],
 en: [
-`I use the word "${word}" in a useful sentence.`,
-`Today I learned the word "${word}" and I like to repeat it.`,
-`In class, we found the word "${word}" easy to pronounce.`,
-`I write a sentence containing "${word}" to remember it.`,
-`The teacher explained the meaning of "${word}" clearly.`,
-`I like to use "${word}" in my daily conversations.`,
-`The word "${word}" is one of the important words in the language.`
+`Today I said "${word}" to my friend because she helped me a lot.`,
+`At school, we learned the word "${word}" and used it in a sentence.`,
+`I like to say "${word}" when I am grateful to someone.`,
+`I wrote in my notebook: "${word}" is a very important word.`,
+`The teacher said, "Please use "${word}" in a useful sentence."`,
+`When I hear "${word}" I feel happy and grateful.`,
+`The word "${word}" is used in everyday situations and expresses kind feelings.`
 ],
 fr: [
-`J'utilise le mot « ${word} » dans une phrase utile.`,
-`Aujourd'hui, j'ai appris le mot « ${word} » et j'aime le répéter.`,
-`En classe, nous avons trouvé le mot « ${word} » facile à prononcer.`,
-`J'écris une phrase contenant « ${word} » pour m'en souvenir.`,
-`Le professeur a expliqué clairement le sens de « ${word} ».`,
-`J'aime utiliser « ${word} » dans mes conversations quotidiennes.`,
-`Le mot « ${word} » est l'un des mots importants de la langue.`
+`Aujourd'hui, j'ai dit « ${word} » à mon amie parce qu'elle m'a beaucoup aidé.`,
+`À l'école, nous avons appris le mot « ${word} » et l'avons utilisé dans une phrase.`,
+`J'aime dire « ${word} » quand je suis reconnaissant envers quelqu'un.`,
+`J'ai écrit dans mon cahier : « ${word} » est un mot très important.`,
+`Le professeur a dit : « Veuillez utiliser « ${word} » dans une phrase utile. »`,
+`Quand j'entends « ${word} », je me sens heureux et reconnaissant.`,
+`Le mot « ${word} » est utilisé dans des situations quotidiennes et exprime des sentiments gentils.`
 ],
 es: [
-`Uso la palabra "${word}" en una oración útil.`,
-`Hoy aprendí la palabra "${word}" y me gusta repetirla.`,
-`En clase, encontramos la palabra "${word}" fácil de pronunciar.`,
-`Escribo una oración que contiene "${word}" para recordarla.`,
-`El profesor explicó claramente el significado de "${word}".`,
-`Me gusta usar "${word}" en mis conversaciones diarias.`,
-`La palabra "${word}" es una de las palabras importantes del idioma.`
+`Hoy dije "${word}" a mi amiga porque me ayudó mucho.`,
+`En la escuela, aprendimos la palabra "${word}" y la usamos en una oración.`,
+`Me gusta decir "${word}" cuando estoy agradecido con alguien.`,
+`Escribí en mi cuaderno: "${word}" es una palabra muy importante.`,
+`El profesor dijo: "Por favor, usa "${word}" en una oración útil."`,
+`Cuando escucho "${word}" me siento feliz y agradecido.`,
+`La palabra "${word}" se usa en situaciones cotidianas y expresa sentimientos amables.`
 ],
 de: [
-`Ich benutze das Wort "${word}" in einem nützlichen Satz.`,
-`Heute habe ich das Wort "${word}" gelernt und ich wiederhole es gerne.`,
-`Im Unterricht fanden wir das Wort "${word}" leicht auszusprechen.`,
-`Ich schreibe einen Satz mit "${word}", um es mir zu merken.`,
-`Der Lehrer erklärte die Bedeutung von "${word}" klar.`,
-`Ich verwende "${word}" gerne in meinen täglichen Gesprächen.`,
-`Das Wort "${word}" ist eines der wichtigen Wörter der Sprache.`
+`Heute habe ich "${word}" zu meiner Freundin gesagt, weil sie mir sehr geholfen hat.`,
+`In der Schule haben wir das Wort "${word}" gelernt und in einem Satz verwendet.`,
+`Ich sage gerne "${word}", wenn ich jemandem dankbar bin.`,
+`Ich schrieb in mein Notizbuch: "${word}" ist ein sehr wichtiges Wort.`,
+`Der Lehrer sagte: "Bitte verwenden Sie "${word}" in einem nützlichen Satz."`,
+`Wenn ich "${word}" höre, fühle ich mich glücklich und dankbar.`,
+`Das Wort "${word}" wird in alltäglichen Situationen verwendet und drückt freundliche Gefühle aus.`
 ],
 pt: [
-`Eu uso a palavra "${word}" em uma frase útil.`,
-`Hoje aprendi a palavra "${word}" e gosto de repeti-la.`,
-`Na aula, achamos a palavra "${word}" fácil de pronunciar.`,
-`Escrevo uma frase contendo "${word}" para lembrá-la.`,
-`O professor explicou claramente o significado de "${word}".`,
-`Gosto de usar "${word}" nas minhas conversas diárias.`,
-`A palavra "${word}" é uma das palavras importantes do idioma.`
+`Hoje eu disse "${word}" para minha amiga porque ela me ajudou muito.`,
+`Na escola, aprendemos a palavra "${word}" e a usamos em uma frase.`,
+`Eu gosto de dizer "${word}" quando estou grato a alguém.`,
+`Escrevi no meu caderno: "${word}" é uma palavra muito importante.`,
+`O professor disse: "Por favor, use "${word}" em uma frase útil."`,
+`Quando ouço "${word}" me sinto feliz e grato.`,
+`A palavra "${word}" é usada em situações cotidianas e expressa sentimentos gentis.`
 ],
 ja: [
-`私は「${word}」を便利な文で使います。`,
-`今日は「${word}」という言葉を学び、繰り返すのが好きです。`,
-`授業では「${word}」が発音しやすいと感じました。`,
-`「${word}」を含む文を書いて覚えます。`,
-`先生は「${word}」の意味を明確に説明しました。`,
-`日常会話で「${word}」を使うのが好きです。`,
-`「${word}」は言語の重要な言葉の一つです。`
+`今日、友達が助けてくれたので「${word}」と言いました。`,
+`学校で「${word}」という言葉を学び、文で使いました。`,
+`誰かに感謝しているとき、「${word}」と言うのが好きです。`,
+`ノートに「${word}」はとても重要な言葉だと書きました。`,
+`先生は「「${word}」を便利な文で使ってください」と言いました。`,
+`「${word}」を聞くと嬉しくて感謝の気持ちになります。`,
+`「${word}」は日常の場面で使われ、優しい気持ちを表します。`
 ]
 };
 const langTemplates = templates[lang] || templates.en;
-const randomIndex = Math.floor(Math.random() * langTemplates.length);
-return langTemplates[randomIndex];
-}, [set.lang1]);
-const handleSelectWord = (word) => {
+return langTemplates[Math.floor(Math.random() * langTemplates.length)];
+}, []);
+
+const generateExplanationLocal = useCallback((word, translation, lang) => {
+const templates = {
+ar: `كلمة "${word}" تعني "${translation}" بالعربية. وهي من الكلمات الشائعة التي تستخدم في الحياة اليومية للتعبير عن معنى "${translation}".`,
+en: `The word "${word}" means "${translation}" in Arabic. It is a common word used in everyday life to express the meaning of "${translation}".`,
+fr: `Le mot « ${word} » signifie « ${translation} » en arabe. C'est un mot courant utilisé dans la vie quotidienne pour exprimer le sens de « ${translation} ».`,
+es: `La palabra "${word}" significa "${translation}" en árabe. Es una palabra común utilizada en la vida cotidiana para expresar el significado de "${translation}".`,
+de: `Das Wort "${word}" bedeutet "${translation}" auf Arabisch. Es ist ein häufiges Wort im Alltag, um die Bedeutung von "${translation}" auszudrücken.`,
+pt: `A palavra "${word}" significa "${translation}" em árabe. É uma palavra comum usada na vida cotidiana para expressar o significado de "${translation}".`,
+ja: `「${word}」はアラビア語で「${translation}」を意味します。日常生活で「${translation}」の意味を表すためによく使われる言葉です。`
+};
+return templates[lang] || templates.en;
+}, []);
+
+const generateSentence = useCallback(async (word) => {
+const lang = set.lang1;
+const langName = getLang(lang).name;
+const prompt = `Create one simple, logical and natural sentence that includes the word "${word}" in ${langName}. Return only the sentence, without quotes or explanations.`;
+const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 8000);
+try {
+const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`, { signal: controller.signal });
+clearTimeout(timeout);
+if (!res.ok) throw new Error("bad");
+const text = await res.text();
+const clean = text.trim().split('\n')[0].trim();
+if (clean && clean.length > 2 && clean.length < 300) return clean;
+} catch (e) {
+if (e.name === 'AbortError') console.warn("AI timeout");
+} finally {
+clearTimeout(timeout);
+}
+return generateSentenceLocal(word, lang);
+}, [set.lang1, generateSentenceLocal]);
+
+const generateExplanation = useCallback(async (word, translation) => {
+const uiLang = locale;
+const uiLangName = getLang(uiLang).name;
+const prompt = `Explain the meaning of the word "${word}" (which means "${translation}") in ${uiLangName}. Use simple and short language. Return only the explanation.`;
+const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 8000);
+try {
+const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`, { signal: controller.signal });
+clearTimeout(timeout);
+if (!res.ok) throw new Error("bad");
+const text = await res.text();
+const clean = text.trim().split('\n')[0].trim();
+if (clean && clean.length > 2) return clean;
+} catch (e) {
+if (e.name === 'AbortError') console.warn("AI timeout");
+} finally {
+clearTimeout(timeout);
+}
+return generateExplanationLocal(word, translation, uiLang);
+}, [locale, generateExplanationLocal]);
+
+const handleSelectWord = async (word) => {
 setSelectedWord(word);
 setPickerOpen(false);
 setLoading(true);
-setGeneratedOnce(true);
-if (onGameComplete) onGameComplete();
-setTimeout(() => {
-const sent = generateSentence(word.word);
+try {
+const [sent, expl] = await Promise.all([generateSentence(word.word), generateExplanation(word.word, word.translation)]);
 setSentence(sent);
+setExplanation(expl);
+} catch (e) {
+setSentence(generateSentenceLocal(word.word, set.lang1));
+setExplanation(generateExplanationLocal(word.word, word.translation, locale));
+} finally {
 setLoading(false);
-}, 600);
+if (onGameComplete) onGameComplete();
+}
 };
-const handleRegenerate = () => {
+
+const handleRegenerate = async () => {
 if (!selectedWord) return;
 setLoading(true);
-setTimeout(() => {
-const sent = generateSentence(selectedWord.word);
+try {
+const [sent, expl] = await Promise.all([generateSentence(selectedWord.word), generateExplanation(selectedWord.word, selectedWord.translation)]);
 setSentence(sent);
+setExplanation(expl);
+} catch (e) {
+setSentence(generateSentenceLocal(selectedWord.word, set.lang1));
+setExplanation(generateExplanationLocal(selectedWord.word, selectedWord.translation, locale));
+} finally {
 setLoading(false);
-}, 400);
+}
 };
+
 return (
 <div>
 <div className="game-header">
@@ -2069,6 +2250,9 @@ return (
 ) : (
 <>
 <div className="sentence-text" style={{ fontSize: 22, fontWeight: 800, marginBottom: 16 }}>{sentence}</div>
+<div className="sentence-explanation" style={{ background: 'rgba(139,92,246,0.08)', padding: 14, borderRadius: 12, marginBottom: 16, textAlign: 'start', fontSize: 14, fontWeight: 600 }}>
+<BookIcon size={14} color="#8B5CF6" /> {explanation}
+</div>
 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
 <button type="button" className="btn btn-primary" onClick={() => speakText(sentence, set.lang1)}>
 <SpeakerIcon /> {t("check")}
@@ -2731,7 +2915,7 @@ return (
 <div className="tab-content">
 <div className="topbar">
 <div className="site-logo">
-<h1><SettingsIcon active={false} /> {t("settings")}</h1>
+<h1>{t("settings")}</h1>
 </div>
 </div>
 <ProfileCard user={user} usage={usage} savedCount={savedWords.length} onAvatarClick={() => document.getElementById("avatar-upload2").click()} />
@@ -2739,7 +2923,8 @@ return (
 <div style={{ marginTop: 20 }}>
 <div className="theme-toggle-row" onClick={toggleTheme}>
 <span className="theme-toggle-label">
-{theme === "light" ? "🌙" : "☀️"} {theme === "light" ? t("darkMode") : t("lightMode")}
+{theme === "light" ? <MoonIcon size={20} /> : <SunIcon size={20} />}
+{theme === "light" ? t("darkMode") : t("lightMode")}
 </span>
 <div className={`theme-toggle-switch ${theme === "dark" ? "active" : ""}`} />
 </div>
@@ -2817,7 +3002,7 @@ return (
 {modal === "settings" && (
 <div className="modal-overlay" onClick={() => setModal(null)}>
 <div className="modal" onClick={e => e.stopPropagation()}>
-<h3><SettingsIcon active={false} /> {t("settings")}</h3>
+<h3>{t("settings")}</h3>
 <div className="tabs">
 <div className={`tab ${settingsTab === "general" ? "active" : ""}`} onClick={() => setSettingsTab("general")}>🌍 {t("language")}</div>
 <div className={`tab ${settingsTab === "voice" ? "active" : ""}`} onClick={() => setSettingsTab("voice")}><SpeakerIcon size={14} /> {t("voiceSettings")}</div>
